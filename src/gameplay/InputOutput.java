@@ -7,13 +7,13 @@ public class InputOutput {
     /*
     TODO:
         Take input Via scanner, validate and return
-        Different possible inputs depending on the stage of the game with varying args
+        Different possible inputs depending on the stage of the game with varying argsLabled
         Take stage as parameter and validate
         Currently only 3 possible inputs refer grading sheet
         2 for startup and 1 during issue_order
      */
 
-    public static void get_user_command() {
+    public static Command get_user_command() {
         Scanner l_scanner = new Scanner(System.in);
 
         System.out.println("Enter command: ");
@@ -21,66 +21,52 @@ public class InputOutput {
 
         if (is_editcontinent_command_valid(l_command)) {
             System.out.println("Executing editcontinent command");
-            /**
-             * TODO: User-driven creation/deletion of map elements: continent.
-             */
+            return new Command(l_command);
+
         } else if (is_editcountry_command_valid(l_command)) {
             System.out.println("Executing editcountry command");
-            /**
-             * TODO: User-driven creation/deletion of map elements: country.
-             */
+            return new Command(l_command);
+
         } else if (is_editneighbor_command_valid(l_command)) {
             System.out.println("Executing editneighbor command");
-            /**
-             * TODO: User-driven creation/deletion of map elements: connectivity between countries.
-             */
+            return new Command(l_command);
+
         } else if (is_showmap_command_valid(l_command)) {
             System.out.println("Executing showmap command");
-            /**
-             * TODO:
-             *  1) GAMEPLAY:
-             *  show all countries and continents, armies on each country, ownership, and connectivity in a way that enables efficient gameplay.
-             *  2) MAP EDITOR:
-             *  show all continents and countries and their respective neighbors.
-             */
+            return new Command(l_command);
+
         } else if (is_savemap_command_valid(l_command)) {
             System.out.println("Executing savemap command");
-            /**
-             * TODO: save a map to a text file exactly as edited (using the 'domination game map format').
-             */
+            return new Command(l_command);
+
         } else if (is_editmap_command_valid(l_command)) {
             System.out.println("Executing editmap command");
-            /**
-             * TODO: load a map from an existing 'domination' map file, or create a new map from scratch if the file does not exist
-             */
+            return new Command(l_command);
+
         } else if (is_validatemap_command_valid(l_command)) {
             System.out.println("Executing validatemap command");
-            /**
-             * TODO: Verification of map correctness. The map should be automatically validated upon loading and before saving (at least 3 types of incorrect maps). The 'validatemap' command can be triggered anytime during map editing.
-             */
+            return new Command(l_command);
+
         } else if (is_loadmap_command_valid(l_command)) {
             System.out.println("Executing loadmap command");
-            /**
-             * TODO: Game starts by user selection of a user-saved map file, which loads the map as a connected directed graph.
-             */
+            return new Command(l_command);
+
         } else if (is_gameplayer_command_valid(l_command)) {
             System.out.println("Executing gameplayer command");
-            /**
-             * TODO: user creates the players
-             */
+            return new Command(l_command);
+
         } else if (is_assigncountries_command_valid(l_command)) {
             System.out.println("Executing assigncountries command");
-            /**
-             * TODO: all countries are randomly assigned to players
-             */
+            return new Command(l_command);
+
         } else if (is_deploy_command_valid(l_command)) {
             System.out.println("Executing deploy command");
-            /**
-             * TODO: The GameEngine class calls the issue _order) method of the Player. This method will wait for the following command, then create a deploy order object on the player's list of orders, then reduce the number of armies in the player's reinforcement pool. The game engine does this for all players in round-robin fashion until all the players have placed all their reinforcement armies on the map.
-             */
+            return new Command(l_command);
+
         } else {
             System.out.println("Command does not exist. Please try again.");
         }
+        return null;
     }
 
     public static boolean is_editcontinent_command_valid(String p_command) {

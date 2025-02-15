@@ -34,16 +34,15 @@ public class Player {
      * Decreases the appropriate number of reinforcements from the numReinforcement
      */
     public void issue_order(){
-        // TODO: Use InputOutput class to take the input and continue further
         System.out.println(d_name + ", enter your order (deploy <countryID> <num>):");
-        String command = InputOutput.get_user_command();
+        Command command = InputOutput.get_user_command();
 
-        if (InputOutput.is_deploy_command_valid(command)) {
-            String[] parts = command.split(" ");
-            int countryID = Integer.parseInt(parts[1]);
-            int num = Integer.parseInt(parts[2]);
+        if (command.commandType.equals("deploy")){
+            int countryID = Integer.parseInt(command.argArr.get(0));
+            int num = Integer.parseInt(command.argArr.get(1));
 
             if (num <= d_numReinforcement) {
+                // TODO: ORDER pending
                 Order newOrder = new Order(countryID, num);
                 d_playerOrders.add(newOrder);
                 d_numReinforcement -= num;
