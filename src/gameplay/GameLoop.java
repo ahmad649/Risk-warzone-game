@@ -24,7 +24,7 @@ public class GameLoop {
         while (gameSetup) {
             Command command = null;
             while (command == null){
-                command = InputOutput.get_user_command();
+//                command = InputOutput.get_user_command();
             }
             if (command.commandType.equals("gameplayer")){
                 if (command.argsLabled.containsKey("-add")) {

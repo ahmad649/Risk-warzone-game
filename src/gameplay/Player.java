@@ -35,7 +35,7 @@ public class Player {
      */
     public void issue_order(){
         System.out.println(d_name + ", enter your order (deploy <countryID> <num>):");
-        Command command = InputOutput.get_user_command();
+//        Command command = InputOutput.get_user_command();
 
         if (command.commandType.equals("deploy")){
             int countryID = Integer.parseInt(command.argArr.get(0));

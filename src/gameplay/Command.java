@@ -1,7 +1,6 @@
 package gameplay;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Command{
     Integer numArgs;
@@ -25,5 +24,108 @@ public class Command{
                 argArr.add(parts[i]);
             }
         }
+    }
+
+    public static HashMap<String, List<String>> parse_editcontinent_command(String p_command){
+        String[] l_parts = p_command.split(" ");
+
+        HashMap<String , List<String>> l_arguments = new HashMap<>();
+        for (int l_i = 0; l_i < l_parts.length; l_i++) {
+            switch (l_parts[l_i]) {
+                case "-add":
+                    l_arguments.put("add", new ArrayList<>(Arrays.asList(l_parts[l_i + 1], l_parts[l_i + 2])));
+                    break;
+                case "-remove":
+                    l_arguments.put("remove", new ArrayList<>(Collections.singletonList(l_parts[l_i + 1])));
+            }
+        }
+
+        return l_arguments;
+    }
+
+    public static HashMap<String, List<String>> parse_editcountry_command(String p_command){
+        String[] l_parts = p_command.split(" ");
+
+        HashMap<String , List<String>> l_arguments = new HashMap<>();
+        for (int l_i = 0; l_i < l_parts.length; l_i++) {
+            switch (l_parts[l_i]) {
+                case "-add":
+                    l_arguments.put("add", new ArrayList<>(Arrays.asList(l_parts[l_i + 1], l_parts[l_i + 2])));
+                    break;
+                case "-remove":
+                    l_arguments.put("remove", new ArrayList<>(Collections.singletonList(l_parts[l_i + 1])));
+            }
+        }
+
+        return l_arguments;
+    }
+
+    public static HashMap<String, List<String>> parse_editneighbor_command(String p_command){
+        String[] l_parts = p_command.split(" ");
+
+        HashMap<String , List<String>> l_arguments = new HashMap<>();
+        for (int l_i = 0; l_i < l_parts.length; l_i++) {
+            switch (l_parts[l_i]) {
+                case "-add":
+                    l_arguments.put("add", new ArrayList<>(Arrays.asList(l_parts[l_i + 1], l_parts[l_i + 2])));
+                    break;
+                case "-remove":
+                    l_arguments.put("remove", new ArrayList<>(Arrays.asList(l_parts[l_i + 1], l_parts[l_i + 2])));
+            }
+        }
+
+        return l_arguments;
+    }
+
+    public static String parse_savemap_command(String p_command){
+        String[] l_parts = p_command.split(" ");
+
+        return l_parts[1];
+    }
+
+    public static String parse_editmap_command(String p_command){
+        String[] l_parts = p_command.split(" ");
+
+        return l_parts[1];
+    }
+
+    public static String parse_loadmap_command(String p_command){
+        String[] l_parts = p_command.split(" ");
+
+        return l_parts[1];
+    }
+
+    public static HashMap<String, List<String>> parse_gameplayer_command(String p_command){
+        String[] l_parts = p_command.split(" ");
+
+        HashMap<String , List<String>> l_arguments = new HashMap<>();
+        for (int l_i = 0; l_i < l_parts.length; l_i++) {
+            switch (l_parts[l_i]) {
+                case "-add":
+                    if (!l_arguments.containsKey("add")){
+                        l_arguments.put("add", new ArrayList<>());
+                    }
+                    l_arguments.get("add").add(l_parts[l_i + 1]);
+                    break;
+                case "-remove":
+                    if (!l_arguments.containsKey("remove")){
+                        l_arguments.put("remove", new ArrayList<>());
+                    }
+                    l_arguments.get("remove").add(l_parts[l_i + 1]);
+                    break;
+            }
+        }
+
+        return l_arguments;
+    }
+
+    public static HashMap<String, String> parse_deploy_command(String p_command){
+        String[] l_parts = p_command.split(" ");
+
+        HashMap<String, String> l_arguments = new HashMap<>();
+        l_arguments.put("countryID", l_parts[1]);
+        l_arguments.put("num", l_parts[2]);
+
+        return l_arguments;
     }
 }
