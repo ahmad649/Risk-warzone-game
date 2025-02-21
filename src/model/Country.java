@@ -4,14 +4,14 @@ import java.util.*;
 
 // Represents a Country in the game
 class Country {
-    private String id;
+    private int id;
     private String name;
     private Continent continent;
     private Player owner;
     private int armies;
     private List<Country> neighbors;
     
-    public Country(String id, String name, Continent continent) {
+    public Country(int id, String name, Continent continent) {
         this.id = id;
         this.name = name;
         this.continent = continent;
@@ -19,7 +19,7 @@ class Country {
         this.neighbors = new ArrayList<>();
     }
     
-    public String getId() { return id; }
+    public int getId() { return id; }
     public String getName() { return name; }
     public Continent getContinent() { return continent; }
     public Player getOwner() { return owner; }
