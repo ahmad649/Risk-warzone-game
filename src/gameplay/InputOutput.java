@@ -1,6 +1,5 @@
 package gameplay;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -41,7 +40,8 @@ public class InputOutput {
                         InputOutput.run_map_editor();
                         break;
                     case 2:
-                        InputOutput.run_warzone_game();
+                        GameLoop gameLoop = new GameLoop();
+                        gameLoop.startup();
                         break;
                     case 3:
                         System.out.println("\nSuccessfully exit the game.");
@@ -104,45 +104,60 @@ public class InputOutput {
         } while(!l_command.equals("return"));
     }
 
-    public static void run_warzone_game() {
-        String l_command;
+    public static Command get_user_command() {
+        Scanner l_scanner = new Scanner(System.in);
 
-        do {
-            System.out.println("\n***********************");
-            System.out.println("*     Game Play      *");
-            System.out.println("***********************");
+        System.out.println("Enter command: ");
+        String l_command = l_scanner.nextLine();
 
-            Scanner l_scanner = new Scanner(System.in);
+        if (is_editcontinent_command_valid(l_command)) {
+            System.out.println("Executing editcontinent command");
+            return new Command(l_command);
 
-            System.out.println("\nEnter your command (enter 'return' to go back to main menu): ");
-            l_command = l_scanner.nextLine();
+        } else if (is_editcountry_command_valid(l_command)) {
+            System.out.println("Executing editcountry command");
+            return new Command(l_command);
 
-            if (is_showmap_command_valid(l_command)) {
-                System.out.println("Executing showmap command");
+        } else if (is_editneighbor_command_valid(l_command)) {
+            System.out.println("Executing editneighbor command");
+            return new Command(l_command);
 
-            } else if (is_loadmap_command_valid(l_command)) {
-                String filename = Command.parse_loadmap_command(l_command);
-                System.out.println("Executing loadmap command");
+        } else if (is_showmap_command_valid(l_command)) {
+            System.out.println("Executing showmap command");
+            return new Command(l_command);
 
-            } else if (is_gameplayer_command_valid(l_command)) {
-                HashMap<String, List<String>> l_arguments = Command.parse_gameplayer_command(l_command);
-                System.out.println(l_arguments);
-                System.out.println("Executing gameplayer command");
+        } else if (is_savemap_command_valid(l_command)) {
+            System.out.println("Executing savemap command");
+            return new Command(l_command);
 
-            } else if (is_assigncountries_command_valid(l_command)) {
-                System.out.println("Executing assigncountries command");
+        } else if (is_editmap_command_valid(l_command)) {
+            System.out.println("Executing editmap command");
+            return new Command(l_command);
 
-            } else if (is_deploy_command_valid(l_command)) {
-                HashMap<String, String> l_arguments = Command.parse_deploy_command(l_command);
-                System.out.println(l_arguments);
-                System.out.println("Executing editmap command");
+        } else if (is_validatemap_command_valid(l_command)) {
+            System.out.println("Executing validatemap command");
+            return new Command(l_command);
 
-            } else if (l_command.equals("return")) {
-                System.out.println("\nReturn to main menu.");
-            } else {
-                System.out.println("\nInvalid command. Please try again.");
-            }
-        } while(!l_command.equals("return"));
+        } else if (is_loadmap_command_valid(l_command)) {
+            System.out.println("Executing loadmap command");
+            return new Command(l_command);
+
+        } else if (is_gameplayer_command_valid(l_command)) {
+            System.out.println("Executing gameplayer command");
+            return new Command(l_command);
+
+        } else if (is_assigncountries_command_valid(l_command)) {
+            System.out.println("Executing assigncountries command");
+            return new Command(l_command);
+
+        } else if (is_deploy_command_valid(l_command)) {
+            System.out.println("Executing deploy command");
+            return new Command(l_command);
+
+        } else {
+            System.out.println("Command does not exist. Please try again.");
+        }
+        return null;
     }
 
     public static boolean is_editcontinent_command_valid(String p_command) {
