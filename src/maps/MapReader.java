@@ -7,6 +7,7 @@ import java.util.*;
 
 /**
  * MapReader class to load and validate domination map files.
+ * MapReader class to load and validate domination map files.
  */
 public class MapReader {
     private Map<String, Continent> continents;
@@ -24,9 +25,12 @@ public class MapReader {
         territories = new HashMap<>();
     }
 
+
     /**
      * Loads a map file into memory.
+     * Loads a map file into memory.
      * @param filename Name of the file to load.
+     * @return true if successfully loaded, false otherwise.
      * @return true if successfully loaded, false otherwise.
      */
     public boolean loadMap(String filename) {
