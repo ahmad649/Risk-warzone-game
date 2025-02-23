@@ -44,7 +44,7 @@ public class Player {
             int num = Integer.parseInt(parts[2]);
 
             if (num <= d_numReinforcement) {
-                Order newOrder = new Order(countryID, num);
+                Order newOrder = new Order("deploy", countryID, num, this);
                 d_playerOrders.add(newOrder);
                 d_numReinforcement -= num;
                 System.out.println("Order added: Deploy " + num + " armies to country " + countryID);
