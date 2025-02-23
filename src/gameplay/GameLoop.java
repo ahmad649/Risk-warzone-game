@@ -1,7 +1,6 @@
 package gameplay;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +14,7 @@ public class GameLoop {
         TODO:
          Take input from player
          2 types:
-         "gameplayer" - adds player (has args refer the grading sheet)
+         "gameplayer" - adds player (has argsLabled refer the grading sheet)
          "assigncountries" - adds countries randomly to all players and ends startup
           Use InputOutput class to take the input and continue further
          */
@@ -23,20 +22,21 @@ public class GameLoop {
         boolean gameSetup = true;
 
         while (gameSetup) {
-            String command = InputOutput.get_user_command();
-
-            if (InputOutput.is_gameplayer_command_valid(command)) {
-                String[] parts = command.split(" ");
-                if (parts[1].equals("-add")) {
-                    String playerName = parts[2];
+            Command command = null;
+            while (command == null){
+//                command = InputOutput.get_user_command();
+            }
+            if (command.commandType.equals("gameplayer")){
+                if (command.argsLabled.containsKey("-add")) {
+                    String playerName = command.argsLabled.get("-add");
                     d_playersList.add(new Player(playerName));
                     System.out.println("Player added: " + playerName);
-                } else if (parts[1].equals("-remove")) {
-                    String playerName = parts[2];
+                } else if (command.argsLabled.containsKey("-remove")) {
+                    String playerName = command.argsLabled.get("-remove");
                     d_playersList.removeIf(p -> p.getName().equals(playerName));
                     System.out.println("Player removed: " + playerName);
                 }
-            } else if (InputOutput.is_assigncountries_command_valid(command)) {
+            } else if (command.commandType.equals("assigncountries")) {
                 assignCountries();
                 gameSetup = false;
             } else {
@@ -56,6 +56,7 @@ public class GameLoop {
 
         for (Country country : d_countryList) {
             Player assignedPlayer = d_playersList.get(playerIndex);
+            // TODO: Counry pending
             country.setOwner(assignedPlayer);
             playerIndex = (playerIndex + 1) % d_playersList.size();
         }
