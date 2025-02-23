@@ -7,12 +7,10 @@ import java.util.*;
 
 /**
  * MapReader class to load and validate domination map files.
- * MapReader class to load and validate domination map files.
  */
 public class MapReader {
     private Map<String, Continent> continents;
     private Map<String, Country> countries;
-    private Map<Country, List<Country>> territories;
     private int continentIdCounter = 1;
     private int countryIdCounter = 1;
 
@@ -22,15 +20,11 @@ public class MapReader {
     public MapReader() {
         continents = new HashMap<>();
         countries = new HashMap<>();
-        territories = new HashMap<>();
     }
-
 
     /**
      * Loads a map file into memory.
-     * Loads a map file into memory.
      * @param filename Name of the file to load.
-     * @return true if successfully loaded, false otherwise.
      * @return true if successfully loaded, false otherwise.
      */
     public boolean loadMap(String filename) {
@@ -96,21 +90,30 @@ public class MapReader {
                             return false;
                         }
     
-                        Country country = new Country(countryIdCounter++, countryName, continent);
-                        countries.put(countryName, country);
-                        territories.put(country, new ArrayList<>());
-    
-                        // Add country to its continent
-                        continent.addCountry(country);
+                        // Create or update the country
+                        Country country = countries.get(countryName);
+                        if (country == null) {
+                            // Create a new country if it doesn't exist
+                            country = new Country(countryIdCounter++, countryName, continent);
+                            countries.put(countryName, country);
+                            continent.addCountry(country); // Add the country to its continent's country list
+                        }
     
                         // Process neighbors
                         for (int i = 4; i < parts.length; i++) {
                             String neighborName = parts[i];
-                            if (countries.containsKey(neighborName)) {
-                                Country neighbor = countries.get(neighborName);
-                                territories.get(country).add(neighbor);
-                                territories.get(neighbor).add(country);
+                            Country neighbor = countries.get(neighborName);
+    
+                            if (neighbor == null) {
+                                // Create new neighbor country if it doesn't exist
+                                neighbor = new Country(countryIdCounter++, neighborName, continent);
+                                countries.put(neighborName, neighbor);
+                                continent.addCountry(neighbor); // Add to the continent
                             }
+    
+                            // Add to each other's neighbors list (no duplicates)
+                            country.addNeighbor(neighbor);
+                            neighbor.addNeighbor(country);
                         }
                     }
                 }
@@ -135,24 +138,21 @@ public class MapReader {
             System.out.println("Countries in this continent:");
     
             // Display countries in the continent
-            for (Country country : countries.values()) {
-                if (country.getContinent().equals(continent)) {
-                    System.out.print("    " + country.getName() + " (ID: " + country.getId() + ") -> Neighbors: ");
-                    
-                    List<String> neighborNames = new ArrayList<>();
-                    for (Country neighbor : territories.get(country)) {
-                        neighborNames.add(neighbor.getName());
-                    }
-                    
-                    // Print neighbors
-                    System.out.println(String.join(", ", neighborNames));
+            for (Country country : continent.getCountries()) {
+                System.out.print("    " + country.getName() + " (ID: " + country.getId() + ") -> Neighbors: ");
+                
+                List<String> neighborNames = new ArrayList<>();
+                for (Country neighbor : country.getNeighbors()) {
+                    neighborNames.add(neighbor.getName());
                 }
+                
+                // Print neighbors
+                System.out.println(String.join(", ", neighborNames));
             }
     
             System.out.println("--------------------------------------------------\n");
         }
     }
-    
 
     /**
      * Validates the map structure.
@@ -173,9 +173,9 @@ public class MapReader {
         }
 
         // Ensure all countries have valid neighbors
-        for (Country country : territories.keySet()) {
-            for (Country neighbor : territories.get(country)) {
-                if (!territories.containsKey(neighbor)) {
+        for (Country country : countries.values()) {
+            for (Country neighbor : country.getNeighbors()) {
+                if (!countries.containsKey(neighbor.getName())) {
                     System.out.println("Validation failed: " + country.getName() + " has an invalid neighbor " + neighbor.getName());
                     return false;
                 }
@@ -186,19 +186,13 @@ public class MapReader {
         return true;
     }
 
-        /**
-     * Getter methods to access map data.
-     */
+    // Getter methods to access map data
     public Map<String, Continent> getContinentsMap() {
         return continents;
     }
 
     public Map<String, Country> getCountriesMap() {
         return countries;
-    }
-
-    public Map<Country, List<Country>> getTerritoriesMap() {
-        return territories;
     }
 
     // Getter for continentIdCounter
@@ -220,6 +214,4 @@ public class MapReader {
     public void setCountryIdCounter(int countryIdCounter) {
         this.countryIdCounter = countryIdCounter;
     }
-
-
 }

@@ -36,7 +36,6 @@ public class MapEditor {
         }
     }
 
-
     /**
      * Removes a continent.
      * @param name Name of the continent to remove.
@@ -57,17 +56,15 @@ public class MapEditor {
             }
 
             // Remove all neighbors associated with this continent's countries
-            mapReader.getTerritoriesMap().forEach((country, neighbors) -> 
-                neighbors.removeIf(neighbor -> neighbor.getContinent().getName().equals(name))
-            );
+            for (Country country : continent.getCountries()) {
+                country.getNeighbors().clear(); // Remove all neighboring countries
+            }
 
             System.out.println("Continent " + name + " removed successfully.");
         } else {
-            // Continent does not exist
             System.out.println("Continent " + name + " does not exist.");
         }
     }
-
 
     /**
      * Adds a new country.
@@ -75,24 +72,24 @@ public class MapEditor {
      * @param continentName Name of the continent the country belongs to.
      */
     public void addCountry(String name, String continentName) {
-        // Check if the country already exists in any continent
+        // Check if the country already exists
         if (mapReader.getCountriesMap().containsKey(name)) {
-            System.out.println("Country " + name + " already exists in the map.");
-            return; // Return early, country already exists
+            System.out.println("Country " + name + " already exists.");
+            return;
         }
 
         // Check if the continent exists
         Continent continent = mapReader.getContinentsMap().get(continentName);
         if (continent == null) {
             System.out.println("Continent " + continentName + " does not exist. Adding country failed.");
-            return; // Return early, continent not found
+            return;
         }
 
         // Check if the country already exists in the specified continent
         for (Country country : continent.getCountries()) {
             if (country.getName().equals(name)) {
                 System.out.println("Country " + name + " already exists in continent " + continentName + ".");
-                return; // Return early, country exists in the continent
+                return;
             }
         }
 
@@ -100,7 +97,6 @@ public class MapEditor {
         int countryId = mapReader.getCountryIdCounter() + 1;
         Country country = new Country(countryId, name, continent);
         mapReader.getCountriesMap().put(name, country);
-        mapReader.getTerritoriesMap().put(country, new ArrayList<>());
         continent.addCountry(country);
 
         // Update the country ID counter
@@ -109,7 +105,6 @@ public class MapEditor {
         System.out.println("Country " + name + " added to continent " + continentName + " successfully.");
     }
 
-
     /**
      * Removes a country.
      * @param name Name of the country to remove.
@@ -117,27 +112,27 @@ public class MapEditor {
     public void removeCountry(String name) {
         Country country = mapReader.getCountriesMap().get(name);
         if (country != null) {
-            // Remove this country from all neighboring lists first
-            for (List<Country> neighbors : mapReader.getTerritoriesMap().values()) {
-                neighbors.remove(country); // Ensuring it's removed from the neighbor lists before removal
-            }
-    
-            // Remove the country from the countries map and territories map
+            // Remove the country from the countries map
             mapReader.getCountriesMap().remove(name);
-            mapReader.getTerritoriesMap().remove(country);
-    
+
             // Remove this country from its continent
             Continent continent = country.getContinent();
             continent.removeCountry(country);
-    
+
+            // Remove all neighbors associated with this country
+            for (Country neighbor : country.getNeighbors()) {
+                neighbor.getNeighbors().remove(country); // Remove this country from its neighbor's list
+            }
+
+            // Clear this country's neighbors list
+            country.getNeighbors().clear();
+
             System.out.println("Country " + name + " removed successfully.");
         } else {
-            // Country does not exist in the map
-            System.out.println("Country " + name + " does not exist in any continent. Cannot remove.");
+            // Country does not exist
+            System.out.println("Country " + name + " does not exist. Cannot remove.");
         }
     }
-    
-
 
     /**
      * Adds a neighboring connection between two countries.
@@ -159,19 +154,18 @@ public class MapEditor {
         }
 
         // Check if they are already neighbors
-        if (mapReader.getTerritoriesMap().get(country1).contains(country2)) {
+        if (country1.getNeighbors().contains(country2)) {
             System.out.println(countryName + " and " + neighborName + " are already neighbors.");
             return;
         }
 
         // Add the neighbor relationship
-        mapReader.getTerritoriesMap().get(country1).add(country2);
-        mapReader.getTerritoriesMap().get(country2).add(country1);
+        country1.addNeighbor(country2);
+        country2.addNeighbor(country1);
 
         // Print success message
         System.out.println("Neighbor relationship established between " + countryName + " and " + neighborName + ".");
     }
-
 
     /**
      * Removes a neighboring connection between two countries.
@@ -193,24 +187,16 @@ public class MapEditor {
         }
 
         // Check if they are neighbors
-        if (!mapReader.getTerritoriesMap().get(country1).contains(country2)) {
+        if (!country1.getNeighbors().contains(country2)) {
             System.out.println(countryName + " and " + neighborName + " are not neighbors.");
             return;
         }
 
         // Remove the neighbor relationship
-        mapReader.getTerritoriesMap().get(country1).remove(country2);
-        mapReader.getTerritoriesMap().get(country2).remove(country1);
+        country1.getNeighbors().remove(country2);
+        country2.getNeighbors().remove(country1);
 
         // Print success message
         System.out.println("Neighbor relationship removed between " + countryName + " and " + neighborName + ".");
-    }
-
-
-    /**
-     * Displays the current map.
-     */
-    public void showMap() {
-        mapReader.showMap();  // Calls MapReader's showMap method to display the updated map
     }
 }

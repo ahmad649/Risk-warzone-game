@@ -28,7 +28,6 @@ public class MapWriter {
         // Retrieve the currently loaded map data
         Map<String, Continent> continents = mapReader.getContinentsMap();
         Map<String, Country> countries = mapReader.getCountriesMap();
-        Map<Country, List<Country>> territories = mapReader.getTerritoriesMap();
     
         if (continents.isEmpty() || countries.isEmpty()) {
             System.err.println("Error: No map data loaded. Cannot save.");
@@ -62,16 +61,9 @@ public class MapWriter {
             // Write continents section
             writer.write("[Continents]\n");
     
-            // Continent order as required
-            List<String> continentOrder = Arrays.asList(
-                "North America", "South America", "Europe", "Africa", "Asia", "Australia"
-            );
-    
-            for (String continentName : continentOrder) {
-                Continent continent = continents.get(continentName);
-                if (continent != null) {
-                    writer.write(continentName + "=" + continent.getBonus() + "\n");
-                }
+            // Iterate over all continents in the order they are present in the mapReader
+            for (Continent continent : continents.values()) {
+                writer.write(continent.getName() + "=" + continent.getBonus() + "\n");
             }
             writer.write("\n");
     
@@ -82,10 +74,8 @@ public class MapWriter {
             for (Country country : countries.values()) {
                 String continentName = country.getContinent().getName();
                 List<String> neighborNames = new ArrayList<>();
-                if (territories.containsKey(country)) {
-                    for (Country neighbor : territories.get(country)) {
-                        neighborNames.add(neighbor.getName());
-                    }
+                for (Country neighbor : country.getNeighbors()) {
+                    neighborNames.add(neighbor.getName());
                 }
     
                 // Write the country data with coordinates and neighbors
@@ -102,5 +92,4 @@ public class MapWriter {
             return false;
         }
     }
-        
 }

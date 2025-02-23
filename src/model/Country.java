@@ -28,6 +28,7 @@ public class Country {
     
     public void setOwner(Player owner) { this.owner = owner; }
     public void setArmies(int armies) { this.armies = armies; }
-    public void addNeighbor(Country neighbor) { neighbors.add(neighbor); }
+    public void addNeighbor(Country neighbor) {     if (!this.neighbors.contains(neighbor)) {  // Ensure no duplicate neighbors
+        this.neighbors.add(neighbor);} }
     public void removeNeighbor(Country neighbor) { neighbors.remove(neighbor); }
 }
