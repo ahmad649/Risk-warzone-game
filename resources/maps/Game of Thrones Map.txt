@@ -1,0 +1,54 @@
+[Map]
+author=Game of Thrones World
+image=got_map.bmp
+wrap=no
+scroll=horizontal
+warn=yes
+
+[Continents]
+Westeros=5
+Essos=7
+Sothoryos=3
+Ulthos=2
+
+[Territories]
+Winterfell,120,160,Westeros,The Wall,Moat Cailin,The Dreadfort
+The Wall,120,100,Westeros,Winterfell,Castle Black,Eastwatch
+Castle Black,130,90,Westeros,The Wall,Eastwatch
+Eastwatch,150,85,Westeros,Castle Black,The Wall
+Moat Cailin,140,180,Westeros,Winterfell,The Twins
+The Twins,160,200,Westeros,Moat Cailin,Riverrun,Eyrie
+Riverrun,180,220,Westeros,The Twins,Harrenhal,The Trident
+The Trident,200,240,Westeros,Riverrun,Harrenhal,King's Landing
+Harrenhal,220,250,Westeros,Riverrun,The Trident,King's Landing
+King's Landing,240,270,Westeros,Harrenhal,Storm's End,Dragonstone
+Storm's End,260,290,Westeros,King's Landing,Dragonstone,Highgarden
+Dragonstone,270,280,Westeros,King's Landing,Storm's End
+Highgarden,280,310,Westeros,Storm's End,Oldtown,Dorne
+Oldtown,300,330,Westeros,Highgarden,Dorne,The Arbor
+Dorne,320,350,Westeros,Highgarden,Oldtown,The Arbor,The Stepstones
+The Arbor,310,360,Westeros,Oldtown,Dorne
+The Stepstones,330,370,Westeros,Dorne,Volantis,Pentos
+
+Braavos,400,100,Essos,The Vale,White Harbor,The Stepstones
+Pentos,420,130,Essos,Braavos,The Stepstones,Volantis
+Volantis,440,170,Essos,Pentos,Lys,Meereen
+Lys,460,200,Essos,Volantis,Meereen,Astapor
+Meereen,480,230,Essos,Lys,Astapor,Yunkai
+Astapor,500,250,Essos,Meereen,Yunkai,The Dothraki Sea
+Yunkai,520,270,Essos,Astapor,The Dothraki Sea,Qarth
+The Dothraki Sea,540,290,Essos,Yunkai,Qarth,Vaes Dothrak
+Vaes Dothrak,560,310,Essos,The Dothraki Sea,Qarth,Asshai
+Qarth,580,330,Essos,Yunkai,Vaes Dothrak,Asshai
+Asshai,600,350,Essos,Vaes Dothrak,Qarth,Shadow Lands
+Shadow Lands,620,370,Essos,Asshai,The Jade Sea
+The Jade Sea,640,390,Essos,Shadow Lands,Ulthos
+
+Isle of Tears,700,450,Sothoryos,Black Cliffs,Naath
+Black Cliffs,720,470,Sothoryos,Isle of Tears,Zamettar
+Zamettar,740,490,Sothoryos,Black Cliffs,Yeen
+Yeen,760,510,Sothoryos,Zamettar,The Green Hell
+The Green Hell,780,530,Sothoryos,Yeen,The Bloodless Men
+The Bloodless Men,800,550,Sothoryos,The Green Hell,Ulthos
+
+Ulthos,850,600,Ulthos,The Bloodless Men,The Jade Sea
