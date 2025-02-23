@@ -1,5 +1,7 @@
 package model;
 
+import gameplay.Player;
+
 import java.util.*;
 
 // Represents a Country in the game
@@ -31,4 +33,6 @@ public class Country {
     public void addNeighbor(Country neighbor) {     if (!this.neighbors.contains(neighbor)) {  // Ensure no duplicate neighbors
         this.neighbors.add(neighbor);} }
     public void removeNeighbor(Country neighbor) { neighbors.remove(neighbor); }
+
+    public void addReinforcements(int reinforcements) { armies+= reinforcements; }
 }

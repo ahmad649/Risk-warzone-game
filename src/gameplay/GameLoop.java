@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import model.Continent;
+import model.Country;
+
 public class GameLoop {
     List<Player> d_playersList = new ArrayList<>();
 
@@ -20,36 +23,29 @@ public class GameLoop {
           Use InputOutput class to take the input and continue further
          */
         System.out.println("Game setup started. Add players using 'gameplayer -add <playername>'.");
-        boolean gameSetup = true;
-
-        while (gameSetup) {
-            String command = null;
+        //TESTT
+        d_countryList.add(new Country(2, "herm",new Continent(1,"herm",1)));
+        d_countryList.add(new Country(3, "term",new Continent(2,"term",1)));
+        //TESTT
+        while (true) {
+            Command command = null;
             while (command == null){
                 command = InputOutput.get_user_command();
             }
-            if (command.startsWith("gameplayer")){
-                // parse arguments from gameplayer command
-                HashMap<String, List<String>> l_arguments = Command.parse_gameplayer_command(command);
-                for (String name : l_arguments.get("add")) {
-                    d_playersList.add(new Player(name));
+            if (command.commandType.equals("gameplayer")){
+                if (command.argsLabled.containsKey("-add")) {
+                    String playerName = command.argsLabled.get("-add");
+                    d_playersList.add(new Player(playerName));
+                    System.out.println("Player added: " + playerName);
+                } else if (command.argsLabled.containsKey("-remove")) {
+                    String playerName = command.argsLabled.get("-remove");
+                    d_playersList.removeIf(p -> p.getName().equals(playerName));
+                    System.out.println("Player removed: " + playerName);
                 }
-
-                for (String name : l_arguments.get("remove")) {
-                    // remove player from player list
-                }
-
-//                if (command.argsLabled.containsKey("-add")) {
-//                    String playerName = command.argsLabled.get("-add");
-//                    d_playersList.add(new Player(playerName));
-//                    System.out.println("Player added: " + playerName);
-//                } else if (command.argsLabled.containsKey("-remove")) {
-//                    String playerName = command.argsLabled.get("-remove");
-//                    d_playersList.removeIf(p -> p.getName().equals(playerName));
-//                    System.out.println("Player removed: " + playerName);
-//                }
-            } else if (command.startsWith("assigncountries")) {
+            } else if (command.commandType.equals("assigncountries")) {
                 assignCountries();
-                gameSetup = false;
+                looper();
+                break;
             } else {
                 System.out.println("Invalid command. Try again.");
             }
@@ -68,6 +64,7 @@ public class GameLoop {
         for (Country country : d_countryList) {
             Player assignedPlayer = d_playersList.get(playerIndex);
             // TODO: Counry pending
+            assignedPlayer.ownedCountries.add(country);
             country.setOwner(assignedPlayer);
             playerIndex = (playerIndex + 1) % d_playersList.size();
         }
@@ -93,8 +90,7 @@ public class GameLoop {
         while (ordersRemaining) {
             ordersRemaining = false;
             for (Player player : d_playersList) {
-                if (player.getReinforcements() > 0) {
-                    player.issue_order();
+                if (player.getReinforcements() > 0) {                    player.issue_order();
                     ordersRemaining = true;
                 }
             }

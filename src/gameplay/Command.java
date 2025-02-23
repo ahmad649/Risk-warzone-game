@@ -12,10 +12,8 @@ public class Command{
     public Command(String input){
         String[] parts = input.split(" ");
         commandType = parts[0];
-        if (parts.length>1){
-            argsLabled = new HashMap<>();
-            argArr = new ArrayList<>();
-        }
+        argsLabled = new HashMap<>();
+        argArr = new ArrayList<>();
         for (int i = 1;i< parts.length;i+=1){
             if (parts[i].charAt(0)=='-'){
                 argsLabled.put(parts[i],parts[i+1]);
@@ -24,6 +22,7 @@ public class Command{
                 argArr.add(parts[i]);
             }
         }
+        numArgs = argArr.size();
     }
 
     public static HashMap<String, List<String>> parse_editcontinent_command(String p_command){
