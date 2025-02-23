@@ -1,6 +1,7 @@
 package gameplay;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -22,21 +23,31 @@ public class GameLoop {
         boolean gameSetup = true;
 
         while (gameSetup) {
-            Command command = null;
+            String command = null;
             while (command == null){
                 command = InputOutput.get_user_command();
             }
-            if (command.commandType.equals("gameplayer")){
-                if (command.argsLabled.containsKey("-add")) {
-                    String playerName = command.argsLabled.get("-add");
-                    d_playersList.add(new Player(playerName));
-                    System.out.println("Player added: " + playerName);
-                } else if (command.argsLabled.containsKey("-remove")) {
-                    String playerName = command.argsLabled.get("-remove");
-                    d_playersList.removeIf(p -> p.getName().equals(playerName));
-                    System.out.println("Player removed: " + playerName);
+            if (command.startsWith("gameplayer")){
+                // parse arguments from gameplayer command
+                HashMap<String, List<String>> l_arguments = Command.parse_gameplayer_command(command);
+                for (String name : l_arguments.get("add")) {
+                    d_playersList.add(new Player(name));
                 }
-            } else if (command.commandType.equals("assigncountries")) {
+
+                for (String name : l_arguments.get("remove")) {
+                    // remove player from player list
+                }
+
+//                if (command.argsLabled.containsKey("-add")) {
+//                    String playerName = command.argsLabled.get("-add");
+//                    d_playersList.add(new Player(playerName));
+//                    System.out.println("Player added: " + playerName);
+//                } else if (command.argsLabled.containsKey("-remove")) {
+//                    String playerName = command.argsLabled.get("-remove");
+//                    d_playersList.removeIf(p -> p.getName().equals(playerName));
+//                    System.out.println("Player removed: " + playerName);
+//                }
+            } else if (command.startsWith("assigncountries")) {
                 assignCountries();
                 gameSetup = false;
             } else {

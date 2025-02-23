@@ -35,21 +35,24 @@ public class Player {
      */
     public void issue_order(){
         System.out.println(d_name + ", enter your order (deploy <countryID> <num>):");
-        Command command = InputOutput.get_user_command();
+        String command = InputOutput.get_user_command();
 
-        if (command.commandType.equals("deploy")){
-            int countryID = Integer.parseInt(command.argArr.get(0));
-            int num = Integer.parseInt(command.argArr.get(1));
+        if (command.startsWith("deploy")){
+            // parse arguments from deploy command
+            Command.parse_deploy_command(command);
 
-            if (num <= d_numReinforcement) {
-                // TODO: ORDER pending
-                Order newOrder = new Order(countryID, num);
-                d_playerOrders.add(newOrder);
-                d_numReinforcement -= num;
-                System.out.println("Order added: Deploy " + num + " armies to country " + countryID);
-            } else {
-                System.out.println("Not enough reinforcements available.");
-            }
+//            int countryID = Integer.parseInt(command.argArr.get(0));
+//            int num = Integer.parseInt(command.argArr.get(1));
+//
+//            if (num <= d_numReinforcement) {
+//                // TODO: ORDER pending
+//                Order newOrder = new Order(countryID, num);
+//                d_playerOrders.add(newOrder);
+//                d_numReinforcement -= num;
+//                System.out.println("Order added: Deploy " + num + " armies to country " + countryID);
+//            } else {
+//                System.out.println("Not enough reinforcements available.");
+//            }
         } else {
             System.out.println("Invalid order. Please try again.");
         }
