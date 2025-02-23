@@ -3,7 +3,7 @@ package model;
 import java.util.*;
 
 // Represents a Country in the game
-class Country {
+public class Country {
     private int id;
     private String name;
     private Continent continent;
@@ -11,8 +11,8 @@ class Country {
     private int armies;
     private List<Country> neighbors;
     
-    public Country(int id, String name, Continent continent) {
-        this.id = id;
+    public Country(int countryIdCounter, String name, Continent continent) {
+        this.id = countryIdCounter;
         this.name = name;
         this.continent = continent;
         this.armies = 0;
@@ -28,6 +28,7 @@ class Country {
     
     public void setOwner(Player owner) { this.owner = owner; }
     public void setArmies(int armies) { this.armies = armies; }
-    public void addNeighbor(Country neighbor) { neighbors.add(neighbor); }
+    public void addNeighbor(Country neighbor) {     if (!this.neighbors.contains(neighbor)) {  // Ensure no duplicate neighbors
+        this.neighbors.add(neighbor);} }
     public void removeNeighbor(Country neighbor) { neighbors.remove(neighbor); }
 }

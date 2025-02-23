@@ -9,8 +9,8 @@ public class Continent {
     private int bonus;
     private List<Country> countries;
     
-    public Continent(int id, String name, int bonus) {
-        this.id = id;
+    public Continent(int continentIdCounter, String name, int bonus) {
+        this.id = continentIdCounter;
         this.name = name;
         this.bonus = bonus;
         this.countries = new ArrayList<>();
