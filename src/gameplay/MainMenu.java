@@ -26,7 +26,8 @@ public class MainMenu {
                 // perform actions based on user input
                 switch (l_input) {
                     case 1:
-                        InputOutput.run_map_editor();
+                        InputOutput l_inputOutput = new InputOutput();
+                        l_inputOutput.run_map_editor();
                         break;
                     case 2:
                         GameLoop gameLoop = new GameLoop();

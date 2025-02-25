@@ -3,6 +3,7 @@ package gameplay;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import maps.*;
 
 public class InputOutput {
     /*
@@ -14,7 +15,17 @@ public class InputOutput {
         2 for startup and 1 during issue_order
      */
 
-    public static void run_map_editor() {
+    MapEditor d_mapEditor;
+    MapReader d_mapReader;
+    MapWriter d_mapWriter;
+
+    public InputOutput() {
+        this.d_mapReader = new MapReader();
+        this.d_mapEditor = new MapEditor(this.d_mapReader);
+        this.d_mapWriter = new MapWriter(this.d_mapReader);
+    }
+
+    public void run_map_editor() {
         String l_command;
 
         do {
@@ -29,30 +40,84 @@ public class InputOutput {
 
             // Validate map commands given by the user, then perform actions
             if (is_editcontinent_command_valid(l_command)) {
-                Command command= new Command(l_command);
-                System.out.println("Executing editcontinent command");
+                HashMap<String, List<String>> l_arguments = Command.parse_editcontinent_command(l_command);
 
+                // Add continent
+                if (l_arguments.containsKey("add")) {
+                    // Get continentID and continentValue
+                    String l_continentID = l_arguments.get("add").getFirst();
+                    String l_continentValue = l_arguments.get("add").getLast();
+
+                    this.d_mapEditor.addContinent(l_continentID, Integer.parseInt(l_continentValue));
+                }
+
+                // Remove continent
+                if (l_arguments.containsKey("remove")) {
+                    // Get continentID
+                    String l_continentID = l_arguments.get("remove").getFirst();
+
+                    this.d_mapEditor.removeContinent(l_continentID);
+                }
             } else if (is_editcountry_command_valid(l_command)) {
-                Command command= new Command(l_command);
-                System.out.println("Executing editcountry command");
+                HashMap<String, List<String>> l_arguments = Command.parse_editcountry_command(l_command);
 
+                // Add country
+                if (l_arguments.containsKey("add")) {
+                    // Get countryID and continentID
+                    String l_countryID = l_arguments.get("add").getFirst();
+                    String l_continentID = l_arguments.get("add").getLast();
+
+                    this.d_mapEditor.addCountry(l_countryID, l_continentID);
+                }
+
+                // Remove country
+                if (l_arguments.containsKey("remove")) {
+                    // Get countryID
+                    String l_countryID = l_arguments.get("remove").getFirst();
+
+                    this.d_mapEditor.removeCountry(l_countryID);
+                }
             } else if (is_editneighbor_command_valid(l_command)) {
-                Command command= new Command(l_command);
-                System.out.println("Executing editneighbor command");
+                HashMap<String, List<String>> l_arguments = Command.parse_editneighbor_command(l_command);
+
+                // Add neighbor
+                if (l_arguments.containsKey("add")) {
+                    // Get countryID and continentID
+                    String l_countryID = l_arguments.get("add").getFirst();
+                    String l_neighborCountryID = l_arguments.get("add").getLast();
+
+                    this.d_mapEditor.addNeighbor(l_countryID, l_neighborCountryID);
+                }
+
+                // Remove neighbor
+                if (l_arguments.containsKey("remove")) {
+                    // Get countryID and neighborCountryID
+                    String l_countryID = l_arguments.get("remove").getFirst();
+                    String l_neighborCountryID = l_arguments.get("remove").getLast();
+
+                    this.d_mapEditor.removeNeighbor(l_countryID, l_neighborCountryID);
+                }
 
             } else if (is_showmap_command_valid(l_command)) {
-                System.out.println("Executing showmap command");
+                // Show map
+                this.d_mapReader.showMap();
 
             } else if (is_savemap_command_valid(l_command)) {
-                Command command= new Command(l_command);
-                System.out.println("Executing savemap command");
+                String l_filename = Command.parse_savemap_command(l_command);
+
+                // Save map
+                this.d_mapWriter.saveMap(l_filename);
 
             } else if (is_editmap_command_valid(l_command)) {
-                Command command= new Command(l_command);
-                System.out.println("Executing editmap command");
+                String l_filename = Command.parse_editmap_command(l_command);
+
+                // Perform load map
+                this.d_mapReader = new MapReader();
+                this.d_mapReader.loadMap(l_filename);
 
             } else if (is_validatemap_command_valid(l_command)) {
-                System.out.println("Executing validatemap command");
+                // Validate map
+                this.d_mapReader.validateMap();
 
             } else if (l_command.equals("return")) {
                 System.out.println("\nReturn to main menu.");
@@ -329,15 +394,6 @@ public class InputOutput {
             return false;
         }
 
-        // Get file name
-        String l_filename = l_parts[1];
-
-        // Check whether file name ends with .map extension
-        if (!l_filename.endsWith(".map")) {
-            System.out.println("\nFilename must have .map extension.");
-            return false;
-        }
-
         return true;
     }
 
@@ -353,15 +409,6 @@ public class InputOutput {
         // Check if the command contains more than 1 argument.
         if (l_parts.length != 2) {
             System.out.println("\n'editmap' command must have 1 argument.");
-            return false;
-        }
-
-        // Get file name
-        String l_filename = l_parts[1];
-
-        // Check whether file name ends with .map extension
-        if (!l_filename.endsWith(".map")) {
-            System.out.println("\nFilename must have .map extension.");
             return false;
         }
 
@@ -385,15 +432,6 @@ public class InputOutput {
         // Check if the command contains more than 1 argument.
         if (l_parts.length != 2) {
             System.out.println("\n'loadmap' command must have 1 argument.");
-            return false;
-        }
-
-        // Get file name
-        String l_filename = l_parts[1];
-
-        // Check whether file name ends with .map extension
-        if (!l_filename.endsWith(".map")) {
-            System.out.println("\nFilename must have .map extension.");
             return false;
         }
 
