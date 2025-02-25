@@ -2,13 +2,20 @@ package gameplay;
 
 import java.util.*;
 
+/**
+ * {@code Command} class manages the parsing of user commands.
+ */
 public class Command{
     Integer d_numArgs;
     String d_commandType;
-    //Used when args are in -argname actual_arg format
     HashMap<String,List<String>> d_argsLabeled;
     ArrayList<String> d_argArr;
 
+    /**
+     * A constructor to initialize {@code Command} object which is used to parse user commands.
+     *
+     * @param p_input The user command string that has been parsed, either in a form of {@code HashMap<String, List<String>>} or {@code ArrayList<String>}
+     */
     public Command(String p_input) {
         // Split the string
         String[] l_parts = p_input.split(" ");
@@ -43,10 +50,20 @@ public class Command{
         d_numArgs = d_argArr.size();
     }
 
+    /**
+     * Gets labeled arguments from user commands in a form of {@code HashMap<String, List<String>>}
+     *
+     * @return a {@code HashMap<String, List<String>>} containing the labeled arguments.
+     */
     public HashMap<String, List<String>> getArgsLabeled() {
         return d_argsLabeled;
     }
 
+    /**
+     * Gets arguments from user commands in a form of {@code ArrayList<String>}
+     *
+     * @return an {@code ArrayList<String>} containing the command arguments.
+     */
     public ArrayList<String> getArgArr() {
         return d_argArr;
     }

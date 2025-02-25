@@ -3,6 +3,9 @@ package gameplay;
 import java.util.Scanner;
 import maps.*;
 
+/**
+ * {@code InputOutput} class manages all Input and Output operations that are used in Map Editor and Gameplay.
+ */
 public class InputOutput {
     /*
     TODO:
@@ -17,12 +20,50 @@ public class InputOutput {
     private MapReader d_mapReader;
     private final MapWriter d_mapWriter;
 
+    /**
+     * A constructor to initialize {@code InputOutput} object.
+     *
+     * <p>
+     * This constructor creates a new {@link MapReader} object and passes it to {@link MapEditor} and {@link MapWriter} objects.
+     * </p>
+     */
     public InputOutput() {
         this.d_mapReader = new MapReader();
         this.d_mapEditor = new MapEditor(this.d_mapReader);
         this.d_mapWriter = new MapWriter(this.d_mapReader);
     }
 
+    /**
+     * Runs Map Editor menu that allows the user to perform different types of map operations.
+     * <p>
+     * The following user commands are accepted:
+     * <ul>
+     *   <li>{@code editcontinent}:
+     *       <ul>
+     *         <li>{@code -add} flag is used to add a continent by specifying a continent ID and a continent value.</li>
+     *         <li>{@code -remove} flag is used to remove a continent by specifying a continent ID.</li>
+     *       </ul>
+     *   </li>
+     *   <li>{@code editcountry}:
+     *       <ul>
+     *         <li>{@code -add} flag is used to add a country by specifying a country ID and its corresponding continent ID.</li>
+     *         <li>{@code -remove} flag is used to remove a country by specifying a country ID.</li>
+     *       </ul>
+     *   </li>
+     *   <li>{@code editneighbor}:
+     *       <ul>
+     *         <li>{@code -add} flag is used to add a neighbor country by specifying a country ID and a neighbor country ID.</li>
+     *         <li>{@code -remove} flag is used to remove a neighbor country by specifying a country ID and a neighbor country ID.</li>
+     *       </ul>
+     *   </li>
+     *   <li>{@code showmap}: Displays the currently loaded map.</li>
+     *   <li>{@code savemap}: Saves the map to a file.</li>
+     *   <li>{@code editmap}: Loads a map from a file.</li>
+     *   <li>{@code validatemap}: Validates the currently loaded map.</li>
+     *   <li>{@code return}: Exits the Map Editor menu and returns to the main menu.</li>
+     * </ul>
+     * </p>
+     */
     public void run_map_editor() {
         String l_command;
 
@@ -126,6 +167,27 @@ public class InputOutput {
         } while(!l_command.equals("return"));
     }
 
+    /**
+     * Prompts user to enter a command, perform command validation, and returns Command object where the user command has been parsed.
+     * <p>
+     * The method accepts the following user commands:
+     * </p>
+     * <ul>
+     *   <li>{@code editcontinent}</li>
+     *   <li>{@code editcountry}</li>
+     *   <li>{@code editneighbor}</li>
+     *   <li>{@code showmap}</li>
+     *   <li>{@code savemap}</li>
+     *   <li>{@code editmap}</li>
+     *   <li>{@code validatemap}</li>
+     *   <li>{@code loadmap}</li>
+     *   <li>{@code gameplayer}</li>
+     *   <li>{@code assigncountries}</li>
+     *   <li>{@code deploy}</li>
+     * </ul>
+     *
+     * @return A new {@link Command} object where the user command has been parsed, otherwise {@code null} if the provided user command does not match any commands
+     */
     public static Command get_user_command() {
         Scanner l_scanner = new Scanner(System.in);
 
@@ -183,6 +245,12 @@ public class InputOutput {
         return null;
     }
 
+    /**
+     * Validates whether the given 'editcontinent' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_editcontinent_command_valid(String p_command) {
         // Check if command starts with 'editcontinent '
         if (!p_command.startsWith("editcontinent ")) {
@@ -250,6 +318,12 @@ public class InputOutput {
         return true;
     }
 
+    /**
+     * Validates whether the given 'editcountry' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_editcountry_command_valid(String p_command) {
         // Check if command starts with 'editcountry '
         if (!p_command.startsWith("editcountry ")) {
@@ -311,6 +385,12 @@ public class InputOutput {
         return true;
     }
 
+    /**
+     * Validates whether the given 'editneighbor' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_editneighbor_command_valid(String p_command) {
         // Check if command starts with 'editneighbor '
         if (!p_command.startsWith("editneighbor ")) {
@@ -372,11 +452,23 @@ public class InputOutput {
         return true;
     }
 
+    /**
+     * Validates whether the given 'showmap' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_showmap_command_valid(String p_command) {
         // Check if command equals to 'showmap'
         return p_command.trim().equals("showmap");
     }
 
+    /**
+     * Validates whether the given 'savemap' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_savemap_command_valid(String p_command) {
         // Check if command starts with 'savemap '
         if (!p_command.startsWith("savemap ")) {
@@ -395,6 +487,12 @@ public class InputOutput {
         return true;
     }
 
+    /**
+     * Validates whether the given 'editmap' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_editmap_command_valid(String p_command) {
         // Check if command starts with 'editmap '
         if (!p_command.startsWith("editmap ")) {
@@ -413,11 +511,23 @@ public class InputOutput {
         return true;
     }
 
+    /**
+     * Validates whether the given 'validatemap' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_validatemap_command_valid(String p_command) {
         // Check if command equals to 'showmap'
         return p_command.trim().equals("validatemap");
     }
 
+    /**
+     * Validates whether the given 'loadmap' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_loadmap_command_valid(String p_command) {
         // Check if command starts with 'loadmap '
         if (!p_command.startsWith("loadmap ")) {
@@ -436,6 +546,12 @@ public class InputOutput {
         return true;
     }
 
+    /**
+     * Validates whether the given 'gameplayer' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_gameplayer_command_valid(String p_command) {
         // Check if command starts with 'gameplayer '
         if (!p_command.startsWith("gameplayer ")) {
@@ -485,11 +601,23 @@ public class InputOutput {
         return true;
     }
 
+    /**
+     * Validates whether the given 'assigncountries' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_assigncountries_command_valid(String p_command) {
         // Check if command equals to 'assigncountries'
         return p_command.trim().equals("assigncountries");
     }
 
+    /**
+     * Validates whether the given 'deploy' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
     public static boolean is_deploy_command_valid(String p_command) {
         // Check if command starts with 'deploy '
         if (!p_command.startsWith("deploy ")) {
