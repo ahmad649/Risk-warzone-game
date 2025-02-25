@@ -32,17 +32,17 @@ public class GameLoop {
             while (command == null){
                 command = InputOutput.get_user_command();
             }
-            if (command.commandType.equals("gameplayer")){
-                if (command.argsLabled.containsKey("-add")) {
-                    String playerName = command.argsLabled.get("-add");
+            if (command.d_commandType.equals("gameplayer")){
+                if (command.d_argsLabeled.containsKey("-add")) {
+                    String playerName = command.d_argsLabeled.get("-add").getFirst();
                     d_playersList.add(new Player(playerName));
                     System.out.println("Player added: " + playerName);
-                } else if (command.argsLabled.containsKey("-remove")) {
-                    String playerName = command.argsLabled.get("-remove");
+                } else if (command.d_argsLabeled.containsKey("-remove")) {
+                    String playerName = command.d_argsLabeled.get("-remove").getFirst();
                     d_playersList.removeIf(p -> p.getName().equals(playerName));
                     System.out.println("Player removed: " + playerName);
                 }
-            } else if (command.commandType.equals("assigncountries")) {
+            } else if (command.d_commandType.equals("assigncountries")) {
                 assignCountries();
                 looper();
                 break;

@@ -52,9 +52,9 @@ public class Player {
         if (command == null) { System.out.println("Invalid order. Please try again.");
             return;
         }
-        if (command.commandType.equals("deploy")) {
-            int num = Integer.parseInt(command.argArr.get(1));
-            String countryName = command.argArr.get(0);
+        if (command.d_commandType.equals("deploy")) {
+            int num = Integer.parseInt(command.d_argArr.get(1));
+            String countryName = command.d_argArr.get(0);
             if (num <= d_numReinforcement) {
                 Order newOrder = new Order("deploy", countryName , num, this);
                 d_playerOrders.add(newOrder);
