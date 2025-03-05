@@ -2,6 +2,12 @@ package gameplay;
 
 import java.util.*;
 
+/**
+ * Command class in charge of managing the different commands composing the game that the user prompts to the program
+ * Integer numArgs as the number of arguments contained in a command
+ * String commandType as an identifier for the nature of the command
+ * HashMap argsLabled as a data structure to keep track of the command types and their iterations through the program
+ */
 public class Command{
     Integer numArgs;
     String commandType;
@@ -9,6 +15,11 @@ public class Command{
     HashMap<String,String> argsLabled;
     ArrayList<String> argArr;
 
+    /**
+     * Command constructor
+     * @param input String designated for the input made by the user
+     */
+    //Constructor
     public Command(String input){
         String[] parts = input.split(" ");
         commandType = parts[0];
@@ -25,6 +36,12 @@ public class Command{
         numArgs = argArr.size();
     }
 
+    /**
+     * HashMap return type parse_editcontinent_command
+     * @param p_command String designated for the command generated after being prompted by the user and verified in InputOuput class
+     * @return A HashMap with String keys and List<String> values containing assignations for commands (add or remove continents) for identifying
+     * Makes the continent control smoother
+     */
     public static HashMap<String, List<String>> parse_editcontinent_command(String p_command){
         // Split command into an array of strings
         String[] l_parts = p_command.split(" ");
@@ -46,6 +63,12 @@ public class Command{
         return l_arguments;
     }
 
+    /**
+     * HashMap return type parse_editcountry_command
+     * @param p_command String designated for the command generated after being prompted by the user and verified in InputOuput class
+     * @return A HashMap with String keys and List<String> values containing assignations for commands (add or remove countries) for identifying
+     * Makes the country control smoother
+     */
     public static HashMap<String, List<String>> parse_editcountry_command(String p_command){
         // Split command into an array of strings
         String[] l_parts = p_command.split(" ");
@@ -67,6 +90,12 @@ public class Command{
         return l_arguments;
     }
 
+    /**
+     * HashMap return type parse_editneighbor_command
+     * @param p_command String designated for the command generated after being prompted by the user and verified in InputOuput class
+     * @return A HashMap with String keys and List<String> values containing assignations for commands (add or remove adjacent countries) for identifying
+     * Makes the adjacent country control smoother
+     */
     public static HashMap<String, List<String>> parse_editneighbor_command(String p_command){
         // Split command into an array of strings
         String[] l_parts = p_command.split(" ");
@@ -88,6 +117,11 @@ public class Command{
         return l_arguments;
     }
 
+    /**
+     * String type parse_savemap_command
+     * @param p_command String designated for the command generated after being prompted by the user and verified in InputOuput class
+     * @return String value for identifying the savemap command and its objective
+     */
     public static String parse_savemap_command(String p_command){
         // Split command into an array of strings
         String[] l_parts = p_command.split(" ");
@@ -96,6 +130,11 @@ public class Command{
         return l_parts[1];
     }
 
+    /**
+     * String type parse_editmap_command
+     * @param p_command String designated for the command generated after being prompted by the user and verified in InputOuput class
+     * @return String value for identifying the editmap command and its objective
+     */
     public static String parse_editmap_command(String p_command){
         // Split command into an array of strings
         String[] l_parts = p_command.split(" ");
@@ -104,6 +143,11 @@ public class Command{
         return l_parts[1];
     }
 
+    /**
+     * String type parse_loadmap_command
+     * @param p_command String designated for the command generated after being prompted by the user and verified in InputOuput class
+     * @return String value for identifying the loadmap command and its objective
+     */
     public static String parse_loadmap_command(String p_command){
         // Split command into an array of strings
         String[] l_parts = p_command.split(" ");
@@ -112,6 +156,12 @@ public class Command{
         return l_parts[1];
     }
 
+    /**
+     * HashMap return type parse_gameplayer_command
+     * @param p_command String designated for the command generated after being prompted by the user and verified in InputOuput class
+     * @return A HashMap with String keys and List<String> values containing assignations for commands (add or remove players) for identifying
+     * Makes the player control smoother
+     */
     public static HashMap<String, List<String>> parse_gameplayer_command(String p_command){
         // Split command into an array of strings
         String[] l_parts = p_command.split(" ");
@@ -142,6 +192,11 @@ public class Command{
         return l_arguments;
     }
 
+    /**
+     * HashMap return type parse_deploy_command
+     * @param p_command String designated for the command generated after being prompted by the user and verified in InputOuput class
+     * @return A HashMap with String keys and List<String> values containing the countries information to perform the game commands
+     */
     public static HashMap<String, String> parse_deploy_command(String p_command){
         // Split command into an array of strings
         String[] l_parts = p_command.split(" ");

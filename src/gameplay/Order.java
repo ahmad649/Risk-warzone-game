@@ -1,11 +1,25 @@
 package gameplay;
 
+/**
+ * Order class containing the orders information for its future identification inside the gameplay loop
+ * String d_countryName target country name to assign the order
+ * int d_numArmy number of reinforcements involved in the order
+ * String d_orderType type of the order being issued and executed
+ * Player d_player player owner of the order
+ */
 public class Order {
     private String d_countryName;
     private int d_numArmy;
     public String d_orderType;
     private Player d_player;
 
+    /**
+     * Order constructor
+     * @param p_orderType String type of the order being issued and executed
+     * @param p_countryName String target country name to assign the order
+     * @param p_numArmy Integer number of reinforcements involved in the order
+     * @param p_player Player object owner of the order
+     */
     public Order(String p_orderType, String p_countryName, int p_numArmy, Player p_player) {
         this.d_orderType = p_orderType;
         this.d_countryName = p_countryName;
@@ -31,6 +45,11 @@ public class Order {
         }
     }
 
+    /**
+     * executeDeploy method
+     * Executes the deployment of orders issues by the players
+     * Makes basic verifications if the player is able to execute the order based on how many reinforcements wants to send vs how many reinforcements possesses
+     */
     private void executeDeploy() {
         System.out.println(d_player.getName() + " is deploying " + d_numArmy + " armies to country " + d_countryName);
 

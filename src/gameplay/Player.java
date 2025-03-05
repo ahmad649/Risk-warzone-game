@@ -4,6 +4,12 @@ import model.Country;
 
 import java.util.*;
 
+/**
+ * Player class containing the Player related methods and information
+ * Queue of Order nature designated for the orders issued by a player
+ * Integer d_numReinforcement designated for the number of reinforcements a player possesses
+ * List of Country nature ownedCountries designated for countries a player possesses
+ */
 public class Player {
 
     private Queue<Order> d_playerOrders;
@@ -12,6 +18,11 @@ public class Player {
 
     private String d_name;
 
+    /**
+     * Player generic constructor
+     * @param p_name
+     */
+    //Constructor
     public Player(String p_name) {
         d_name = p_name;
         ownedCountries = new ArrayList<>();
@@ -19,18 +30,35 @@ public class Player {
         d_numReinforcement = 0;
     }
 
+    /**
+     * getName() method
+     * @return String assigned for the players name
+     */
     public String getName() {
         return d_name;
     }
 
+    /**
+     * setReinforcements method
+     * @param p_reinforcements Integer for the number of reinforcements that need to be set
+     */
     public void setReinforcements(int p_reinforcements) {
         d_numReinforcement = p_reinforcements;
     }
 
+    /**
+     * getReinforcements method
+     * @return Integer assigned for the total number of reinforcements that the player has
+     */
     public int getReinforcements() {
         return d_numReinforcement;
     }
 
+    /**
+     * ownsCountry method
+     * @param countryName String containing the country's name being analyzed
+     * @return Boolean type validating if the country is owned by the player
+     */
     public boolean ownsCountry(String countryName) {
         for (Country c : ownedCountries) {
             if (c.getName().equals(countryName)) {
@@ -81,14 +109,27 @@ public class Player {
         return null;
     }
 
+    /**
+     * getOwnedCountries method
+     * @return List of Country nature containing the countries owned by the player
+     */
     public List<Country> getOwnedCountries() {
         return ownedCountries;
     }
 
+    /**
+     * removeReinforcement method
+     * @param dNumArmy Integer representing the number of reinforcements being subtracted from the player
+     */
     public void removeReinforcement(int dNumArmy) {
         d_numReinforcement -= dNumArmy;
     }
 
+    /**
+     * addArmiesToCountry method
+     * @param dCountryName String containing the target country's name
+     * @param dNumArmy Integer containing the amount of reinforcements that will be sent to the country
+     */
     public void addArmiesToCountry(String dCountryName, int dNumArmy) {
         for (Country c : ownedCountries) {
             if (c.getName().equals(dCountryName)) {

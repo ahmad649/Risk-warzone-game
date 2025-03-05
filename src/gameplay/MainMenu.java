@@ -2,6 +2,13 @@ package gameplay;
 
 import java.util.Scanner;
 
+/**
+ * MainMenu class containing the visual representation of the command input and mode selection.
+ * This is the first element the user sees once they run the program, giving the options of:
+ * 1. Map Editor: access the map menu and commands
+ * 2. Play Warzone Game: starts the game
+ * 3. Exit: exits the menu and finishes the program
+ */
 public class MainMenu {
     public void run_main_menu() {
         int l_input = 0;
@@ -23,15 +30,18 @@ public class MainMenu {
             if (l_scanner.hasNextInt()) {
                 l_input = l_scanner.nextInt();
 
-                // perform actions based on user input
+                // Perform actions based on user input
                 switch (l_input) {
+                    // Runs map editor mode
                     case 1:
                         InputOutput.run_map_editor();
                         break;
+                    // Starts the Warzone Game
                     case 2:
-                        GameLoop gameLoop = new GameLoop();
-                        gameLoop.startup();
+                        GameEngine gameEngine = new GameEngine();
+                        gameEngine.startup();
                         break;
+                    // Finishes the program, prompting the user an exit message
                     case 3:
                         System.out.println("\nSuccessfully exit the game.");
                         break;
