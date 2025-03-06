@@ -34,7 +34,8 @@ public class MainMenu {
                 switch (l_input) {
                     // Runs map editor mode
                     case 1:
-                        InputOutput.run_map_editor();
+                        InputOutput l_inputOutput = new InputOutput();
+                        l_inputOutput.run_map_editor();
                         break;
                     // Starts the Warzone Game
                     case 2:
