@@ -20,6 +20,24 @@ public class GameEngine {
     List<Country> d_countryList = new ArrayList<>();
 
     /**
+     * Gets players list.
+     *
+     * @return the players list
+     */
+    public List<Player> getPlayersList() {
+        return d_playersList;
+    }
+
+    /**
+     * Sets country list.
+     *
+     * @param countryList the country list
+     */
+    public void setCountryList(List<Country> countryList) {
+        this.d_countryList = countryList;
+    }
+
+    /**
      * startup() method in charge of initiating the game taking no parameters
      * Manages player creation and controls the first stage of the game managing the users input through the InputOutput class methods
      * If the command given by the user is valid, Command class methods are called to determine either if the command adds or removes players
@@ -66,7 +84,7 @@ public class GameEngine {
      * assignCountries() method with no parameters in charge of taking both players and countries list and assign the countries randomly
      */
     // Assigning countries created randomly to the players
-    private void assignCountries() {
+    public void assignCountries() {
         if (d_playersList.isEmpty() || d_countryList.isEmpty()) {
             System.out.println("Cannot assign countries. Ensure players and countries are available.");
             return;
@@ -100,29 +118,7 @@ public class GameEngine {
         }
 
         // Assigning reinforcements to each player
-        for(Player l_player : d_playersList){
-            int l_reinforcements = 5;
-
-            HashSet<Country> l_processedCountries = new HashSet<>();
-            for (Country l_country : l_player.d_ownedCountries) {
-                if (l_processedCountries.contains(l_country)) {continue;}
-                Continent l_checkingContinent = l_country.getContinent();
-                boolean l_givebonus = true;
-                for (Country otherCountry : l_checkingContinent.getCountries()) {
-                    l_processedCountries.add(otherCountry);
-                    if (otherCountry.getOwner()!=l_player) {
-                        l_givebonus = false;
-                        break;
-                    }
-                }
-                if (l_givebonus) {
-                    l_reinforcements+= l_checkingContinent.getBonus();
-                }
-            }
-
-            l_player.setReinforcements(l_reinforcements);
-            System.out.println(l_player.getName() + " receives " + l_reinforcements + " reinforcements.");
-        }
+        this.assignReinforcements();
 
         // Issuing Orders Phase
         boolean l_ordersRemaining = true;
@@ -151,4 +147,30 @@ public class GameEngine {
 
     }
 
+    public void assignReinforcements() {
+        // Assigning reinforcements to each player
+        for(Player l_player : d_playersList){
+            int l_reinforcements = 5;
+
+            HashSet<Country> l_processedCountries = new HashSet<>();
+            for (Country l_country : l_player.d_ownedCountries) {
+                if (l_processedCountries.contains(l_country)) {continue;}
+                Continent l_checkingContinent = l_country.getContinent();
+                boolean l_givebonus = true;
+                for (Country otherCountry : l_checkingContinent.getCountries()) {
+                    l_processedCountries.add(otherCountry);
+                    if (otherCountry.getOwner()!=l_player) {
+                        l_givebonus = false;
+                        break;
+                    }
+                }
+                if (l_givebonus) {
+                    l_reinforcements+= l_checkingContinent.getBonus();
+                }
+            }
+
+            l_player.setReinforcements(l_reinforcements);
+            System.out.println(l_player.getName() + " receives " + l_reinforcements + " reinforcements.");
+        }
+    }
 }
