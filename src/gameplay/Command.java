@@ -10,6 +10,7 @@ public class Command{
     String d_commandType;
     HashMap<String,List<String>> d_argsLabeled;
     ArrayList<String> d_argArr;
+    String d_fullCommand;
 
     /**
      * A constructor to initialize {@code Command} object which is used to parse user commands.
@@ -17,6 +18,7 @@ public class Command{
      * @param p_input The user command string that has been parsed, either in a form of {@code HashMap<String, List<String>>} or {@code ArrayList<String>}
      */
     public Command(String p_input) {
+        this.d_fullCommand = p_input;
         // Split the string
         String[] l_parts = p_input.split(" ");
 
@@ -66,5 +68,9 @@ public class Command{
      */
     public ArrayList<String> getArgArr() {
         return d_argArr;
+    }
+
+    public String getFullCommand() {
+        return d_fullCommand;
     }
 }
