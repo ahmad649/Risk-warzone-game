@@ -133,6 +133,7 @@ public class MapReader {
      */
     public void showMap() {
         // Display continents
+        System.out.println("--------------------Map---------------------------");
         System.out.println("Continents:");
         for (Continent continent : continents.values()) {
             System.out.println("--------------------------------------------------");

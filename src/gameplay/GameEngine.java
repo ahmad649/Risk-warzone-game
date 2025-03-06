@@ -1,9 +1,11 @@
 package gameplay;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import maps.MapReader;
 import model.Continent;
 import model.Country;
 
@@ -26,21 +28,7 @@ public class GameEngine {
      */
     // Game starter
     public void startup(){
-        /*
-        TODO:
-         Take input from player
-         2 types:
-         "gameplayer" - adds player (has argsLabled refer the grading sheet)
-         "assigncountries" - adds countries randomly to all players and ends startup
-          Use InputOutput class to take the input and continue further
-         */
         System.out.println("Game setup started. Add players using 'gameplayer -add <playername>'.");
-        //TESTT
-        d_countryList.add(new Country(2, "herm",new Continent(1,"herm",1)));
-        d_countryList.add(new Country(3, "term",new Continent(2,"term",1)));
-        //TESTT
-        // Taking the input from the user, validating its content calling InputOuput class
-        // Determining if the command given, if valid, creates or remove players
         while (true) {
             Command command = null;
             while (command == null){
@@ -56,6 +44,15 @@ public class GameEngine {
                     d_playersList.removeIf(p -> p.getName().equals(playerName));
                     System.out.println("Player removed: " + playerName);
                 }
+            } else if (command.d_commandType.equals("loadmap")) {
+                MapReader mapReader = new MapReader();
+                mapReader.loadMap(command.d_argArr.getFirst());
+                d_countryList = mapReader.getCountriesMap().values().stream().toList();
+                if (d_countryList.isEmpty()){
+                    System.out.println("Empty map loaded. Please try again.");
+                    continue;
+                }
+                mapReader.showMap();
             } else if (command.d_commandType.equals("assigncountries")) {
                 assignCountries();
                 looper();
@@ -76,12 +73,10 @@ public class GameEngine {
             return;
         }
 
-        Random random = new Random();
         int playerIndex = 0;
 
         for (Country country : d_countryList) {
             Player assignedPlayer = d_playersList.get(playerIndex);
-            // TODO: Counry pending
             assignedPlayer.ownedCountries.add(country);
             country.setOwner(assignedPlayer);
             playerIndex = (playerIndex + 1) % d_playersList.size();
@@ -108,8 +103,25 @@ public class GameEngine {
 
         // Assigning reinforcements to each player
         for(Player player : d_playersList){
-            //TODO: Calculate and assign each player their appropriate reinforcements according to the rules
             int reinforcements = 5;
+
+            HashSet<Country> processedCountries = new HashSet<>();
+            for (Country country : player.ownedCountries) {
+                if (processedCountries.contains(country)) {continue;}
+                Continent checkingContinent = country.getContinent();
+                boolean givebonus = true;
+                for (Country otherCountry : checkingContinent.getCountries()) {
+                    processedCountries.add(otherCountry);
+                    if (otherCountry.getOwner()!=player) {
+                        givebonus = false;
+                        break;
+                    }
+                }
+                if (givebonus) {
+                    reinforcements+= checkingContinent.getBonus();
+                }
+            }
+
             player.setReinforcements(reinforcements);
             System.out.println(player.getName() + " receives " + reinforcements + " reinforcements.");
         }
