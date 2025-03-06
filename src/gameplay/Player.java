@@ -14,7 +14,7 @@ public class Player {
 
     private Queue<Order> d_playerOrders;
     private int d_numReinforcement;
-    public List<Country> ownedCountries;
+    public List<Country> d_ownedCountries;
 
     private String d_name;
 
@@ -25,7 +25,7 @@ public class Player {
     //Constructor
     public Player(String p_name) {
         d_name = p_name;
-        ownedCountries = new ArrayList<>();
+        d_ownedCountries = new ArrayList<>();
         d_playerOrders = new LinkedList<>();
         d_numReinforcement = 0;
     }
@@ -56,12 +56,12 @@ public class Player {
 
     /**
      * ownsCountry method
-     * @param countryName String containing the country's name being analyzed
+     * @param p_countryName String containing the country's name being analyzed
      * @return Boolean type validating if the country is owned by the player
      */
-    public boolean ownsCountry(String countryName) {
-        for (Country c : ownedCountries) {
-            if (c.getName().equals(countryName)) {
+    public boolean ownsCountry(String p_countryName) {
+        for (Country l_country : d_ownedCountries) {
+            if (l_country.getName().equals(p_countryName)) {
                 return true;
             }
         }
@@ -74,18 +74,18 @@ public class Player {
      */
     public void issue_order() {
         System.out.println(d_name + ", enter your order (deploy <countryID> <num>):");
-        Command command = InputOutput.get_user_command();
-        if (command == null) { System.out.println("Invalid order. Please try again.");
+        Command l_command = InputOutput.get_user_command();
+        if (l_command == null) { System.out.println("Invalid order. Please try again.");
             return;
         }
-        if (command.d_commandType.equals("deploy")) {
-            int num = Integer.parseInt(command.d_argArr.get(1));
-            String countryName = command.d_argArr.get(0);
-            if (num <= d_numReinforcement && ownsCountry(countryName)) {
-                Order newOrder = new Order("deploy", countryName , num, this);
-                d_playerOrders.add(newOrder);
-                d_numReinforcement -= num;
-                System.out.println("Order added: Deploy " + num + " armies to country " + countryName);
+        if (l_command.d_commandType.equals("deploy")) {
+            int l_num = Integer.parseInt(l_command.d_argArr.get(1));
+            String l_countryName = l_command.d_argArr.get(0);
+            if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
+                Order l_newOrder = new Order("deploy", l_countryName , l_num, this);
+                d_playerOrders.add(l_newOrder);
+                d_numReinforcement -= l_num;
+                System.out.println("Order added: Deploy " + l_num + " armies to country " + l_countryName);
             } else {
                 System.out.println("Not enough reinforcements available or you don't own this country.");
             }
@@ -111,26 +111,26 @@ public class Player {
      * @return List of Country nature containing the countries owned by the player
      */
     public List<Country> getOwnedCountries() {
-        return ownedCountries;
+        return d_ownedCountries;
     }
 
     /**
      * removeReinforcement method
-     * @param dNumArmy Integer representing the number of reinforcements being subtracted from the player
+     * @param p_numArmy Integer representing the number of reinforcements being subtracted from the player
      */
-    public void removeReinforcement(int dNumArmy) {
-        d_numReinforcement -= dNumArmy;
+    public void removeReinforcement(int p_numArmy) {
+        d_numReinforcement -= p_numArmy;
     }
 
     /**
      * addArmiesToCountry method
-     * @param dCountryName String containing the target country's name
-     * @param dNumArmy Integer containing the amount of reinforcements that will be sent to the country
+     * @param p_countryName String containing the target country's name
+     * @param p_num Integer containing the amount of reinforcements that will be sent to the country
      */
-    public void addArmiesToCountry(String dCountryName, int dNumArmy) {
-        for (Country c : ownedCountries) {
-            if (c.getName().equals(dCountryName)) {
-                c.addReinforcements(dNumArmy);
+    public void addArmiesToCountry(String p_countryName, int p_num) {
+        for (Country l_country : d_ownedCountries) {
+            if (l_country.getName().equals(p_countryName)) {
+                l_country.addReinforcements(p_num);
                 return;
             }
         }

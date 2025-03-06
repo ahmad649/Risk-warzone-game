@@ -3,7 +3,6 @@ package gameplay;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 import maps.MapReader;
 import model.Continent;
@@ -30,30 +29,30 @@ public class GameEngine {
     public void startup(){
         System.out.println("Game setup started. Add players using 'gameplayer -add <playername>'.");
         while (true) {
-            Command command = null;
-            while (command == null){
-                command = InputOutput.get_user_command();
+            Command l_command = null;
+            while (l_command == null){
+                l_command = InputOutput.get_user_command();
             }
-            if (command.d_commandType.equals("gameplayer")){
-                if (command.d_argsLabeled.containsKey("-add")) {
-                    String playerName = command.d_argsLabeled.get("-add").getFirst();
-                    d_playersList.add(new Player(playerName));
-                    System.out.println("Player added: " + playerName);
-                } else if (command.d_argsLabeled.containsKey("-remove")) {
-                    String playerName = command.d_argsLabeled.get("-remove").getFirst();
-                    d_playersList.removeIf(p -> p.getName().equals(playerName));
-                    System.out.println("Player removed: " + playerName);
+            if (l_command.d_commandType.equals("gameplayer")){
+                if (l_command.d_argsLabeled.containsKey("-add")) {
+                    String l_playername = l_command.d_argsLabeled.get("-add").getFirst();
+                    d_playersList.add(new Player(l_playername));
+                    System.out.println("Player added: " + l_playername);
+                } else if (l_command.d_argsLabeled.containsKey("-remove")) {
+                    String l_playerName = l_command.d_argsLabeled.get("-remove").getFirst();
+                    d_playersList.removeIf(p -> p.getName().equals(l_playerName));
+                    System.out.println("Player removed: " + l_playerName);
                 }
-            } else if (command.d_commandType.equals("loadmap")) {
-                MapReader mapReader = new MapReader();
-                mapReader.loadMap(command.d_argArr.getFirst());
-                d_countryList = mapReader.getCountriesMap().values().stream().toList();
+            } else if (l_command.d_commandType.equals("loadmap")) {
+                MapReader l_mapreader = new MapReader();
+                l_mapreader.loadMap(l_command.d_argArr.getFirst());
+                d_countryList = l_mapreader.getCountriesMap().values().stream().toList();
                 if (d_countryList.isEmpty()){
                     System.out.println("Empty map loaded. Please try again.");
                     continue;
                 }
-                mapReader.showMap();
-            } else if (command.d_commandType.equals("assigncountries")) {
+                l_mapreader.showMap();
+            } else if (l_command.d_commandType.equals("assigncountries")) {
                 assignCountries();
                 looper();
                 break;
@@ -73,13 +72,12 @@ public class GameEngine {
             return;
         }
 
-        int playerIndex = 0;
-
-        for (Country country : d_countryList) {
-            Player assignedPlayer = d_playersList.get(playerIndex);
-            assignedPlayer.ownedCountries.add(country);
-            country.setOwner(assignedPlayer);
-            playerIndex = (playerIndex + 1) % d_playersList.size();
+        int l_index = 0;
+        for (Country l_country : d_countryList) {
+            Player l_player = d_playersList.get(l_index);
+            l_player.d_ownedCountries.add(l_country);
+            l_country.setOwner(l_player);
+            l_index = (l_index + 1) % d_playersList.size();
         }
 
         System.out.println("All countries have been assigned to players.");
@@ -102,50 +100,51 @@ public class GameEngine {
         }
 
         // Assigning reinforcements to each player
-        for(Player player : d_playersList){
-            int reinforcements = 5;
+        for(Player l_player : d_playersList){
+            int l_reinforcements = 5;
 
-            HashSet<Country> processedCountries = new HashSet<>();
-            for (Country country : player.ownedCountries) {
-                if (processedCountries.contains(country)) {continue;}
-                Continent checkingContinent = country.getContinent();
-                boolean givebonus = true;
-                for (Country otherCountry : checkingContinent.getCountries()) {
-                    processedCountries.add(otherCountry);
-                    if (otherCountry.getOwner()!=player) {
-                        givebonus = false;
+            HashSet<Country> l_processedCountries = new HashSet<>();
+            for (Country l_country : l_player.d_ownedCountries) {
+                if (l_processedCountries.contains(l_country)) {continue;}
+                Continent l_checkingContinent = l_country.getContinent();
+                boolean l_givebonus = true;
+                for (Country otherCountry : l_checkingContinent.getCountries()) {
+                    l_processedCountries.add(otherCountry);
+                    if (otherCountry.getOwner()!=l_player) {
+                        l_givebonus = false;
                         break;
                     }
                 }
-                if (givebonus) {
-                    reinforcements+= checkingContinent.getBonus();
+                if (l_givebonus) {
+                    l_reinforcements+= l_checkingContinent.getBonus();
                 }
             }
 
-            player.setReinforcements(reinforcements);
-            System.out.println(player.getName() + " receives " + reinforcements + " reinforcements.");
+            l_player.setReinforcements(l_reinforcements);
+            System.out.println(l_player.getName() + " receives " + l_reinforcements + " reinforcements.");
         }
 
         // Issuing Orders Phase
-        boolean ordersRemaining = true;
-        while (ordersRemaining) {
-            ordersRemaining = false;
-            for (Player player : d_playersList) {
-                if (player.getReinforcements() > 0) {                    player.issue_order();
-                    ordersRemaining = true;
+        boolean l_ordersRemaining = true;
+        while (l_ordersRemaining) {
+            l_ordersRemaining = false;
+            for (Player l_player : d_playersList) {
+                if (l_player.getReinforcements() > 0) {
+                    l_player.issue_order();
+                    l_ordersRemaining = true;
                 }
             }
         }
 
         // Order Execution Phase
-        boolean executingOrders = true;
-        while (executingOrders) {
-            executingOrders = false;
-            for (Player player : d_playersList) {
-                Order pendingOrder = player.next_order();
-                if (pendingOrder != null) {
-                    pendingOrder.execute();
-                    executingOrders = true;
+        boolean l_executingOrders = true;
+        while (l_executingOrders) {
+            l_executingOrders = false;
+            for (Player l_player : d_playersList) {
+                Order l_pendingOrder = l_player.next_order();
+                if (l_pendingOrder != null) {
+                    l_pendingOrder.execute();
+                    l_executingOrders = true;
                 }
             }
         }

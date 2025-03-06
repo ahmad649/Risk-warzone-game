@@ -9,83 +9,83 @@ import model.Country;
  * MapWriter handles saving the map to a file using model classes.
  */
 public class MapWriter {
-    private MapReader mapReader;
+    private MapReader d_mapReader;
 
     /**
      * Constructor to associate with MapReader.
-     * @param mapReader The MapReader instance to retrieve the loaded map data.
+     * @param p_mapReader The MapReader instance to retrieve the loaded map data.
      */
-    public MapWriter(MapReader mapReader) {
-        this.mapReader = mapReader;
+    public MapWriter(MapReader p_mapReader) {
+        this.d_mapReader = p_mapReader;
     }
 
     /**
      * Saves the currently loaded map to a file.
-     * @param filename Name of the file to save.
+     * @param p_filename Name of the file to save.
      * @return true if saving is successful, false otherwise.
      */
-    public boolean saveMap(String filename) {
+    public boolean saveMap(String p_filename) {
         // Retrieve the currently loaded map data
-        Map<String, Continent> continents = mapReader.getContinentsMap();
-        Map<String, Country> countries = mapReader.getCountriesMap();
+        Map<String, Continent> l_continents = d_mapReader.getContinentsMap();
+        Map<String, Country> l_countries = d_mapReader.getCountriesMap();
     
-        if (continents.isEmpty() || countries.isEmpty()) {
+        if (l_continents.isEmpty() || l_countries.isEmpty()) {
             System.err.println("Error: No map data loaded. Cannot save.");
             return false;
         }
     
         // Construct the file path
-        String mapFilePath = "resources/maps/" + filename + ".txt";
-        File mapFile = new File(mapFilePath);
+        String l_mapFilePath = "resources/maps/" + p_filename + ".txt";
+        File l_mapFile = new File(l_mapFilePath);
     
         // Check if the file already exists
-        if (mapFile.exists()) {
-            System.out.println("Error: A map with the name '" + filename + "' already exists. Please provide a unique name.");
+        if (l_mapFile.exists()) {
+            System.out.println("Error: A map with the name '" + p_filename + "' already exists. Please provide a unique name.");
             return false;
         }
     
         // Attempt to create the directory if it does not exist
-        if (mapFile.getParentFile() != null) {
-            mapFile.getParentFile().mkdirs();
+        if (l_mapFile.getParentFile() != null) {
+            l_mapFile.getParentFile().mkdirs();
         }
     
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(mapFile))) {
+        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(l_mapFile))) {
             // Write map header
-            writer.write("[Map]\n");
-            writer.write("author=Custom World\n");
-            writer.write("image=custom_world.bmp\n");
-            writer.write("wrap=no\n");
-            writer.write("scroll=horizontal\n");
-            writer.write("warn=yes\n\n");
+            l_writer.write("[Map]\n");
+            l_writer.write("author=Custom World\n");
+            l_writer.write("image=custom_world.bmp\n");
+            l_writer.write("wrap=no\n");
+            l_writer.write("scroll=horizontal\n");
+            l_writer.write("warn=yes\n\n");
     
             // Write continents section
-            writer.write("[Continents]\n");
+            l_writer.write("[Continents]\n");
     
             // Iterate over all continents in the order they are present in the mapReader
-            for (Continent continent : continents.values()) {
-                writer.write(continent.getName() + "=" + continent.getBonus() + "\n");
+            for (Continent l_continent : l_continents.values()) {
+                l_writer.write(l_continent.getName() + "=" + l_continent.getBonus() + "\n");
             }
-            writer.write("\n");
+            l_writer.write("\n");
     
             // Write territories section
-            writer.write("[Territories]\n");
+            l_writer.write("[Territories]\n");
     
             // Iterate through countries and write their territory data
-            for (Country country : countries.values()) {
-                String continentName = country.getContinent().getName();
-                List<String> neighborNames = new ArrayList<>();
-                for (Country neighbor : country.getNeighbors()) {
-                    neighborNames.add(neighbor.getName());
+            for (Country l_country : l_countries.values()) {
+                String continentName = l_country.getContinent().getName();
+                List<String> l_neighborNames = new ArrayList<>();
+                for (Country l_neighbor : l_country.getNeighbors()) {
+                    l_neighborNames.add(l_neighbor.getName());
                 }
     
                 // Write the country data with coordinates and neighbors
-                int x = 0; 
-                int y = 0; 
+                int l_x = 0;
+                int l_y = 0;
     
-                writer.write(String.format("%s,%d,%d,%s,%s\n", country.getName(), x, y, continentName, String.join(",", neighborNames)));
+                l_writer.write(String.format("%s,%d,%d,%s,%s\n", l_country.getName(), l_x, l_y, continentName, String.join(",", l_neighborNames)));
             }
     
-            System.out.println("Map saved successfully to " + mapFilePath);
+            System.out.println("Map saved successfully to " + l_mapFilePath);
             return true;
         } catch (IOException e) {
             System.err.println("Error saving map: " + e.getMessage());
