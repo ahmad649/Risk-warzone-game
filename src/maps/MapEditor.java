@@ -50,7 +50,12 @@ public class MapEditor {
             Iterator<Map.Entry<String, Country>> iterator = mapReader.getCountriesMap().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry<String, Country> entry = iterator.next();
-                if (entry.getValue().getContinent().getName().equals(name)) {
+                Country country = entry.getValue();
+                
+                // Check if the continent is null and print the country name
+                if (country.getContinent() == null) {
+                    System.out.println("Country " + country.getName() + " has no continent assigned.");
+                } else if (country.getContinent().getName().equals(name)) {
                     iterator.remove();
                 }
             }
