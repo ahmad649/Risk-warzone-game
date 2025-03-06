@@ -12,12 +12,12 @@ Sothoryos=3
 Ulthos=2
 
 [Territories]
-Winterfell,120,160,Westeros,The Wall,Moat Cailin,The Dreadfort
+Winterfell,120,160,Westeros,The Wall,Moat Cailin
 The Wall,120,100,Westeros,Winterfell,Castle Black,Eastwatch
 Castle Black,130,90,Westeros,The Wall,Eastwatch
 Eastwatch,150,85,Westeros,Castle Black,The Wall
 Moat Cailin,140,180,Westeros,Winterfell,The Twins
-The Twins,160,200,Westeros,Moat Cailin,Riverrun,Eyrie
+The Twins,160,200,Westeros,Moat Cailin,Riverrun
 Riverrun,180,220,Westeros,The Twins,Harrenhal,The Trident
 The Trident,200,240,Westeros,Riverrun,Harrenhal,King's Landing
 Harrenhal,220,250,Westeros,Riverrun,The Trident,King's Landing
@@ -30,7 +30,7 @@ Dorne,320,350,Westeros,Highgarden,Oldtown,The Arbor,The Stepstones
 The Arbor,310,360,Westeros,Oldtown,Dorne
 The Stepstones,330,370,Westeros,Dorne,Volantis,Pentos
 
-Braavos,400,100,Essos,The Vale,White Harbor,The Stepstones
+Braavos,400,100,Essos,The Stepstones
 Pentos,420,130,Essos,Braavos,The Stepstones,Volantis
 Volantis,440,170,Essos,Pentos,Lys,Meereen
 Lys,460,200,Essos,Volantis,Meereen,Astapor
@@ -44,7 +44,7 @@ Asshai,600,350,Essos,Vaes Dothrak,Qarth,Shadow Lands
 Shadow Lands,620,370,Essos,Asshai,The Jade Sea
 The Jade Sea,640,390,Essos,Shadow Lands,Ulthos
 
-Isle of Tears,700,450,Sothoryos,Black Cliffs,Naath
+Isle of Tears,700,450,Sothoryos,Black Cliffs
 Black Cliffs,720,470,Sothoryos,Isle of Tears,Zamettar
 Zamettar,740,490,Sothoryos,Black Cliffs,Yeen
 Yeen,760,510,Sothoryos,Zamettar,The Green Hell
