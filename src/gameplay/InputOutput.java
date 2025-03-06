@@ -494,7 +494,7 @@ public class InputOutput {
      * @return {@code true} if the command is valid, otherwise {@code false}
      */
     public static boolean is_editmap_command_valid(String p_command) {
-        // Check if command starts with 'editmap '
+        // Check if command starts with 'editmap'
         if (!p_command.startsWith("editmap ")) {
             return false;
         }
@@ -518,7 +518,7 @@ public class InputOutput {
      * @return {@code true} if the command is valid, otherwise {@code false}
      */
     public static boolean is_validatemap_command_valid(String p_command) {
-        // Check if command equals to 'showmap'
+        // Check if command equals to 'validatemap'
         return p_command.trim().equals("validatemap");
     }
 

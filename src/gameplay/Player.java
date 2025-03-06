@@ -73,8 +73,6 @@ public class Player {
      * Decreases the appropriate number of reinforcements from the numReinforcement
      */
     public void issue_order() {
-        // TODO: Use InputOutput class to take the input and continue further
-        // TODO: Validcation of countries here cause the user may try to deploy to countries here and not go trhough later which will lead to unused armies
         System.out.println(d_name + ", enter your order (deploy <countryID> <num>):");
         Command command = InputOutput.get_user_command();
         if (command == null) { System.out.println("Invalid order. Please try again.");
@@ -83,13 +81,13 @@ public class Player {
         if (command.d_commandType.equals("deploy")) {
             int num = Integer.parseInt(command.d_argArr.get(1));
             String countryName = command.d_argArr.get(0);
-            if (num <= d_numReinforcement) {
+            if (num <= d_numReinforcement && ownsCountry(countryName)) {
                 Order newOrder = new Order("deploy", countryName , num, this);
                 d_playerOrders.add(newOrder);
                 d_numReinforcement -= num;
                 System.out.println("Order added: Deploy " + num + " armies to country " + countryName);
             } else {
-                System.out.println("Not enough reinforcements available.");
+                System.out.println("Not enough reinforcements available or you don't own this country.");
             }
         } else {
             System.out.println("Invalid order. Please try again.");
@@ -102,7 +100,6 @@ public class Player {
      * @return The order at the front of the queue
      */
     public Order next_order() {
-        // TODO: Implement this method
         if (!d_playerOrders.isEmpty()) {
             return d_playerOrders.poll();
         }

@@ -31,7 +31,6 @@ public class Order {
      * Deploy armies at d_countryName
      */
     public void execute(){
-        // TODO: Implement this method
         switch (d_orderType.toLowerCase()) {
             case "deploy":
                 executeDeploy();
