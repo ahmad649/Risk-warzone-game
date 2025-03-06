@@ -97,6 +97,9 @@ public class MapReader {
                             country = new Country(countryIdCounter++, countryName, continent);
                             countries.put(countryName, country);
                             continent.addCountry(country); // Add the country to its continent's country list
+                        }else{
+                            country.setContinent(continent);
+                            continent.addCountry(country);
                         }
     
                         // Process neighbors
@@ -106,9 +109,8 @@ public class MapReader {
     
                             if (neighbor == null) {
                                 // Create new neighbor country if it doesn't exist
-                                neighbor = new Country(countryIdCounter++, neighborName, continent);
+                                neighbor = new Country(countryIdCounter++, neighborName, null);
                                 countries.put(neighborName, neighbor);
-                                continent.addCountry(neighbor); // Add to the continent
                             }
     
                             // Add to each other's neighbors list (no duplicates)

@@ -27,7 +27,8 @@ public class Country {
     public Player getOwner() { return owner; }
     public int getArmies() { return armies; }
     public List<Country> getNeighbors() { return neighbors; }
-    
+
+    public void setContinent(Continent continent) {this.continent = continent;}
     public void setOwner(Player owner) { this.owner = owner; }
     public void setArmies(int armies) { this.armies = armies; }
     public void addNeighbor(Country neighbor) {     if (!this.neighbors.contains(neighbor)) {  // Ensure no duplicate neighbors
