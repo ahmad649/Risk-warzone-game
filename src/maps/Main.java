@@ -16,7 +16,7 @@ public class Main {
         MapEditor mapEditor = new MapEditor(mapReader);
 
         // Provide the correct file path to a domination map file
-        String mapFile = "Game of Thrones Map"; // Assuming this is the file with the map content.
+        String mapFile = "Game_of_Thrones_Map"; // Assuming this is the file with the map content.
 
         // Load the map from file
         if (mapReader.loadMap(mapFile)) {

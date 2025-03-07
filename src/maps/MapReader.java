@@ -120,6 +120,7 @@ public class MapReader {
                     }
                 }
             }
+            boolean l_b = validateMap();
             return true;
         } catch (IOException e) {
             System.err.println("Error loading map: " + e.getMessage());
@@ -216,5 +217,43 @@ public class MapReader {
     // Setter for countryIdCounter
     public void setCountryIdCounter(int p_countryIdCounter) {
         this.d_countryIdCounter = p_countryIdCounter;
+    }
+
+    /**
+     * Checks if the map is a connected graph.
+     * @return true if the map is fully connected, false otherwise.
+     */
+    public boolean isMapConnected() {
+        if (d_countries.isEmpty()) {
+            return false; // No countries, so not connected
+        }
+
+        Set<String> visited = new HashSet<>();
+        String startCountry = d_countries.keySet().iterator().next(); // Pick any country to start traversal
+
+        // Use DFS to traverse
+        dfs(startCountry, visited);
+            System.out.println(" the number of visited countries are"+visited.size());
+            System.out.println(" the countries size are"+d_countries.size());
+        // If all countries were visited, the graph is connected
+        return visited.size() == d_countries.size();
+    }
+
+    /**
+     * Depth-First Search (DFS) helper method.
+     * @param countryName The starting country name.
+     * @param visited The set of visited countries.
+     */
+    private void dfs(String countryName, Set<String> visited) {
+        if (visited.contains(countryName)) return; // Already visited
+
+        visited.add(countryName); // Mark as visited
+
+        Country country = d_countries.get(countryName);
+        if (country != null) {
+            for (Country neighbor : country.getNeighbors()) {
+                dfs(neighbor.getName(), visited);
+            }
+        }
     }
 }
