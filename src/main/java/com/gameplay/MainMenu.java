@@ -10,6 +10,9 @@ import java.util.Scanner;
  * 3. Exit: exits the menu and finishes the program
  */
 public class MainMenu {
+    /**
+     * Run main menu.
+     */
     public void run_main_menu() {
         int l_input = 0;
 

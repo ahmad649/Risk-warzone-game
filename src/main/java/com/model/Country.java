@@ -4,7 +4,10 @@ import com.gameplay.Player;
 
 import java.util.*;
 
-// Represents a Country in the game
+/**
+ * Represents a Country in the game.
+ */
+//
 public class Country {
     private int d_id;
     private String d_name;
@@ -13,6 +16,13 @@ public class Country {
     private int d_armies;
     private List<Country> d_neighbors;
 
+    /**
+     * Instantiates a new Country.
+     *
+     * @param p_countryIdCounter the p country id counter
+     * @param p_name             the p name
+     * @param p_continent        the p continent
+     */
     public Country(int p_countryIdCounter, String p_name, Continent p_continent) {
         this.d_id = p_countryIdCounter;
         this.d_name = p_name;
@@ -21,52 +31,112 @@ public class Country {
         this.d_neighbors = new ArrayList<>();
     }
 
+    /**
+     * Get country ID.
+     *
+     * @return the id
+     */
     public int getId() {
         return d_id;
     }
 
+    /**
+     * Get country name.
+     *
+     * @return the name
+     */
     public String getName() {
         return d_name;
     }
 
+    /**
+     * Get continent that owns this country.
+     *
+     * @return the continent
+     */
     public Continent getContinent() {
         return d_continent;
     }
 
+    /**
+     * Get owner of this country.
+     *
+     * @return the owner
+     */
     public Player getOwner() {
         return d_owner;
     }
 
+    /**
+     * Get armies in this country.
+     *
+     * @return the armies
+     */
     public int getArmies() {
         return d_armies;
     }
 
+    /**
+     * Get a list of neighboring countries.
+     *
+     * @return the neighboring countries
+     */
     public List<Country> getNeighbors() {
         return d_neighbors;
     }
 
+    /**
+     * Set continent that owns this country.
+     *
+     * @param p_continent the continent
+     */
     public void setContinent(Continent p_continent) {
         this.d_continent = p_continent;
     }
 
+    /**
+     * Set owner of this country.
+     *
+     * @param p_owner the owner
+     */
     public void setOwner(Player p_owner) {
         this.d_owner = p_owner;
     }
 
+    /**
+     * Set armies in this country.
+     *
+     * @param p_armies the armies
+     */
     public void setArmies(int p_armies) {
         this.d_armies = p_armies;
     }
 
+    /**
+     * Add neighboring country.
+     *
+     * @param p_neighbor the neighbor
+     */
     public void addNeighbor(Country p_neighbor) {
         if (!this.d_neighbors.contains(p_neighbor)) {  // Ensure no duplicate neighbors
             this.d_neighbors.add(p_neighbor);
         }
     }
 
+    /**
+     * Remove neighboring country.
+     *
+     * @param p_neighbor the neighbor
+     */
     public void removeNeighbor(Country p_neighbor) {
         d_neighbors.remove(p_neighbor);
     }
 
+    /**
+     * Add reinforcements.
+     *
+     * @param p_reinforcements the reinforcements
+     */
     public void addReinforcements(int p_reinforcements) {
         d_armies += p_reinforcements;
     }

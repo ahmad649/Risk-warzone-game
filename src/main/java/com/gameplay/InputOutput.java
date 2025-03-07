@@ -65,7 +65,7 @@ public class InputOutput {
      *   <li>{@code validatemap}: Validates the currently loaded map.</li>
      *   <li>{@code return}: Exits the Map Editor menu and returns to the main menu.</li>
      * </ul>
-     * </p>
+     *
      */
     public void run_map_editor() {
         String l_command;

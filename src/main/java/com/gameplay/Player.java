@@ -14,15 +14,18 @@ public class Player {
 
     private Queue<Order> d_playerOrders;
     private int d_numReinforcement;
+    /**
+     * A list of countries owned by the player.
+     */
     public List<Country> d_ownedCountries;
 
     private String d_name;
 
     /**
      * Player generic constructor
-     * @param p_name
+     *
+     * @param p_name the p name
      */
-    //Constructor
     public Player(String p_name) {
         d_name = p_name;
         d_ownedCountries = new ArrayList<>();
@@ -32,6 +35,7 @@ public class Player {
 
     /**
      * getName() method
+     *
      * @return String assigned for the players name
      */
     public String getName() {
@@ -40,6 +44,7 @@ public class Player {
 
     /**
      * setReinforcements method
+     *
      * @param p_reinforcements Integer for the number of reinforcements that need to be set
      */
     public void setReinforcements(int p_reinforcements) {
@@ -48,6 +53,7 @@ public class Player {
 
     /**
      * getReinforcements method
+     *
      * @return Integer assigned for the total number of reinforcements that the player has
      */
     public int getReinforcements() {
@@ -56,6 +62,7 @@ public class Player {
 
     /**
      * ownsCountry method
+     *
      * @param p_countryName String containing the country's name being analyzed
      * @return Boolean type validating if the country is owned by the player
      */
@@ -108,6 +115,7 @@ public class Player {
 
     /**
      * getOwnedCountries method
+     *
      * @return List of Country nature containing the countries owned by the player
      */
     public List<Country> getOwnedCountries() {
@@ -116,6 +124,7 @@ public class Player {
 
     /**
      * removeReinforcement method
+     *
      * @param p_numArmy Integer representing the number of reinforcements being subtracted from the player
      */
     public void removeReinforcement(int p_numArmy) {
@@ -124,8 +133,9 @@ public class Player {
 
     /**
      * addArmiesToCountry method
+     *
      * @param p_countryName String containing the target country's name
-     * @param p_num Integer containing the amount of reinforcements that will be sent to the country
+     * @param p_num         Integer containing the amount of reinforcements that will be sent to the country
      */
     public void addArmiesToCountry(String p_countryName, int p_num) {
         for (Country l_country : d_ownedCountries) {

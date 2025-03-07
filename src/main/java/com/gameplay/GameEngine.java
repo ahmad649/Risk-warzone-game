@@ -15,8 +15,14 @@ import com.model.Country;
  * d_countryList: list of country objects
  */
 public class GameEngine {
+    /**
+     * A list of players.
+     */
     List<Player> d_playersList = new ArrayList<>();
 
+    /**
+     * A list of countries.
+     */
     List<Country> d_countryList = new ArrayList<>();
 
     /**
@@ -43,7 +49,7 @@ public class GameEngine {
      * If the command given by the user is valid, Command class methods are called to determine either if the command adds or removes players
      * On the other hand, if the command corresponds to assigning countries, the process is called as well as the loop method running the main stage of the game
      */
-    // Game starter
+// Game starter
     public void startup(){
         System.out.println("Game setup started. Add players using 'gameplayer -add <playername>'.");
         while (true) {
@@ -83,7 +89,7 @@ public class GameEngine {
     /**
      * assignCountries() method with no parameters in charge of taking both players and countries list and assign the countries randomly
      */
-    // Assigning countries created randomly to the players
+// Assigning countries created randomly to the players
     public void assignCountries() {
         if (d_playersList.isEmpty() || d_countryList.isEmpty()) {
             System.out.println("Cannot assign countries. Ensure players and countries are available.");
@@ -108,7 +114,7 @@ public class GameEngine {
      * After this process is done, Issuing Orders phase starts, filling an Oder type array from the Player class with the orders issued by each player
      * Finally, Order Execution phase starts, executing each order issued by the players
      */
-    //Looping method controlling the rest of the game stages after initialization
+//Looping method controlling the rest of the game stages after initialization
     public void looper(){
 
         // Verification for the existence of players
@@ -147,6 +153,9 @@ public class GameEngine {
 
     }
 
+    /**
+     * Assign reinforcements.
+     */
     public void assignReinforcements() {
         // Assigning reinforcements to each player
         for(Player l_player : d_playersList){

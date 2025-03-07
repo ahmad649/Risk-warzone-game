@@ -24,6 +24,7 @@ public class MapReader {
 
     /**
      * Loads a map file into memory.
+     *
      * @param p_filename Name of the file to load.
      * @return true if successfully loaded, false otherwise.
      */
@@ -127,7 +128,7 @@ public class MapReader {
             return false;
         }
     }
-    
+
 
     /**
      * Displays the loaded map.
@@ -160,6 +161,7 @@ public class MapReader {
 
     /**
      * Validates the map structure.
+     *
      * @return true if valid, false otherwise.
      */
     public boolean validateMap() {
@@ -190,37 +192,63 @@ public class MapReader {
         return true;
     }
 
-    // Getter methods to access map data
+    /**
+     * Get continents map.
+     *
+     * @return the continents map
+     */
     public Map<String, Continent> getContinentsMap() {
         return d_continents;
     }
 
+    /**
+     * Get countries map.
+     *
+     * @return the countries map
+     */
     public Map<String, Country> getCountriesMap() {
         return d_countries;
     }
 
-    // Getter for continentIdCounter
+    /**
+     * Get continent id counter.
+     *
+     * @return the continent id counter
+     */
     public int getContinentIdCounter() {
         return d_continentIdCounter;
     }
 
-    // Setter for continentIdCounter
+    /**
+     * Set continent id counter.
+     *
+     * @param p_continentIdCounter the p continent id counter
+     */
     public void setContinentIdCounter(int p_continentIdCounter) {
         this.d_continentIdCounter = p_continentIdCounter;
     }
 
-    // Getter for countryIdCounter
+    /**
+     * Get country id counter.
+     *
+     * @return the country id counter
+     */
     public int getCountryIdCounter() {
         return d_countryIdCounter;
     }
 
-    // Setter for countryIdCounter
+    /**
+     * Set country id counter.
+     *
+     * @param p_countryIdCounter the p country id counter
+     */
     public void setCountryIdCounter(int p_countryIdCounter) {
         this.d_countryIdCounter = p_countryIdCounter;
     }
 
     /**
-     * Checks if the map is a connected graph.
+     * Check if the map is a connected graph.
+     *
      * @return true if the map is fully connected, false otherwise.
      */
     public boolean isMapConnected() {

@@ -5,6 +5,11 @@ package com.maps;
  * com.Main class to test the MapReader functionality.
  */
 public class Main {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         // Create the MapReader to load, manage, and validate the map
         MapReader mapReader = new MapReader();
