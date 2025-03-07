@@ -85,21 +85,7 @@ public class GameEngine {
                 }
                 l_mapreader.showMap();
             } else if (l_command.d_commandType.equals("showmap")) {
-                HashSet<Country> l_processedCountries = new HashSet<>();
-                for (Country l_country : d_countryList) {
-                    if (l_processedCountries.contains(l_country)) {
-                        continue;
-                    }
-                    Continent l_checkingContinent = l_country.getContinent();
-                    System.out.println();
-                    System.out.println("-----------------------------------------------------------------------------");
-                    System.out.println(" Continent's name : " + l_checkingContinent.getName());
-                    System.out.println("----------------------------------Countries----------------------------------");
-                    for (Country otherCountry : l_checkingContinent.getCountries()) {
-                        l_processedCountries.add(otherCountry);
-                        System.out.println(otherCountry);
-                    }
-                }
+                showMap();
             } else if (l_command.d_commandType.equals("assigncountries")) {
                 assignCountries();
                 System.out.println("-----------------------------------------------------------------------------");
