@@ -1,4 +1,4 @@
-package test;
+package com;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import gameplay.GameEngine;
-import gameplay.Order;
-import gameplay.Player;
-import maps.MapReader;
-import model.Country;
+import com.gameplay.GameEngine;
+import com.gameplay.Order;
+import com.gameplay.Player;
+import com.maps.MapReader;
+import com.model.Country;
 
 public class GameEngineTest {
     private Player d_player1, d_player2;

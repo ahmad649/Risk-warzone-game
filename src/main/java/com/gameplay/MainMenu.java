@@ -1,4 +1,4 @@
-package gameplay;
+package com.gameplay;
 
 import java.util.Scanner;
 
@@ -20,7 +20,7 @@ public class MainMenu {
 
             Scanner l_scanner = new Scanner(System.in);
 
-            System.out.println("\nMain Menu:");
+            System.out.println("\ncom.Main Menu:");
             System.out.println("1. Map Editor");
             System.out.println("2. Play Warzone Game");
             System.out.println("3. Exit\n");

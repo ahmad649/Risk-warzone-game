@@ -1,8 +1,8 @@
-package maps;
+package com.maps;
 
 
 /**
- * Main class to test the MapReader functionality.
+ * com.Main class to test the MapReader functionality.
  */
 public class Main {
     public static void main(String[] args) {

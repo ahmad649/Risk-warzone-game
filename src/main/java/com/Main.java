@@ -1,4 +1,6 @@
-import gameplay.MainMenu;
+package com;
+
+import com.gameplay.MainMenu;
 
 public class Main {
     public static void main(String[] args) {

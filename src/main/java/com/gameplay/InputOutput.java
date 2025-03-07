@@ -1,10 +1,10 @@
-package gameplay;
+package com.gameplay;
 
 import java.util.Scanner;
 
-import maps.MapEditor;
-import maps.MapReader;
-import maps.MapWriter;
+import com.maps.MapEditor;
+import com.maps.MapReader;
+import com.maps.MapWriter;
 
 /**
  * {@code InputOutput} class manages all Input and Output operations that are used in Map Editor and Gameplay.

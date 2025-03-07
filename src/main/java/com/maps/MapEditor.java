@@ -1,12 +1,12 @@
-package maps;
+package com.maps;
 
-import model.Continent;
-import model.Country;
+import com.model.Continent;
+import com.model.Country;
 
 import java.util.*;
 
 /**
- * MapEditor allows users to create and modify main.maps dynamically.
+ * MapEditor allows users to create and modify main.com.maps dynamically.
  */
 public class MapEditor {
     private MapReader d_mapReader;

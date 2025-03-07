@@ -1,6 +1,6 @@
-package test;
+package com;
 
-import gameplay.Command;
+import com.gameplay.Command;
 
 import java.util.*;
 

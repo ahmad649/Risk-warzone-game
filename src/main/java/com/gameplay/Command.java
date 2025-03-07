@@ -1,4 +1,4 @@
-package gameplay;
+package com.gameplay;
 
 import java.util.*;
 

@@ -1,6 +1,6 @@
-package model;
+package com.model;
 
-import gameplay.Player;
+import com.gameplay.Player;
 
 import java.util.*;
 

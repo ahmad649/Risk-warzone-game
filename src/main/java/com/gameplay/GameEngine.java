@@ -1,12 +1,12 @@
-package gameplay;
+package com.gameplay;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import maps.MapReader;
-import model.Continent;
-import model.Country;
+import com.maps.MapReader;
+import com.model.Continent;
+import com.model.Country;
 
 /**
  * GameEngine class that works as the controller for the game flow

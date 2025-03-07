@@ -1,12 +1,12 @@
-package maps;
+package com.maps;
 
 import java.io.*;
 import java.util.*;
-import model.Continent;
-import model.Country;
+import com.model.Continent;
+import com.model.Country;
 
 /**
- * MapWriter handles saving the map to a file using main.model classes.
+ * MapWriter handles saving the map to a file using main.com.model classes.
  */
 public class MapWriter {
     private MapReader d_mapReader;
@@ -35,7 +35,7 @@ public class MapWriter {
         }
     
         // Construct the file path
-        String l_mapFilePath = "resources/main.maps/" + p_filename + ".txt";
+        String l_mapFilePath = "resources/main.com.maps/" + p_filename + ".txt";
         File l_mapFile = new File(l_mapFilePath);
     
         // Check if the file already exists

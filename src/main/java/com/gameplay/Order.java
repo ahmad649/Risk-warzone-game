@@ -1,7 +1,7 @@
-package gameplay;
+package com.gameplay;
 
 /**
- * Order class containing the orders information for its future identification inside the main.gameplay loop
+ * Order class containing the orders information for its future identification inside the main.com.gameplay loop
  * String d_countryName target country name to assign the order
  * int d_numArmy number of reinforcements involved in the order
  * String d_orderType type of the order being issued and executed

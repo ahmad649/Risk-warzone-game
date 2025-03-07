@@ -1,6 +1,6 @@
-package gameplay;
+package com.gameplay;
 
-import model.Country;
+import com.model.Country;
 
 import java.util.*;
 
