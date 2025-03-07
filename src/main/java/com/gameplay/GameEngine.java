@@ -234,6 +234,9 @@ public class GameEngine {
         }
         System.out.println("-----------------------------------------------------------------------------");
     }
+    /**
+     * Display Map
+     */
     public void showMap(){
         HashSet<Country> l_processedCountries = new HashSet<>();
         for (Country l_country : d_countryList) {
