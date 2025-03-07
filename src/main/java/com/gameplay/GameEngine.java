@@ -1,13 +1,13 @@
-package gameplay;
+package com.gameplay;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-import maps.MapReader;
-import model.Continent;
-import model.Country;
+import com.maps.MapReader;
+import com.model.Continent;
+import com.model.Country;
 
 /**
  * GameEngine class that works as the controller for the game flow
@@ -16,8 +16,14 @@ import model.Country;
  * d_countryList: list of country objects
  */
 public class GameEngine {
+    /**
+     * A list of players.
+     */
     List<Player> d_playersList = new ArrayList<>();
 
+    /**
+     * A list of countries.
+     */
     List<Country> d_countryList = new ArrayList<>();
 
     /**
@@ -206,6 +212,9 @@ public class GameEngine {
         }
     }
 
+    /**
+     * Assign reinforcements.
+     */
     public void assignReinforcements() {
         // Assigning reinforcements to each player
         System.out.println("-----------------------------------------------------------------------------");

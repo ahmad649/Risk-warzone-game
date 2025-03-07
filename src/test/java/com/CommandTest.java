@@ -1,14 +1,11 @@
-package tests;
+package com;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import gameplay.Command;
+import com.gameplay.Command;
 
 import java.util.*;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * {@code CommandTest} class provides testing for the arguments passed in the user commands.

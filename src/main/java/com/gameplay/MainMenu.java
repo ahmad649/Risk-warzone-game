@@ -1,4 +1,4 @@
-package gameplay;
+package com.gameplay;
 
 import java.util.Scanner;
 
@@ -10,6 +10,9 @@ import java.util.Scanner;
  * 3. Exit: exits the menu and finishes the program
  */
 public class MainMenu {
+    /**
+     * Run main menu.
+     */
     public void run_main_menu() {
         int l_input = 0;
 
@@ -20,7 +23,7 @@ public class MainMenu {
 
             Scanner l_scanner = new Scanner(System.in);
 
-            System.out.println("\nMain Menu:");
+            System.out.println("\ncom.Main Menu:");
             System.out.println("1. Map Editor");
             System.out.println("2. Play Warzone Game");
             System.out.println("3. Exit\n");

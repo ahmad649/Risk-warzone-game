@@ -1,7 +1,10 @@
-package gameplay;
+package com.gameplay;
 
 import java.util.Scanner;
-import maps.*;
+
+import com.maps.MapEditor;
+import com.maps.MapReader;
+import com.maps.MapWriter;
 
 /**
  * {@code InputOutput} class manages all Input and Output operations that are used in Map Editor and Gameplay.
@@ -62,7 +65,7 @@ public class InputOutput {
      *   <li>{@code validatemap}: Validates the currently loaded map.</li>
      *   <li>{@code return}: Exits the Map Editor menu and returns to the main menu.</li>
      * </ul>
-     * </p>
+     *
      */
     public void run_map_editor() {
         String l_command;

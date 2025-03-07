@@ -1,23 +1,29 @@
-package maps;
+package com.maps;
 
-import model.Continent;
-import model.Country;
+import com.model.Continent;
+import com.model.Country;
 
 import java.util.*;
 
 /**
- * MapEditor allows users to create and modify maps dynamically.
+ * MapEditor allows users to create and modify main.com.maps dynamically.
  */
 public class MapEditor {
     private MapReader d_mapReader;
 
+    /**
+     * Instantiate a new Map editor.
+     *
+     * @param p_mapReader the map reader
+     */
     public MapEditor(MapReader p_mapReader) {
         this.d_mapReader = p_mapReader;
     }
 
     /**
-     * Adds a new continent.
-     * @param p_name Name of the continent.
+     * Add a new continent.
+     *
+     * @param p_name       Name of the continent.
      * @param p_bonusValue Bonus value of the continent.
      */
     public void addContinent(String p_name, int p_bonusValue) {
@@ -38,6 +44,7 @@ public class MapEditor {
 
     /**
      * Removes a continent.
+     *
      * @param p_name Name of the continent to remove.
      */
     public void removeContinent(String p_name) {
@@ -73,7 +80,8 @@ public class MapEditor {
 
     /**
      * Adds a new country.
-     * @param p_name Name of the country.
+     *
+     * @param p_name          Name of the country.
      * @param p_continentName Name of the continent the country belongs to.
      */
     public void addCountry(String p_name, String p_continentName) {
@@ -112,6 +120,7 @@ public class MapEditor {
 
     /**
      * Removes a country.
+     *
      * @param p_name Name of the country to remove.
      */
     public void removeCountry(String p_name) {
@@ -141,7 +150,8 @@ public class MapEditor {
 
     /**
      * Adds a neighboring connection between two countries.
-     * @param p_countryName The country.
+     *
+     * @param p_countryName  The country.
      * @param p_neighborName The neighboring country.
      */
     public void addNeighbor(String p_countryName, String p_neighborName) {
@@ -174,7 +184,8 @@ public class MapEditor {
 
     /**
      * Removes a neighboring connection between two countries.
-     * @param p_countryName The country.
+     *
+     * @param p_countryName  The country.
      * @param p_neighborName The neighboring country to remove.
      */
     public void removeNeighbor(String p_countryName, String p_neighborName) {

@@ -1,4 +1,4 @@
-package gameplay;
+package com.gameplay;
 
 import java.util.*;
 
@@ -53,7 +53,7 @@ public class Command {
     }
 
     /**
-     * Gets labeled arguments from user commands in a form of {@code HashMap<String, List<String>>}
+     * Get labeled arguments from user commands in a form of {@code HashMap<String, List<String>>}
      *
      * @return a {@code HashMap<String, List<String>>} containing the labeled arguments.
      */
@@ -62,7 +62,7 @@ public class Command {
     }
 
     /**
-     * Gets arguments from user commands in a form of {@code ArrayList<String>}
+     * Get arguments from user commands in a form of {@code ArrayList<String>}
      *
      * @return an {@code ArrayList<String>} containing the command arguments.
      */
@@ -70,6 +70,11 @@ public class Command {
         return d_argArr;
     }
 
+    /**
+     * Get full command.
+     *
+     * @return the full command
+     */
     public String getFullCommand() {
         return d_fullCommand;
     }

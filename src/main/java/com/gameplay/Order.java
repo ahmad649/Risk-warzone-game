@@ -1,7 +1,7 @@
-package gameplay;
+package com.gameplay;
 
 /**
- * Order class containing the orders information for its future identification inside the gameplay loop
+ * Order class containing the orders information for its future identification inside the main.com.gameplay loop
  * String d_countryName target country name to assign the order
  * int d_numArmy number of reinforcements involved in the order
  * String d_orderType type of the order being issued and executed
@@ -10,15 +10,19 @@ package gameplay;
 public class Order {
     private String d_countryName;
     private int d_numArmy;
+    /**
+     * The D order type.
+     */
     public String d_orderType;
     private Player d_player;
 
     /**
      * Order constructor
-     * @param p_orderType String type of the order being issued and executed
+     *
+     * @param p_orderType   String type of the order being issued and executed
      * @param p_countryName String target country name to assign the order
-     * @param p_numArmy Integer number of reinforcements involved in the order
-     * @param p_player Player object owner of the order
+     * @param p_numArmy     Integer number of reinforcements involved in the order
+     * @param p_player      Player object owner of the order
      */
     public Order(String p_orderType, String p_countryName, int p_numArmy, Player p_player) {
         this.d_orderType = p_orderType;
@@ -74,10 +78,33 @@ public class Order {
         // TODO: Implement movement logic
     }
 
-    // Getters
+    /**
+     * Get order type.
+     *
+     * @return the order type
+     */
+
     public String getOrderType() { return d_orderType; }
+
+    /**
+     * Get country name.
+     *
+     * @return the country name
+     */
     public String getCountryName() { return d_countryName; }
+
+    /**
+     * Get num army.
+     *
+     * @return the num army
+     */
     public int getNumArmy() { return d_numArmy; }
+
+    /**
+     * Get player.
+     *
+     * @return the player
+     */
     public Player getPlayer() { return d_player; }
 
 }
