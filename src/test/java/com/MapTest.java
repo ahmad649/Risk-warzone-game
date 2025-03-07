@@ -3,8 +3,12 @@ package com;
 import com.maps.MapEditor;
 import com.maps.MapReader;
 import com.maps.MapWriter;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -94,5 +98,14 @@ class MapTest {
        mapReader.loadMap("Witcher_Map");
        boolean isSaved = mapWriter.saveMap("New_Witcher_Map");
        assertTrue(isSaved, "Map should be saved successfully");
+
+       // Construct the file path
+       String l_mapFilePath = "src/main/resources/maps/New_Witcher_Map.txt";
+       File l_mapFile = new File(l_mapFilePath);
+
+       // Delete the created file
+       if (l_mapFile.exists()) {
+           l_mapFile.delete();
+       }
    }
 }
