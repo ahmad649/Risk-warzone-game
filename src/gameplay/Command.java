@@ -5,10 +5,10 @@ import java.util.*;
 /**
  * {@code Command} class manages the parsing of user commands.
  */
-public class Command{
+public class Command {
     Integer d_numArgs;
     String d_commandType;
-    HashMap<String,List<String>> d_argsLabeled;
+    HashMap<String, List<String>> d_argsLabeled;
     ArrayList<String> d_argArr;
     String d_fullCommand;
 

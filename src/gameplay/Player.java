@@ -74,13 +74,14 @@ public class Player {
      */
     public void issue_order() {
         System.out.println(d_name + ", enter your order (deploy <countryID> <num>):");
+        System.out.println("Use an underscore to input multi-word countries (eg: United_States)");
         Command l_command = InputOutput.get_user_command();
         if (l_command == null) { System.out.println("Invalid order. Please try again.");
             return;
         }
         if (l_command.d_commandType.equals("deploy")) {
             int l_num = Integer.parseInt(l_command.d_argArr.get(1));
-            String l_countryName = l_command.d_argArr.get(0);
+            String l_countryName = l_command.d_argArr.get(0).replace('_', ' ');;
             if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
                 Order l_newOrder = new Order("deploy", l_countryName , l_num, this);
                 d_playerOrders.add(l_newOrder);
@@ -92,6 +93,7 @@ public class Player {
         } else {
             System.out.println("Invalid order. Please try again.");
         }
+        System.out.println("-----------------------------------------------------------------------------");
     }
 
     /**
