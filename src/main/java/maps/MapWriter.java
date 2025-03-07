@@ -6,7 +6,7 @@ import model.Continent;
 import model.Country;
 
 /**
- * MapWriter handles saving the map to a file using model classes.
+ * MapWriter handles saving the map to a file using main.model classes.
  */
 public class MapWriter {
     private MapReader d_mapReader;
@@ -35,7 +35,7 @@ public class MapWriter {
         }
     
         // Construct the file path
-        String l_mapFilePath = "resources/maps/" + p_filename + ".txt";
+        String l_mapFilePath = "resources/main.maps/" + p_filename + ".txt";
         File l_mapFile = new File(l_mapFilePath);
     
         // Check if the file already exists

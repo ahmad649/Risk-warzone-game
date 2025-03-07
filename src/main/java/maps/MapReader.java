@@ -29,7 +29,7 @@ public class MapReader {
      */
     public boolean loadMap(String p_filename) {
         // Construct the full file path
-        String l_mapFilePath = "resources/maps/" + p_filename + ".txt";
+        String l_mapFilePath = "resources/main.maps/" + p_filename + ".txt";
         File l_mapFile = new File(l_mapFilePath);
     
         // If the file does not exist, create a new one

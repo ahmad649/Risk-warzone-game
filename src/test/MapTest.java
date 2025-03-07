@@ -1,7 +1,8 @@
-package maps;
+package test;
 
-import model.Continent;
-import model.Country;
+import maps.MapEditor;
+import maps.MapReader;
+import maps.MapWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

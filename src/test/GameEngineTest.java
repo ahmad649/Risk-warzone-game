@@ -1,18 +1,18 @@
-package tests;
+package test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import gameplay.GameEngine;
 import gameplay.Order;
 import gameplay.Player;
 import maps.MapReader;
 import model.Country;
-
-import static org.junit.Assert.*;
 
 public class GameEngineTest {
     private Player d_player1, d_player2;
@@ -23,7 +23,7 @@ public class GameEngineTest {
     /**
      * Initialize all test cases by loading Game Map, creating players, and assigning countries to all players
      */
-    @Before
+    @BeforeEach
     public void initialize() {
         // Load map and set countries
         System.out.println("\nLoading Map...");

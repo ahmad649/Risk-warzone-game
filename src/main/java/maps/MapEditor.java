@@ -6,7 +6,7 @@ import model.Country;
 import java.util.*;
 
 /**
- * MapEditor allows users to create and modify maps dynamically.
+ * MapEditor allows users to create and modify main.maps dynamically.
  */
 public class MapEditor {
     private MapReader d_mapReader;
