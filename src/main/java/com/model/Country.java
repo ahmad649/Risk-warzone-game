@@ -3,6 +3,7 @@ package com.model;
 import com.gameplay.Player;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Represents a Country in the game.
@@ -139,5 +140,22 @@ public class Country {
      */
     public void addReinforcements(int p_reinforcements) {
         d_armies += p_reinforcements;
+    }
+
+    @Override
+    public String toString() {
+
+        String neighbors = d_neighbors != null ? d_neighbors.stream()
+                .map(Country::getName)
+                .collect(Collectors.joining(", ")) : "None";
+
+        return "Country{" +
+                ", Name='" + d_name + '\'' +
+                ", Continent=" + (d_continent != null ? d_continent.getName() : "None") +
+                ", Owner=" + (d_owner != null ? d_owner.getName() : "None") +
+                ", Armies=" + d_armies +
+                ", Neighbors=[" + neighbors + "]" +
+                '}';
+
     }
 }

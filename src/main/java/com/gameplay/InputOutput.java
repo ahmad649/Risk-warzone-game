@@ -242,6 +242,14 @@ public class InputOutput {
             System.out.println("Executing deploy command");
             return new Command(l_command);
 
+        } else if (is_quit_command_valid(l_command)) {
+            System.out.println("Executing quit command");
+            return new Command(l_command);
+
+        } else if (is_continue_command_valid(l_command)) {
+            System.out.println("Executing continue command");
+            return new Command(l_command);
+
         } else {
             System.out.println("Command does not exist. Please try again.");
         }
@@ -648,6 +656,49 @@ public class InputOutput {
             return false;
         }
 
+        return true;
+    }
+
+    /**
+     * Validates whether the given 'continue' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_continue_command_valid(String p_command) {
+        // Check if command starts with 'deploy '
+        if (!p_command.startsWith("continue")) {
+            return false;
+        }
+
+        // Split command into an array of strings
+        String[] l_parts = p_command.trim().split(" ");
+
+        // Check if the command contains more than 2 argument.
+        if (l_parts.length != 1) {
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Validates whether the given 'quit' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_quit_command_valid(String p_command) {
+        // Check if command starts with 'deploy '
+        if (!p_command.startsWith("quit")) {
+            return false;
+        }
+
+        // Split command into an array of strings
+        String[] l_parts = p_command.trim().split(" ");
+
+        // Check if the command contains more than 2 argument.
+        if (l_parts.length != 1) {
+            return false;
+        }
         return true;
     }
 }
