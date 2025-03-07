@@ -102,6 +102,9 @@ public class GameEngine {
                 }
             } else if (l_command.d_commandType.equals("assigncountries")) {
                 assignCountries();
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("                                 Game Loop                                   ");
+                System.out.println("-----------------------------------------------------------------------------");
                 looper();
                 break;
             } else {
@@ -144,7 +147,7 @@ public class GameEngine {
      */
     //Looping method controlling the rest of the game stages after initialization
     public void looper() {
-
+        showMap();
         // Verification for the existence of players
         if (d_playersList.isEmpty()) {
             System.out.println("No players available. Exiting game loop.");
@@ -186,21 +189,7 @@ public class GameEngine {
                     l_command = InputOutput.get_user_command();
                 }
                 if (l_command.d_commandType.equals("showmap")) {
-                    HashSet<Country> l_processedCountries = new HashSet<>();
-                    for (Country l_country : d_countryList) {
-                        if (l_processedCountries.contains(l_country)) {
-                            continue;
-                        }
-                        Continent l_checkingContinent = l_country.getContinent();
-                        System.out.println();
-                        System.out.println("-----------------------------------------------------------------------------");
-                        System.out.println(" Continent's name : " + l_checkingContinent.getName());
-                        System.out.println("----------------------------------Countries----------------------------------");
-                        for (Country otherCountry : l_checkingContinent.getCountries()) {
-                            l_processedCountries.add(otherCountry);
-                            System.out.println(otherCountry);
-                        }
-                    }
+                    showMap();
                 } else if (l_command.d_commandType.equals("continue")) {
                     break;
                 } else if (l_command.d_commandType.equals("quit")) {
@@ -244,5 +233,22 @@ public class GameEngine {
             System.out.println(l_player.getName() + " receives " + l_reinforcements + " reinforcements.");
         }
         System.out.println("-----------------------------------------------------------------------------");
+    }
+    public void showMap(){
+        HashSet<Country> l_processedCountries = new HashSet<>();
+        for (Country l_country : d_countryList) {
+            if (l_processedCountries.contains(l_country)) {
+                continue;
+            }
+            Continent l_checkingContinent = l_country.getContinent();
+            System.out.println();
+            System.out.println("-----------------------------------------------------------------------------");
+            System.out.println(" Continent's name : " + l_checkingContinent.getName());
+            System.out.println("----------------------------------Countries----------------------------------");
+            for (Country otherCountry : l_checkingContinent.getCountries()) {
+                l_processedCountries.add(otherCountry);
+                System.out.println(otherCountry);
+            }
+        }
     }
 }

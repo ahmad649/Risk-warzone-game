@@ -81,7 +81,6 @@ public class Player {
      */
     public void issue_order() {
         System.out.println(d_name + ", enter your order (deploy <countryID> <num>):");
-        System.out.println("Use an underscore to input multi-word countries (eg: United_States)");
         Command l_command = InputOutput.get_user_command();
         if (l_command == null) { System.out.println("Invalid order. Please try again.");
             return;
