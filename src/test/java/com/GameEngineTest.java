@@ -1,8 +1,11 @@
 package com;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
+import com.model.Continent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,14 +52,38 @@ public class GameEngineTest {
 
         d_gameEngine.assignReinforcements();
 
-        int l_player1_armies = 5;
-        int l_player2_armies = 5;
+        // Calculating the number of reinforcement armies for each player
+        HashMap<String, Integer> players = new HashMap<>();
+        for (Player l_player: d_gameEngine.getPlayersList()) {
+            int l_armies = 5;
+            HashSet<Country> l_processedCountries = new HashSet<>();
+            for (Country l_country: l_player.d_ownedCountries) {
+                if (l_processedCountries.contains(l_country)) {
+                    continue;
+                }
+                Continent l_checkingContinent = l_country.getContinent();
+                boolean l_givebonus = true;
+                for (Country otherCountry : l_checkingContinent.getCountries()) {
+                    l_processedCountries.add(otherCountry);
+                    if (otherCountry.getOwner() != (l_player)) {
+                        l_givebonus = false;
+                        break;
+                    }
+                }
+                if (l_givebonus) {
+                    players.put(l_player.getName(), l_armies + l_checkingContinent.getBonus());
+                }
+            }
+            if (!players.containsKey(l_player.getName())) {
+                players.put(l_player.getName(), l_armies);
+            }
+        }
 
         System.out.println("\n-> Total number of reinforcement armies for " + d_player1.getName() + " : " + d_player1.getReinforcements());
         System.out.println("-> Total number of reinforcement armies for " + d_player2.getName() + " : " + d_player2.getReinforcements());
 
-        assertEquals(l_player1_armies, d_player1.getReinforcements());
-        assertEquals(l_player2_armies, d_player2.getReinforcements());
+        assertEquals(players.get("TestPlayer1"), d_player1.getReinforcements());
+        assertEquals(players.get("TestPlayer2"), d_player2.getReinforcements());
     }
 
     /**
@@ -68,16 +95,19 @@ public class GameEngineTest {
 
         d_gameEngine.assignReinforcements();
 
-        int l_player1_deploy_armies = 7;
-        int l_player2_deploy_armies = 10;
+        int l_player1_deploy_armies = 15;
+        int l_player2_deploy_armies = 20;
+
+        String l_countryOwnedByPlayer1 = d_player1.getOwnedCountries().getFirst().getName();
+        String l_countryOwnedByPlayer2 = d_player2.getOwnedCountries().getFirst().getName();
 
         // Deploy armies
         System.out.println();
-        Order l_player1_order = new Order("deploy", "Ural", l_player1_deploy_armies, d_player1);
+        Order l_player1_order = new Order("deploy", l_countryOwnedByPlayer1, l_player1_deploy_armies, d_player1);
         l_player1_order.execute();
 
         System.out.println();
-        Order l_player2_order = new Order("deploy", "Central_America", l_player2_deploy_armies, d_player2);
+        Order l_player2_order = new Order("deploy", l_countryOwnedByPlayer2, l_player2_deploy_armies, d_player2);
         l_player2_order.execute();
 
         assertNotEquals(l_player1_deploy_armies, d_player1.getReinforcements());
