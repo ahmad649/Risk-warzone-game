@@ -33,6 +33,7 @@ public class MapWriter {
             System.err.println("Error: No map data loaded. Cannot save.");
             return false;
         }
+        if(!d_mapReader.validateMap()) {return false;}
     
         // Construct the file path
         String l_mapFilePath = "src/main/resources/maps/" + p_filename + ".txt";

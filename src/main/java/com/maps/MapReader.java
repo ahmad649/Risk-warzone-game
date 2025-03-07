@@ -122,6 +122,7 @@ public class MapReader {
                 }
             }
             boolean l_b = validateMap();
+            System.out.println("Map is loaded successfully!");
             return true;
         } catch (IOException e) {
             System.err.println("Error loading map: " + e.getMessage());
@@ -188,7 +189,7 @@ public class MapReader {
             }
         }
 
-        System.out.println("Map is valid.");
+        System.out.println("Map is valid!");
         return true;
     }
 

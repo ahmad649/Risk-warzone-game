@@ -85,18 +85,18 @@ public class InputOutput {
                 Command l_arguments = new Command(l_command);
 
                 // Add continent
-                if (l_arguments.getArgsLabeled().containsKey("add")) {
+                if (l_arguments.getArgsLabeled().containsKey("-add")) {
                     // Get continentID and continentValue
-                    String l_continentID = l_arguments.getArgsLabeled().get("add").getFirst();
-                    String l_continentValue = l_arguments.getArgsLabeled().get("add").getLast();
+                    String l_continentID = l_arguments.getArgsLabeled().get("-add").getFirst();
+                    String l_continentValue = l_arguments.getArgsLabeled().get("-add").getLast();
 
                     this.d_mapEditor.addContinent(l_continentID, Integer.parseInt(l_continentValue));
                 }
 
                 // Remove continent
-                if (l_arguments.getArgsLabeled().containsKey("remove")) {
+                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
                     // Get continentID
-                    String l_continentID = l_arguments.getArgsLabeled().get("remove").getFirst();
+                    String l_continentID = l_arguments.getArgsLabeled().get("-remove").getFirst();
 
                     this.d_mapEditor.removeContinent(l_continentID);
                 }
@@ -104,18 +104,18 @@ public class InputOutput {
                 Command l_arguments = new Command(l_command);
 
                 // Add country
-                if (l_arguments.getArgsLabeled().containsKey("add")) {
+                if (l_arguments.getArgsLabeled().containsKey("-add")) {
                     // Get countryID and continentID
-                    String l_countryID = l_arguments.getArgsLabeled().get("add").getFirst();
-                    String l_continentID = l_arguments.getArgsLabeled().get("add").getLast();
+                    String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
+                    String l_continentID = l_arguments.getArgsLabeled().get("-add").getLast();
 
                     this.d_mapEditor.addCountry(l_countryID, l_continentID);
                 }
 
                 // Remove country
-                if (l_arguments.getArgsLabeled().containsKey("remove")) {
+                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
                     // Get countryID
-                    String l_countryID = l_arguments.getArgsLabeled().get("remove").getFirst();
+                    String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
 
                     this.d_mapEditor.removeCountry(l_countryID);
                 }
@@ -123,19 +123,19 @@ public class InputOutput {
                 Command l_arguments = new Command(l_command);
 
                 // Add neighbor
-                if (l_arguments.getArgsLabeled().containsKey("add")) {
+                if (l_arguments.getArgsLabeled().containsKey("-add")) {
                     // Get countryID and continentID
-                    String l_countryID = l_arguments.getArgsLabeled().get("add").getFirst();
-                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("add").getLast();
+                    String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
+                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("-add").getLast();
 
                     this.d_mapEditor.addNeighbor(l_countryID, l_neighborCountryID);
                 }
 
                 // Remove neighbor
-                if (l_arguments.getArgsLabeled().containsKey("remove")) {
+                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
                     // Get countryID and neighborCountryID
-                    String l_countryID = l_arguments.getArgsLabeled().get("remove").getFirst();
-                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("remove").getLast();
+                    String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
+                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("-remove").getLast();
 
                     this.d_mapEditor.removeNeighbor(l_countryID, l_neighborCountryID);
                 }
@@ -154,7 +154,6 @@ public class InputOutput {
                 String l_filename = new Command(l_command).getArgArr().getFirst();
 
                 // Perform load map
-                this.d_mapReader = new MapReader();
                 this.d_mapReader.loadMap(l_filename);
 
             } else if (is_validatemap_command_valid(l_command)) {

@@ -77,7 +77,7 @@ public class GameEngineTest {
         l_player1_order.execute();
 
         System.out.println();
-        Order l_player2_order = new Order("deploy", "Central America", l_player2_deploy_armies, d_player2);
+        Order l_player2_order = new Order("deploy", "Central_America", l_player2_deploy_armies, d_player2);
         l_player2_order.execute();
 
         assertNotEquals(l_player1_deploy_armies, d_player1.getReinforcements());
