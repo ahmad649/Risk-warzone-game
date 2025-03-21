@@ -241,10 +241,30 @@ public class InputOutput {
             System.out.println("Executing deploy command");
             return new Command(l_command);
 
+        } else if (is_advance_command_valid(l_command)) {
+            System.out.println("Executing advance command");
+            return new Command(l_command);
+
+        } else if (is_bomb_command_valid(l_command)) {
+            System.out.println("Executing bomb command");
+            return new Command(l_command);
+
+        } else if (is_blockade_command_valid(l_command)) {
+            System.out.println("Executing blockade command");
+            return new Command(l_command);
+
+        } else if (is_airlift_command_valid(l_command)) {
+            System.out.println("Executing airlift command");
+            return new Command(l_command);
+
+        } else if (is_negotiate_command_valid(l_command)) {
+            System.out.println("Executing negotiate command");
+            return new Command(l_command);
+
         } else if (is_quit_command_valid(l_command)) {
             System.out.println("Executing quit command");
             return new Command(l_command);
-
+            
         } else if (is_continue_command_valid(l_command)) {
             System.out.println("Executing continue command");
             return new Command(l_command);
@@ -686,18 +706,177 @@ public class InputOutput {
      * @return {@code true} if the command is valid, otherwise {@code false}
      */
     public static boolean is_quit_command_valid(String p_command) {
-        // Check if command starts with 'deploy '
-        if (!p_command.startsWith("quit")) {
+        return p_command.trim().equals("quit");
+    }
+
+    /**
+     * Validates whether the given 'advance' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_advance_command_valid(String p_command) {
+        // Check if command starts with 'advance '
+        if (!p_command.startsWith("advance ")) {
             return false;
         }
 
         // Split command into an array of strings
         String[] l_parts = p_command.trim().split(" ");
 
-        // Check if the command contains more than 2 argument.
-        if (l_parts.length != 1) {
+        // Check if the command contains exactly 4 arguments
+        if (l_parts.length != 4) {
+            System.out.println("\nInvalid number of arguments for 'advance' command.");
             return false;
         }
+        // Check if countryNameFrom and countryNameTo are strings
+        if (!l_parts[1].matches("[a-zA-Z]+") || !l_parts[2].matches("[a-zA-Z]+")){
+            System.out.println("\nSource and target country names must be string.");
+            return false;
+        }
+
+        // Try to parse the number of armies as an integer
+        try {
+            Integer.valueOf(l_parts[3]);
+        } catch (NumberFormatException e) {
+            System.out.println("\n'numArmies' value must be a number.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validates whether the given 'bomb' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_bomb_command_valid(String p_command) {
+        // Check if command starts with 'bomb '
+        if (!p_command.startsWith("bomb ")) {
+            return false;
+        }
+
+        // Split command into an array of strings
+        String[] l_parts = p_command.trim().split(" ");
+
+        // Check if the command contains exactly 2 arguments
+        if (l_parts.length != 2) {
+            System.out.println("\n'bomb' command must have 2 arguments.");
+            return false;
+        }
+
+        // Check if countryID is a string containing only letters
+        if (!l_parts[1].matches("[a-zA-Z]+")) {
+            System.out.println("\n'CountryID' must be a string.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validates whether the given 'blockade' command is valid.
+     *
+     * @param p_command The user command string to validate 
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_blockade_command_valid(String p_command) {
+        // Check if command starts with 'blockade '
+        if (!p_command.startsWith("blockade ")) {
+            return false;
+        }
+
+        // Split command into an array of strings
+        String[] l_parts = p_command.trim().split(" ");
+
+        // Check if the command contains exactly 2 arguments
+        if (l_parts.length != 2) {
+            System.out.println("\n'blockade' command must have 2 arguments.");
+            return false;
+        }
+
+        // Check if countryID is a string containing only letters
+        if (!l_parts[1].matches("[a-zA-Z]+")) {
+            System.out.println("\n'CountryID' must be a string.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validates whether the given 'airlift' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_airlift_command_valid(String p_command) {
+        // Check if command starts with 'airlift '
+        if (!p_command.startsWith("airlift ")) {
+            return false;
+        }
+
+        // Split command into an array of strings
+        String[] l_parts = p_command.trim().split(" ");
+
+        // Check if the command contains exactly 4 arguments
+        if (l_parts.length != 4) {
+            System.out.println("\n'airlift' command must have 4 arguments.");
+            return false;
+        }
+
+        // Check if sourceCountryID is a string containing only letters
+        if (!l_parts[1].matches("[a-zA-Z]+")) {
+            System.out.println("\n'sourceCountryID' must be a string.");
+            return false;
+        }
+
+        // Check if targetCountryID is a string containing only letters
+        if (!l_parts[2].matches("[a-zA-Z]+")) {
+            System.out.println("\n'targetCountryID' must be a string.");
+            return false;
+        }
+
+        // Check if numArmies is a number
+        try {
+            Integer.valueOf(l_parts[3]);
+        } catch (NumberFormatException e) {
+            System.out.println("\n'numArmies' must be a number.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validates whether the given 'negotiate' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_negotiate_command_valid(String p_command) {
+        // Check if command starts with 'negotiate '
+        if (!p_command.startsWith("negotiate ")) {
+            return false;
+        }
+
+        // Split command into an array of strings
+        String[] l_parts = p_command.trim().split(" ");
+
+        // Check if the command contains exactly 2 arguments
+        if (l_parts.length != 2) {
+            System.out.println("\n'negotiate' command must have 2 arguments.");
+            return false;
+        }
+
+        // Check if playerID is a string containing only letters
+        if (!l_parts[1].matches("[a-zA-Z]+")) {
+            System.out.println("\n'playerID' must be a string.");
+            return false;
+        }
+
         return true;
     }
 }
