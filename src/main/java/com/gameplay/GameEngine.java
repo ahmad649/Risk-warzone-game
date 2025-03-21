@@ -19,12 +19,12 @@ public class GameEngine {
     /**
      * A list of players.
      */
-    List<Player> d_playersList = new ArrayList<>();
+    public List<Player> d_playersList = new ArrayList<>();
 
     /**
      * A list of countries.
      */
-    List<Country> d_countryList = new ArrayList<>();
+    public List<Country> d_countryList = new ArrayList<>();
 
     /**
      * Gets players list.

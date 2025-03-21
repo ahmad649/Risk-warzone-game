@@ -7,9 +7,9 @@ import java.util.*;
  */
 public class Command {
     Integer d_numArgs;
-    String d_commandType;
-    HashMap<String, List<String>> d_argsLabeled;
-    ArrayList<String> d_argArr;
+    public String d_commandType;
+    public HashMap<String, List<String>> d_argsLabeled;
+    public ArrayList<String> d_argArr;
     String d_fullCommand;
 
     /**
