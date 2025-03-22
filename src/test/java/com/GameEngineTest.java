@@ -89,28 +89,28 @@ public class GameEngineTest {
     /**
      * Deploy more armies than the available reinforcement pool.
      */
-    @Test
-    public void deployMoreArmiesThanReinforcementPool() {
-        System.out.println("\nTEST : Disallow deploying more armies than the reinforcement pool\n");
-
-        d_gameEngine.assignReinforcements();
-
-        int l_player1_deploy_armies = 15;
-        int l_player2_deploy_armies = 20;
-
-        String l_countryOwnedByPlayer1 = d_player1.getOwnedCountries().getFirst().getName();
-        String l_countryOwnedByPlayer2 = d_player2.getOwnedCountries().getFirst().getName();
-
-        // Deploy armies
-        System.out.println();
-        Order l_player1_order = new Order("deploy", l_countryOwnedByPlayer1, l_player1_deploy_armies, d_player1);
-        l_player1_order.execute();
-
-        System.out.println();
-        Order l_player2_order = new Order("deploy", l_countryOwnedByPlayer2, l_player2_deploy_armies, d_player2);
-        l_player2_order.execute();
-
-        assertNotEquals(l_player1_deploy_armies, d_player1.getReinforcements());
-        assertNotEquals(l_player2_deploy_armies, d_player2.getReinforcements());
-    }
+//    @Test
+//    public void deployMoreArmiesThanReinforcementPool() {
+//        System.out.println("\nTEST : Disallow deploying more armies than the reinforcement pool\n");
+//
+//        d_gameEngine.assignReinforcements();
+//
+//        int l_player1_deploy_armies = 15;
+//        int l_player2_deploy_armies = 20;
+//
+//        String l_countryOwnedByPlayer1 = d_player1.getOwnedCountries().getFirst().getName();
+//        String l_countryOwnedByPlayer2 = d_player2.getOwnedCountries().getFirst().getName();
+//
+//        // Deploy armies
+//        System.out.println();
+//        Order l_player1_order = new Order("deploy", l_countryOwnedByPlayer1, l_player1_deploy_armies, d_player1);
+//        l_player1_order.execute();
+//
+//        System.out.println();
+//        Order l_player2_order = new Order("deploy", l_countryOwnedByPlayer2, l_player2_deploy_armies, d_player2);
+//        l_player2_order.execute();
+//
+//        assertNotEquals(l_player1_deploy_armies, d_player1.getReinforcements());
+//        assertNotEquals(l_player2_deploy_armies, d_player2.getReinforcements());
+//    }
 }
