@@ -117,9 +117,11 @@ public class Player {
         if (l_command == null) { System.out.println("Invalid order. Please try again.");
             return;
         }
+        ArrayList<String> l_arguments = l_command.getArgArr();
+
         if (l_command.d_commandType.equals("deploy")) {
-            int l_num = Integer.parseInt(l_command.d_argArr.get(1));
-            String l_countryName = l_command.d_argArr.get(0).replace('_', ' ');;
+            int l_num = Integer.parseInt(l_arguments.get(1));
+            String l_countryName = l_arguments.get(0).replace('_', ' ');;
             if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
                 Order l_newOrder = new Deploy("deploy", l_countryName , l_num, this);
                 d_playerOrders.add(l_newOrder);
@@ -128,6 +130,40 @@ public class Player {
             } else {
                 System.out.println("Not enough reinforcements available or you don't own this country.");
             }
+        } else if (l_command.d_commandType.equals("advance")) {
+            String l_countryFrom = l_arguments.get(0);
+            String l_countryTo = l_arguments.get(1);
+            int l_numArmies = Integer.parseInt(l_arguments.get(2));
+
+            Order l_advanceOrder = new Advance("advance", l_countryFrom, l_countryTo, l_numArmies, this);
+            this.d_playerOrders.add(l_advanceOrder);
+
+        } else if (l_command.d_commandType.equals("bomb")) {
+            String l_countryName = l_arguments.getFirst();
+
+            Order l_bombOrder = new Bomb(this, l_countryName);
+            this.d_playerOrders.add(l_bombOrder);
+
+        } else if (l_command.d_commandType.equals("blockade")) {
+            String l_countryName = l_arguments.getFirst();
+
+            Order l_blockadeOrder = new Blockade(this, l_countryName);
+            this.d_playerOrders.add(l_blockadeOrder);
+
+        } else if (l_command.d_commandType.equals("airlift")) {
+            String l_sourceCountryName = l_arguments.get(0);
+            String l_targetCountryName = l_arguments.get(1);
+            int l_numArmy = Integer.parseInt(l_arguments.get(2));
+
+            Order l_airliftOrder = new Airlift(this, l_sourceCountryName, l_targetCountryName, l_numArmy);
+            this.d_playerOrders.add(l_airliftOrder);
+
+        } else if (l_command.d_commandType.equals("negotiate")) {
+            String l_playerName = l_arguments.getFirst();
+
+            Order l_diplomacyOrder = new Diplomacy(this, l_playerName);
+            this.d_playerOrders.add(l_diplomacyOrder);
+
         } else {
             System.out.println("Invalid order. Please try again.");
         }
