@@ -37,13 +37,13 @@ public class MainMenu {
                 switch (l_input) {
                     // Runs map editor mode
                     case 1:
-                        InputOutput l_inputOutput = new InputOutput();
-                        l_inputOutput.run_map_editor();
+//                        InputOutput l_inputOutput = new InputOutput();
+//                        l_inputOutput.run_map_editor();
                         break;
                     // Starts the Warzone Game
                     case 2:
                         GameEngine gameEngine = new GameEngine();
-                        gameEngine.startup();
+                        gameEngine.gameLoop();
                         break;
                     // Finishes the program, prompting the user an exit message
                     case 3:

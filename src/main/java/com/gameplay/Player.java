@@ -79,27 +79,18 @@ public class Player {
      * Takes input from user in this format "deploy countryID num" and adds a command to playerOrders
      * Decreases the appropriate number of reinforcements from the numReinforcement
      */
-    public void issue_order() {
-        System.out.println(d_name + ", enter your order (deploy <countryID> <num>):");
-        Command l_command = InputOutput.get_user_command();
-        if (l_command == null) { System.out.println("Invalid order. Please try again.");
-            return;
-        }
-        if (l_command.d_commandType.equals("deploy")) {
-            int l_num = Integer.parseInt(l_command.d_argArr.get(1));
-            String l_countryName = l_command.d_argArr.get(0).replace('_', ' ');;
-            if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
-                Order l_newOrder = new Order("deploy", l_countryName , l_num, this);
-                d_playerOrders.add(l_newOrder);
-                d_numReinforcement -= l_num;
-                System.out.println("Order added: Deploy " + l_num + " armies to country " + l_countryName);
-            } else {
-                System.out.println("Not enough reinforcements available or you don't own this country.");
-            }
+    public void issue_order(Command l_command) {
+        int l_num = Integer.parseInt(l_command.d_argArr.get(1));
+        String l_countryName = l_command.d_argArr.get(0).replace('_', ' ');
+        ;
+        if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
+            Order l_newOrder = new Order("deploy", l_countryName, l_num, this);
+            d_playerOrders.add(l_newOrder);
+            d_numReinforcement -= l_num;
+            System.out.println("Order added: Deploy " + l_num + " armies to country " + l_countryName);
         } else {
-            System.out.println("Invalid order. Please try again.");
+            System.out.println("Not enough reinforcements available or you don't own this country.");
         }
-        System.out.println("-----------------------------------------------------------------------------");
     }
 
     /**

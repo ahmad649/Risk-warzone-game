@@ -2,9 +2,7 @@ package com.gameplay;
 
 import java.util.Scanner;
 
-import com.maps.MapEditor;
 import com.maps.MapReader;
-import com.maps.MapWriter;
 
 /**
  * {@code InputOutput} class manages all Input and Output operations that are used in Map Editor and Gameplay.
@@ -19,9 +17,9 @@ public class InputOutput {
         2 for startup and 1 during issue_order
      */
 
-    private final MapEditor d_mapEditor;
+//    private final MapEditor d_mapEditor;
     private MapReader d_mapReader;
-    private final MapWriter d_mapWriter;
+//    private final MapWriter d_mapWriter;
 
     /**
      * A constructor to initialize {@code InputOutput} object.
@@ -32,8 +30,8 @@ public class InputOutput {
      */
     public InputOutput() {
         this.d_mapReader = new MapReader();
-        this.d_mapEditor = new MapEditor(this.d_mapReader);
-        this.d_mapWriter = new MapWriter(this.d_mapReader);
+//        this.d_mapEditor = new MapEditor(this.d_mapReader);
+//        this.d_mapWriter = new MapWriter(this.d_mapReader);
     }
 
     /**
@@ -67,107 +65,107 @@ public class InputOutput {
      * </ul>
      *
      */
-    public void run_map_editor() {
-        String l_command;
-
-        do {
-            System.out.println("\n***********************");
-            System.out.println("*     Map Editor      *");
-            System.out.println("***********************");
-
-            Scanner l_scanner = new Scanner(System.in);
-
-            System.out.println("\nEnter your command (enter 'return' to go back to main menu): ");
-            l_command = l_scanner.nextLine();
-
-            // Validate map commands given by the user, then perform actions
-            if (is_editcontinent_command_valid(l_command)) {
-                Command l_arguments = new Command(l_command);
-
-                // Add continent
-                if (l_arguments.getArgsLabeled().containsKey("-add")) {
-                    // Get continentID and continentValue
-                    String l_continentID = l_arguments.getArgsLabeled().get("-add").getFirst();
-                    String l_continentValue = l_arguments.getArgsLabeled().get("-add").getLast();
-
-                    this.d_mapEditor.addContinent(l_continentID, Integer.parseInt(l_continentValue));
-                }
-
-                // Remove continent
-                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
-                    // Get continentID
-                    String l_continentID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-
-                    this.d_mapEditor.removeContinent(l_continentID);
-                }
-            } else if (is_editcountry_command_valid(l_command)) {
-                Command l_arguments = new Command(l_command);
-
-                // Add country
-                if (l_arguments.getArgsLabeled().containsKey("-add")) {
-                    // Get countryID and continentID
-                    String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
-                    String l_continentID = l_arguments.getArgsLabeled().get("-add").getLast();
-
-                    this.d_mapEditor.addCountry(l_countryID, l_continentID);
-                }
-
-                // Remove country
-                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
-                    // Get countryID
-                    String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-
-                    this.d_mapEditor.removeCountry(l_countryID);
-                }
-            } else if (is_editneighbor_command_valid(l_command)) {
-                Command l_arguments = new Command(l_command);
-
-                // Add neighbor
-                if (l_arguments.getArgsLabeled().containsKey("-add")) {
-                    // Get countryID and continentID
-                    String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
-                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("-add").getLast();
-
-                    this.d_mapEditor.addNeighbor(l_countryID, l_neighborCountryID);
-                }
-
-                // Remove neighbor
-                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
-                    // Get countryID and neighborCountryID
-                    String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("-remove").getLast();
-
-                    this.d_mapEditor.removeNeighbor(l_countryID, l_neighborCountryID);
-                }
-
-            } else if (is_showmap_command_valid(l_command)) {
-                // Show map
-                this.d_mapReader.showMap();
-
-            } else if (is_savemap_command_valid(l_command)) {
-                String l_filename = new Command(l_command).getArgArr().getFirst();
-
-                // Save map
-                this.d_mapWriter.saveMap(l_filename);
-
-            } else if (is_editmap_command_valid(l_command)) {
-                String l_filename = new Command(l_command).getArgArr().getFirst();
-
-                // Perform load map
-                this.d_mapReader.loadMap(l_filename);
-
-            } else if (is_validatemap_command_valid(l_command)) {
-                // Validate map
-                this.d_mapReader.validateMap();
-
-            } else if (l_command.equals("return")) {
-                System.out.println("\nReturn to main menu.");
-
-            } else {
-                System.out.println("\nInvalid command. Please try again.");
-            }
-        } while(!l_command.equals("return"));
-    }
+//    public void run_map_editor() {
+//        String l_command;
+//
+//        do {
+//            System.out.println("\n***********************");
+//            System.out.println("*     Map Editor      *");
+//            System.out.println("***********************");
+//
+//            Scanner l_scanner = new Scanner(System.in);
+//
+//            System.out.println("\nEnter your command (enter 'return' to go back to main menu): ");
+//            l_command = l_scanner.nextLine();
+//
+//            // Validate map commands given by the user, then perform actions
+//            if (is_editcontinent_command_valid(l_command)) {
+//                Command l_arguments = new Command(l_command);
+//
+//                // Add continent
+//                if (l_arguments.getArgsLabeled().containsKey("-add")) {
+//                    // Get continentID and continentValue
+//                    String l_continentID = l_arguments.getArgsLabeled().get("-add").getFirst();
+//                    String l_continentValue = l_arguments.getArgsLabeled().get("-add").getLast();
+//
+//                    this.d_mapEditor.addContinent(l_continentID, Integer.parseInt(l_continentValue));
+//                }
+//
+//                // Remove continent
+//                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
+//                    // Get continentID
+//                    String l_continentID = l_arguments.getArgsLabeled().get("-remove").getFirst();
+//
+//                    this.d_mapEditor.removeContinent(l_continentID);
+//                }
+//            } else if (is_editcountry_command_valid(l_command)) {
+//                Command l_arguments = new Command(l_command);
+//
+//                // Add country
+//                if (l_arguments.getArgsLabeled().containsKey("-add")) {
+//                    // Get countryID and continentID
+//                    String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
+//                    String l_continentID = l_arguments.getArgsLabeled().get("-add").getLast();
+//
+//                    this.d_mapEditor.addCountry(l_countryID, l_continentID);
+//                }
+//
+//                // Remove country
+//                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
+//                    // Get countryID
+//                    String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
+//
+//                    this.d_mapEditor.removeCountry(l_countryID);
+//                }
+//            } else if (is_editneighbor_command_valid(l_command)) {
+//                Command l_arguments = new Command(l_command);
+//
+//                // Add neighbor
+//                if (l_arguments.getArgsLabeled().containsKey("-add")) {
+//                    // Get countryID and continentID
+//                    String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
+//                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("-add").getLast();
+//
+//                    this.d_mapEditor.addNeighbor(l_countryID, l_neighborCountryID);
+//                }
+//
+//                // Remove neighbor
+//                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
+//                    // Get countryID and neighborCountryID
+//                    String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
+//                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("-remove").getLast();
+//
+//                    this.d_mapEditor.removeNeighbor(l_countryID, l_neighborCountryID);
+//                }
+//
+//            } else if (is_showmap_command_valid(l_command)) {
+//                // Show map
+//                this.d_mapReader.showMap();
+//
+//            } else if (is_savemap_command_valid(l_command)) {
+//                String l_filename = new Command(l_command).getArgArr().getFirst();
+//
+//                // Save map
+//                this.d_mapWriter.saveMap(l_filename);
+//
+//            } else if (is_editmap_command_valid(l_command)) {
+//                String l_filename = new Command(l_command).getArgArr().getFirst();
+//
+//                // Perform load map
+//                this.d_mapReader.loadMap(l_filename);
+//
+//            } else if (is_validatemap_command_valid(l_command)) {
+//                // Validate map
+//                this.d_mapReader.validateMap();
+//
+//            } else if (l_command.equals("return")) {
+//                System.out.println("\nReturn to main menu.");
+//
+//            } else {
+//                System.out.println("\nInvalid command. Please try again.");
+//            }
+//        } while(!l_command.equals("return"));
+//    }
 
     /**
      * Prompts user to enter a command, perform command validation, and returns Command object where the user command has been parsed.
