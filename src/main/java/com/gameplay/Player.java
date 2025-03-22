@@ -76,6 +76,20 @@ public class Player {
     }
 
     /**
+     * getCountryByName method
+     * @param p_countryName String containing the country's name being searched
+     * @return Country object owned by the player
+     */
+    public Country getCountryByName(String p_countryName){
+        for (Country l_country : d_ownedCountries){
+            if (l_country.getName().equals(p_countryName)){
+                return l_country;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Takes input from user in this format "deploy countryID num" and adds a command to playerOrders
      * Decreases the appropriate number of reinforcements from the numReinforcement
      */
@@ -89,7 +103,7 @@ public class Player {
             int l_num = Integer.parseInt(l_command.d_argArr.get(1));
             String l_countryName = l_command.d_argArr.get(0).replace('_', ' ');;
             if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
-                Order l_newOrder = new Order("deploy", l_countryName , l_num, this);
+                Order l_newOrder = new Deploy("deploy", l_countryName , l_num, this);
                 d_playerOrders.add(l_newOrder);
                 d_numReinforcement -= l_num;
                 System.out.println("Order added: Deploy " + l_num + " armies to country " + l_countryName);
