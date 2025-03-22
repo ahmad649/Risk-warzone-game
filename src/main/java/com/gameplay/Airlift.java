@@ -8,7 +8,7 @@ public class Airlift extends Order {
 
     private final String d_sourceCountryName;
     private final String d_targetCountryName;
-    private int d_numArmy;
+    private final int d_numArmy;
 
     public Airlift(Player p_player, String p_sourceCountryName, String p_targetCountryName, int p_numArmy) {
         super("airlift", p_sourceCountryName, p_numArmy, p_player);
@@ -46,14 +46,14 @@ public class Airlift extends Order {
         }
 
         // Check if the specified source country has sufficient armies
-        if (d_numArmy > l_sourceCountry.getArmies()) {
+        if (this.d_numArmy > l_sourceCountry.getArmies()) {
             System.out.println("\nError: " + l_sourceCountry.getName() + " does not have sufficient armies");
             return;
         }
 
         // Perform airlift
-        l_sourceCountry.setArmies(l_sourceCountry.getArmies() - d_numArmy);
-        l_targetCountry.setArmies(l_targetCountry.getArmies() + d_numArmy);
+        l_sourceCountry.setArmies(l_sourceCountry.getArmies() - this.d_numArmy);
+        l_targetCountry.setArmies(l_targetCountry.getArmies() + this.d_numArmy);
         System.out.println("\nAirlift successfully executed");
         System.out.println("Now " + l_sourceCountry.getName() + " has " + l_sourceCountry.getArmies() + " armies");
         System.out.println("Now " + l_targetCountry.getName() + " has " + l_targetCountry.getArmies() + " armies");
