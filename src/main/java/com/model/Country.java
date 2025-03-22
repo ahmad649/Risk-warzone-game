@@ -86,6 +86,15 @@ public class Country {
         return d_neighbors;
     }
 
+    public boolean isNeighbor(String d_countryName){
+        for (Country l_country : d_neighbors){
+            if (l_country.getName().equals(d_countryName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Set continent that owns this country.
      *
@@ -140,6 +149,15 @@ public class Country {
      */
     public void addReinforcements(int p_reinforcements) {
         d_armies += p_reinforcements;
+    }
+
+    /**
+     * Remove reinforcements.
+     *
+     * @param p_reinforcements the reinforcements
+     */
+    public void removeReinforcements(int p_reinforcements) {
+        d_armies -= p_reinforcements;
     }
 
     @Override
