@@ -20,6 +20,8 @@ public class Player {
     public List<Country> d_ownedCountries;
 
     private String d_name;
+    private List<Card> d_cards;
+    private List<Player> d_diplomacyPlayers;
 
     /**
      * Player generic constructor
@@ -87,6 +89,22 @@ public class Player {
             }
         }
         return null;
+    }
+
+    public List<Card> getD_cards() {
+        return d_cards;
+    }
+
+    public List<Player> getD_diplomacyPlayers() {
+        return d_diplomacyPlayers;
+    }
+
+    public void addDiplomacyPlayers(Player p_diplomacyPlayers) {
+        for (Player l_player : d_diplomacyPlayers) {
+            if (!l_player.getName().equals(p_diplomacyPlayers.getName())) {
+                this.d_diplomacyPlayers.add(p_diplomacyPlayers);
+            }
+        }
     }
 
     /**
@@ -157,6 +175,14 @@ public class Player {
             if (l_country.getName().equals(p_countryName)) {
                 l_country.addReinforcements(p_num);
                 return;
+            }
+        }
+    }
+
+    public void removeCountry(String p_countryName) {
+        for (Country l_country : d_ownedCountries) {
+            if (l_country.getName().equals(p_countryName)) {
+                d_ownedCountries.remove(l_country);
             }
         }
     }
