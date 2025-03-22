@@ -19,7 +19,7 @@ public class GameEngine {
     /**
      * A list of players.
      */
-    List<Player> d_playersList = new ArrayList<>();
+    public static List<Player> d_playersList = new ArrayList<>();
 
     /**
      * A list of countries.
