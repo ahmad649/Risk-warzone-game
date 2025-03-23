@@ -7,14 +7,14 @@ package com.gameplay;
  * String d_orderType type of the order being issued and executed
  * Player d_player player owner of the order
  */
-public class Order {
-    private String d_countryName;
-    private int d_numArmy;
+public abstract class Order {
+    public String d_countryName;
+    public int d_numArmy;
     /**
      * The D order type.
      */
     public String d_orderType;
-    private Player d_player;
+    public Player d_player;
 
     /**
      * Order constructor
@@ -34,25 +34,15 @@ public class Order {
     /**
      * Deploy armies at d_countryName
      */
-    public void execute(){
-        switch (d_orderType.toLowerCase()) {
-            case "deploy":
-                executeDeploy();
-                break;
-                case "advance":
-                    executeAdvance();
-                    break;
-                // Add more cases here for future orders like "attack", "bomb", etc.
-                default:
-                    System.out.println("Unknown order type: " + d_orderType);
-        }
-    }
+    public abstract void execute();
 
+/*
     /**
      * executeDeploy method
      * Executes the deployment of orders issues by the players
      * Makes basic verifications if the player is able to execute the order based on how many reinforcements wants to send vs how many reinforcements possesses
      */
+    /*
     private void executeDeploy() {
         System.out.println(d_player.getName() + " is deploying " + d_numArmy + " armies to country " + d_countryName);
 
@@ -78,6 +68,7 @@ public class Order {
     /**
      * Handles the advance order (moving armies between owned countries).
      */
+    /*
     private void executeAdvance() {
         System.out.println(d_player.getName() + " is advancing " + d_numArmy + " armies to country " + d_countryName);
 
@@ -89,7 +80,7 @@ public class Order {
      *
      * @return the order type
      */
-
+/*
     public String getOrderType() { return d_orderType; }
 
     /**
@@ -97,6 +88,7 @@ public class Order {
      *
      * @return the country name
      */
+    /*
     public String getCountryName() { return d_countryName; }
 
     /**
@@ -104,6 +96,7 @@ public class Order {
      *
      * @return the num army
      */
+    /*
     public int getNumArmy() { return d_numArmy; }
 
     /**
@@ -111,6 +104,7 @@ public class Order {
      *
      * @return the player
      */
+    /*
     public Player getPlayer() { return d_player; }
-
+*/
 }
