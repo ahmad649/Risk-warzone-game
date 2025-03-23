@@ -86,6 +86,15 @@ public class Country {
         return d_neighbors;
     }
 
+    public Country getNeighborByName(String d_countryName){
+        for (Country l_country : d_neighbors){
+            if (l_country.getName().equals(d_countryName)){
+                return l_country;
+            }
+        }
+        return null;
+    }
+
     public boolean isNeighbor(String d_countryName){
         for (Country l_country : d_neighbors){
             if (l_country.getName().equals(d_countryName)){
