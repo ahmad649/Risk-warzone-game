@@ -84,6 +84,7 @@ public class Advance extends Order{
                 d_defenderCountry.setArmies(d_numArmy);
                 d_player.d_ownedCountries.add(d_defenderCountry);
                 d_defenderCountry.setOwner(d_player);
+                p_defenderPlayer.d_ownedCountries.remove(d_defenderCountry);
             }else{
                 System.out.println("Country was defended successfully!!!");
                 d_defenderCountry.setArmies(d_defendingArmies);
