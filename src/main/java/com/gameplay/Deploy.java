@@ -16,12 +16,6 @@ public class Deploy extends Order{
             return;
         }
 
-        // Ensure the player has enough reinforcements
-        if (d_player.getReinforcements() < d_numArmy) {
-            System.out.println("Error: Not enough armies in reinforcement pool.");
-            return;
-        }
-
         // Deploy armies
         //        d_player.removeReinforcement(d_numArmy);
         d_player.addArmiesToCountry(d_countryName, d_numArmy);

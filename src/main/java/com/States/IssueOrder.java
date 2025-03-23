@@ -80,7 +80,8 @@ public class IssueOrder implements Phase {
     public boolean createOrder(Parsing l_parsing) {
         for (Player l_player : engine.d_playersList) {
             if (l_player.getReinforcements() > 0) {
-                l_player.issue_order(l_parsing);
+                l_player.issue_order(engine, l_parsing);
+                //TODO: MAYBE CREATE A ENDTURN COMMAND
                 return false;
             }
         }

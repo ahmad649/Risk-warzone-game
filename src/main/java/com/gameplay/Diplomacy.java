@@ -2,17 +2,15 @@ package com.gameplay;
 
 import java.util.Objects;
 
-import static com.gameplay.GameEngine.d_playersList;
-
 public class Diplomacy extends Order {
 
     private final Player d_currentPlayer;
     private Player d_targetPlayer;
 
-    public Diplomacy(Player p_currentPlayer, String p_targetPlayerName) {
+    public Diplomacy(GameEngine engine ,Player p_currentPlayer, String p_targetPlayerName) {
         super("negotiate", "none", 0, p_currentPlayer);
         this.d_currentPlayer = p_currentPlayer;
-        for (Player l_player: d_playersList) {
+        for (Player l_player: engine.d_playersList) {
             if (l_player.getName().equals(p_targetPlayerName)) {
                 this.d_targetPlayer = l_player;
             }

@@ -111,25 +111,10 @@ public class Player {
      * Takes input from user in this format "deploy countryID num" and adds a command to playerOrders
      * Decreases the appropriate number of reinforcements from the numReinforcement
      */
-    public void issue_order(Parsing l_parsing) {
-        int l_num = Integer.parseInt(l_parsing.d_argArr.get(1));
-        String l_countryName = l_parsing.d_argArr.get(0).replace('_', ' ');
-        if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
-            Order l_newOrder = new Order("deploy", l_countryName, l_num, this);
-            d_playerOrders.add(l_newOrder);
-            d_numReinforcement -= l_num;
-            System.out.println("Order added: Deploy " + l_num + " armies to country " + l_countryName);
-        } else {
-            System.out.println("Not enough reinforcements available or you don't own this country.");
-    public void issue_order() {
-        System.out.println(d_name + ", enter your order (deploy <countryID> <num>):");
-        Command l_command = InputOutput.get_user_command();
-        if (l_command == null) { System.out.println("Invalid order. Please try again.");
-            return;
-        }
-        ArrayList<String> l_arguments = l_command.getArgArr();
+    public void issue_order(GameEngine engine,Parsing l_parsing) {
+        ArrayList<String> l_arguments = l_parsing.getArgArr();
 
-        if (l_command.d_commandType.equals("deploy")) {
+        if (l_parsing.d_commandType.equals("deploy")) {
             int l_num = Integer.parseInt(l_arguments.get(1));
             String l_countryName = l_arguments.get(0).replace('_', ' ');;
             if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
@@ -140,7 +125,7 @@ public class Player {
             } else {
                 System.out.println("Not enough reinforcements available or you don't own this country.");
             }
-        } else if (l_command.d_commandType.equals("advance")) {
+        } else if (l_parsing.d_commandType.equals("advance")) {
             String l_countryFrom = l_arguments.get(0);
             String l_countryTo = l_arguments.get(1);
             int l_numArmies = Integer.parseInt(l_arguments.get(2));
@@ -148,19 +133,19 @@ public class Player {
             Order l_advanceOrder = new Advance("advance", l_countryFrom, l_countryTo, l_numArmies, this);
             this.d_playerOrders.add(l_advanceOrder);
 
-        } else if (l_command.d_commandType.equals("bomb")) {
+        } else if (l_parsing.d_commandType.equals("bomb")) {
             String l_countryName = l_arguments.getFirst();
 
             Order l_bombOrder = new Bomb(this, l_countryName);
             this.d_playerOrders.add(l_bombOrder);
 
-        } else if (l_command.d_commandType.equals("blockade")) {
+        } else if (l_parsing.d_commandType.equals("blockade")) {
             String l_countryName = l_arguments.getFirst();
 
             Order l_blockadeOrder = new Blockade(this, l_countryName);
             this.d_playerOrders.add(l_blockadeOrder);
 
-        } else if (l_command.d_commandType.equals("airlift")) {
+        } else if (l_parsing.d_commandType.equals("airlift")) {
             String l_sourceCountryName = l_arguments.get(0);
             String l_targetCountryName = l_arguments.get(1);
             int l_numArmy = Integer.parseInt(l_arguments.get(2));
@@ -168,14 +153,11 @@ public class Player {
             Order l_airliftOrder = new Airlift(this, l_sourceCountryName, l_targetCountryName, l_numArmy);
             this.d_playerOrders.add(l_airliftOrder);
 
-        } else if (l_command.d_commandType.equals("negotiate")) {
+        } else if (l_parsing.d_commandType.equals("negotiate")) {
             String l_playerName = l_arguments.getFirst();
 
-            Order l_diplomacyOrder = new Diplomacy(this, l_playerName);
+            Order l_diplomacyOrder = new Diplomacy(engine,this, l_playerName);
             this.d_playerOrders.add(l_diplomacyOrder);
-
-        } else {
-            System.out.println("Invalid order. Please try again.");
         }
     }
 

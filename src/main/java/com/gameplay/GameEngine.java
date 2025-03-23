@@ -3,6 +3,7 @@ package com.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.States.ExecuteOrder;
 import com.States.IssueOrder;
 import com.States.Phase;
 import com.States.Startup;
@@ -77,6 +78,7 @@ public class GameEngine {
                     l_phase = new ExecuteOrder(this);
                     while (true) {
                         if (l_phase.executeOrder()) {
+                            l_phase = new IssueOrder(this);
                             break;
                         }
                     }

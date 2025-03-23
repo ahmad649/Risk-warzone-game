@@ -241,23 +241,23 @@ public class InputOutput {
 
         } else if (is_advance_command_valid(l_command)) {
             System.out.println("Executing advance command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_bomb_command_valid(l_command)) {
             System.out.println("Executing bomb command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_blockade_command_valid(l_command)) {
             System.out.println("Executing blockade command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_airlift_command_valid(l_command)) {
             System.out.println("Executing airlift command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_negotiate_command_valid(l_command)) {
             System.out.println("Executing negotiate command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_quit_command_valid(l_command)) {
             System.out.println("Executing quit command");

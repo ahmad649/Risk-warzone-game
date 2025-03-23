@@ -1,6 +1,8 @@
-package com.gameplay;
+package com.States;
 
-import com.States.Phase;
+import com.gameplay.GameEngine;
+import com.gameplay.Order;
+import com.gameplay.Player;
 
 public class ExecuteOrder implements Phase {
     GameEngine engine;
@@ -13,9 +15,9 @@ public class ExecuteOrder implements Phase {
             Order l_pendingOrder = l_player.next_order();
             if (l_pendingOrder != null) {
                 l_pendingOrder.execute();
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }
