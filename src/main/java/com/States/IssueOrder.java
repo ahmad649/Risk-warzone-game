@@ -6,11 +6,16 @@ import com.gameplay.Player;
 import com.model.Continent;
 import com.model.Country;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 public class IssueOrder implements Phase {
 
     GameEngine engine;
+    public ArrayList<String> possibleOrders = new ArrayList<>(List.of("deploy","advance"));
+
 
     public IssueOrder(GameEngine engine) {
         if (engine.d_playersList.isEmpty()) {

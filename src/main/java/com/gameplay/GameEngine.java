@@ -72,7 +72,7 @@ public class GameEngine {
                 l_phase.assignCountries();
                 l_phase = new IssueOrder(this);
                 l_phase.assignReinforcements();
-            } else if (l_parsing.d_commandType.equals("deploy")) {
+            } else if (checkIssuable(l_parsing)) {
                 if (l_phase.createOrder(l_parsing)) {
                     l_phase = new ExecuteOrder(this);
                     while (true) {
@@ -88,4 +88,10 @@ public class GameEngine {
             }
         }
     }
+
+    public boolean checkIssuable(Parsing l_parsing) {
+        ArrayList<String> possibleOrders = new ArrayList<>(List.of("deploy","advance"));
+        return possibleOrders.contains(l_parsing.d_commandType.toLowerCase());
+    }
+
 }
