@@ -1,15 +1,11 @@
 package com.gameplay;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 import com.States.IssueOrder;
 import com.States.Phase;
 import com.States.Startup;
-import com.maps.MapReader;
-import com.model.Continent;
 import com.model.Country;
 
 /**
@@ -62,22 +58,22 @@ public class GameEngine {
 
     public void gameLoop() {
         while (true) {
-            Command l_command = null;
-            while (l_command == null) {
-                l_command = InputOutput.get_user_command();
+            Parsing l_parsing = null;
+            while (l_parsing == null) {
+                l_parsing = InputOutput.get_user_command();
             }
-            if (l_command.d_commandType.equals("gameplayer")) {
-                l_phase.addGamePlayer(l_command);
-            } else if (l_command.d_commandType.equals("loadmap")) {
-                l_phase.loadMap(l_command);
-            } else if (l_command.d_commandType.equals("showmap")) {
+            if (l_parsing.d_commandType.equals("gameplayer")) {
+                l_phase.addGamePlayer(l_parsing);
+            } else if (l_parsing.d_commandType.equals("loadmap")) {
+                l_phase.loadMap(l_parsing);
+            } else if (l_parsing.d_commandType.equals("showmap")) {
                 l_phase.displayMap();
-            } else if (l_command.d_commandType.equals("assigncountries")) {
+            } else if (l_parsing.d_commandType.equals("assigncountries")) {
                 l_phase.assignCountries();
                 l_phase = new IssueOrder(this);
                 l_phase.assignReinforcements();
-            } else if (l_command.d_commandType.equals("deploy")) {
-                if (l_phase.createOrder(l_command)) {
+            } else if (l_parsing.d_commandType.equals("deploy")) {
+                if (l_phase.createOrder(l_parsing)) {
                     l_phase = new ExecuteOrder(this);
                     while (true) {
                         if (l_phase.executeOrder()) {
@@ -85,7 +81,7 @@ public class GameEngine {
                         }
                     }
                 }
-            } else if (l_command.d_commandType.equals("quit")) {
+            } else if (l_parsing.d_commandType.equals("quit")) {
                 return;
             } else {
                 System.out.println("Invalid command. Try again.");

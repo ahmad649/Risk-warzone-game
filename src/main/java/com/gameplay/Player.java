@@ -79,10 +79,9 @@ public class Player {
      * Takes input from user in this format "deploy countryID num" and adds a command to playerOrders
      * Decreases the appropriate number of reinforcements from the numReinforcement
      */
-    public void issue_order(Command l_command) {
-        int l_num = Integer.parseInt(l_command.d_argArr.get(1));
-        String l_countryName = l_command.d_argArr.get(0).replace('_', ' ');
-        ;
+    public void issue_order(Parsing l_parsing) {
+        int l_num = Integer.parseInt(l_parsing.d_argArr.get(1));
+        String l_countryName = l_parsing.d_argArr.get(0).replace('_', ' ');
         if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
             Order l_newOrder = new Order("deploy", l_countryName, l_num, this);
             d_playerOrders.add(l_newOrder);

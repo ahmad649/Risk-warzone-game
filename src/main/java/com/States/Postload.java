@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
 
-import com.gameplay.Command;
+import com.gameplay.Parsing;
 import com.gameplay.GameEngine;
 import com.maps.MapReader;
 import com.model.Continent;
@@ -370,7 +370,7 @@ public class Postload implements Phase{
 
 
     @Override
-    public void addGamePlayer(GameEngine engine, Command l_command) {
+    public void addGamePlayer(GameEngine engine, Parsing l_parsing) {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in postload phase!");
     }
 

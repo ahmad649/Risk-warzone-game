@@ -186,9 +186,9 @@ public class InputOutput {
      *   <li>{@code deploy}</li>
      * </ul>
      *
-     * @return A new {@link Command} object where the user command has been parsed, otherwise {@code null} if the provided user command does not match any commands
+     * @return A new {@link Parsing} object where the user command has been parsed, otherwise {@code null} if the provided user command does not match any commands
      */
-    public static Command get_user_command() {
+    public static Parsing get_user_command() {
         Scanner l_scanner = new Scanner(System.in);
 
         System.out.println("Enter command: ");
@@ -197,55 +197,55 @@ public class InputOutput {
         // Validate all commands, then perform actions
         if (is_editcontinent_command_valid(l_command)) {
             System.out.println("Executing editcontinent command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_editcountry_command_valid(l_command)) {
             System.out.println("Executing editcountry command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_editneighbor_command_valid(l_command)) {
             System.out.println("Executing editneighbor command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_showmap_command_valid(l_command)) {
             System.out.println("Executing showmap command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_savemap_command_valid(l_command)) {
             System.out.println("Executing savemap command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_editmap_command_valid(l_command)) {
             System.out.println("Executing editmap command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_validatemap_command_valid(l_command)) {
             System.out.println("Executing validatemap command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_loadmap_command_valid(l_command)) {
             System.out.println("Executing loadmap command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_gameplayer_command_valid(l_command)) {
             System.out.println("Executing gameplayer command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_assigncountries_command_valid(l_command)) {
             System.out.println("Executing assigncountries command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_deploy_command_valid(l_command)) {
             System.out.println("Executing deploy command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_quit_command_valid(l_command)) {
             System.out.println("Executing quit command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else if (is_continue_command_valid(l_command)) {
             System.out.println("Executing continue command");
-            return new Command(l_command);
+            return new Parsing(l_command);
 
         } else {
             System.out.println("Command does not exist. Please try again.");

@@ -1,6 +1,6 @@
 package com.States;
 
-import com.gameplay.Command;
+import com.gameplay.Parsing;
 import com.gameplay.GameEngine;
 import com.gameplay.Player;
 import com.model.Continent;
@@ -72,10 +72,10 @@ public class IssueOrder implements Phase {
     }
 
     @Override
-    public boolean createOrder(Command l_command) {
+    public boolean createOrder(Parsing l_parsing) {
         for (Player l_player : engine.d_playersList) {
             if (l_player.getReinforcements() > 0) {
-                l_player.issue_order(l_command);
+                l_player.issue_order(l_parsing);
                 return false;
             }
         }

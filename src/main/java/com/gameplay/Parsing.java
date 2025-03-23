@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * {@code Command} class manages the parsing of user commands.
  */
-public class Command {
+public class Parsing {
     Integer d_numArgs;
     public String d_commandType;
     public HashMap<String, List<String>> d_argsLabeled;
@@ -17,7 +17,7 @@ public class Command {
      *
      * @param p_input The user command string that has been parsed, either in a form of {@code HashMap<String, List<String>>} or {@code ArrayList<String>}
      */
-    public Command(String p_input) {
+    public Parsing(String p_input) {
         this.d_fullCommand = p_input;
         // Split the string
         String[] l_parts = p_input.split(" ");

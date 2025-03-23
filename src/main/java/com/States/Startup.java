@@ -1,6 +1,6 @@
 package com.States;
 
-import com.gameplay.Command;
+import com.gameplay.Parsing;
 import com.gameplay.GameEngine;
 import com.gameplay.Player;
 import com.maps.MapReader;
@@ -21,22 +21,22 @@ public class Startup implements Phase {
     }
 
     @Override
-    public void addGamePlayer(Command l_command) {
-        if (l_command.d_argsLabeled.containsKey("-add")) {
-            String l_playername = l_command.d_argsLabeled.get("-add").getFirst();
+    public void addGamePlayer(Parsing l_parsing) {
+        if (l_parsing.d_argsLabeled.containsKey("-add")) {
+            String l_playername = l_parsing.d_argsLabeled.get("-add").getFirst();
             engine.d_playersList.add(new Player(l_playername));
             System.out.println("Player added: " + l_playername);
-        } else if (l_command.d_argsLabeled.containsKey("-remove")) {
-            String l_playerName = l_command.d_argsLabeled.get("-remove").getFirst();
+        } else if (l_parsing.d_argsLabeled.containsKey("-remove")) {
+            String l_playerName = l_parsing.d_argsLabeled.get("-remove").getFirst();
             engine.d_playersList.removeIf(p -> p.getName().equals(l_playerName));
             System.out.println("Player removed: " + l_playerName);
         }
     }
 
     @Override
-    public void loadMap(Command l_command) {
+    public void loadMap(Parsing l_parsing) {
         Preload l_mapreader = new Preload(new MapReader());
-        l_mapreader.loadMap(l_command.d_argArr.getFirst());
+        l_mapreader.loadMap(l_parsing.d_argArr.getFirst());
         engine.d_countryList = l_mapreader.d_countries.values().stream().toList();
         if (engine.d_countryList.isEmpty()) {
             System.out.println("Empty map loaded. Please try again.");

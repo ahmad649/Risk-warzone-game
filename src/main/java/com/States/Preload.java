@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
-import com.gameplay.Command;
+import com.gameplay.Parsing;
 import com.gameplay.GameEngine;
 import com.maps.MapReader;
 import com.model.Continent;
@@ -181,7 +181,7 @@ public class Preload implements Phase{
 
 
     @Override
-    public void addGamePlayer(GameEngine engine, Command l_command) {
+    public void addGamePlayer(GameEngine engine, Parsing l_parsing) {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
     }
 

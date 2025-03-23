@@ -1,14 +1,14 @@
 package com.States;
 
-import com.gameplay.Command;
+import com.gameplay.Parsing;
 import com.gameplay.GameEngine;
 
 public interface Phase {
-    default void addGamePlayer(Command l_command) {
+    default void addGamePlayer(Parsing l_parsing) {
         System.out.println("DEFAULTBODY");
     }
 
-    default void loadMap(Command l_command) {
+    default void loadMap(Parsing l_parsing) {
         System.out.println("DEFAULTBODY");
 
     }
@@ -25,7 +25,7 @@ public interface Phase {
         System.out.println("DEFAULTBODY");
     }
 
-    default boolean createOrder(Command l_command) {
+    default boolean createOrder(Parsing l_parsing) {
         System.out.println("DEFAULTBODY");
         return false;
     }
@@ -35,7 +35,7 @@ public interface Phase {
         return false;
     }
 
-    default void addGamePlayer(GameEngine engine, Command l_command){
+    default void addGamePlayer(GameEngine engine, Parsing l_parsing){
         System.out.println("DEFAULTBODY");
     }
 
