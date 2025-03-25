@@ -16,6 +16,9 @@ public class IssueOrder implements Phase {
     GameEngine engine;
     public ArrayList<String> possibleOrders = new ArrayList<>(List.of("deploy","advance"));
 
+    public String currentPhase() {
+        return "IssueOrder";
+    }
 
     public IssueOrder(GameEngine engine) {
         if (engine.d_playersList.isEmpty()) {

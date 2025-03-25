@@ -31,7 +31,9 @@ public class Postload implements Phase{
         d_countries = d_mapReader.getCountriesMap();
     }
 
-
+    public String currentPhase() {
+        return "Postload";
+    }
 
     /**
      * Displays the loaded map.

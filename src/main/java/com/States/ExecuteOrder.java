@@ -9,6 +9,11 @@ public class ExecuteOrder implements Phase {
     public ExecuteOrder(GameEngine engine) {
         this.engine = engine;
     }
+
+    public String currentPhase() {
+        return "ExecuteOrder";
+    }
+
     @Override
     public boolean executeOrder() {
         for (Player l_player : engine.d_playersList) {
