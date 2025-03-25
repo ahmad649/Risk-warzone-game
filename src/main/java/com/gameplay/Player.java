@@ -34,6 +34,7 @@ public class Player {
         d_playerOrders = new LinkedList<>();
         d_numReinforcement = 0;
         d_cards = new ArrayList<>();
+        d_diplomacyPlayers = new ArrayList<>();
     }
 
     /**
@@ -105,8 +106,14 @@ public class Player {
     }
 
     public void addDiplomacyPlayers(Player p_diplomacyPlayers) {
+        if (d_diplomacyPlayers.isEmpty()) {
+            d_diplomacyPlayers.add(p_diplomacyPlayers);
+            return;
+        }
+
         for (Player l_player : d_diplomacyPlayers) {
             if (!l_player.getName().equals(p_diplomacyPlayers.getName())) {
+                System.out.println("hee");
                 this.d_diplomacyPlayers.add(p_diplomacyPlayers);
             }
         }
