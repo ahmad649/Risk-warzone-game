@@ -45,6 +45,8 @@ public class BlockadeTest {
      */
     @Test
     public void noBlockadeCard() {
+        System.out.println("\nTEST : Player does not have blockade card");
+
         // Get player 1's adjacent countries
         List<Country> l_adjacentCountries = new ArrayList<>();
         for (Country l_country : this.d_player1.getOwnedCountries()) {
@@ -67,6 +69,8 @@ public class BlockadeTest {
      */
     @Test
     public void PlayerDoesNotOwnCountry() {
+        System.out.println("\nTEST : Player cannot use blockade card on other player's countries");
+
         this.d_player1.addCards(Card.BLOCKADE);
 
         // Get player 1's adjacent countries
@@ -91,6 +95,8 @@ public class BlockadeTest {
      */
     @Test
     public void zeroNumberOfArmies() {
+        System.out.println("\nTEST : Player cannot use blockade card on other player's countries");
+
         this.d_player1.addCards(Card.BLOCKADE);
 
         // Get one of the Player 1's countries
@@ -107,6 +113,8 @@ public class BlockadeTest {
      */
     @Test
     public void successfulBlockade() {
+        System.out.println("\nTEST : Player use blockade card successfully");
+
         this.d_player1.addCards(Card.BLOCKADE);
 
         // Get player 1's countries

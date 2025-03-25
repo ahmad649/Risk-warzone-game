@@ -50,6 +50,8 @@ public class BombTest {
      */
     @Test
     public void noBombCard() {
+        System.out.println("\nTEST : Player does not have bomb card");
+
         // Get player 1's adjacent countries
         List<Country> l_adjacentCountries = new ArrayList<>();
         for (Country l_country : this.d_player1.getOwnedCountries()) {
@@ -72,6 +74,8 @@ public class BombTest {
      */
     @Test
     public void zeroNumberOfArmies() {
+        System.out.println("\nTEST : Player cannot use bomb card on adjacent countries that have no armies");
+
         this.d_player1.addCards(Card.BOMB);
 
         // Get player 1's adjacent countries
@@ -97,6 +101,8 @@ public class BombTest {
      */
     @Test
     public void bombOurOwnCountry() {
+        System.out.println("\nTEST : Player cannot use bomb card on their own countries");
+
         this.d_player1.addCards(Card.BOMB);
 
         // Get player 1's countries
@@ -119,6 +125,8 @@ public class BombTest {
      */
     @Test
     public void bombNonAdjacentCountry() {
+        System.out.println("\nTEST : Player cannot bomb nonadjacent countries");
+
         this.d_player1.addCards(Card.BOMB);
 
         // Get player 1's adjacent countries
@@ -151,6 +159,8 @@ public class BombTest {
      */
     @Test
     public void successfulBombCountry() {
+        System.out.println("\nTEST : Player successfully use bomb card on adjacent country");
+
         this.d_player1.addCards(Card.BOMB);
 
         // Get player 1's adjacent countries
