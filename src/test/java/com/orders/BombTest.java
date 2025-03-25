@@ -63,8 +63,8 @@ public class BombTest {
         // set a country to bomb and set the armies to be 0
         Country l_countryToBomb = l_adjacentCountries.getFirst();
 
-        Bomb bomb = new Bomb(this.d_player1, l_countryToBomb.getName());
-        assertFalse(bomb.isValid());
+        Bomb l_bombOrder = new Bomb(this.d_player1, l_countryToBomb.getName());
+        assertFalse(l_bombOrder.isValid());
     }
 
     /**
@@ -88,8 +88,8 @@ public class BombTest {
         Country l_countryToBomb = l_adjacentCountries.getFirst();
         l_countryToBomb.setArmies(0);
 
-        Bomb bomb = new Bomb(this.d_player1, l_countryToBomb.getName());
-        assertFalse(bomb.isValid());
+        Bomb l_bombOrder = new Bomb(this.d_player1, l_countryToBomb.getName());
+        assertFalse(l_bombOrder.isValid());
     }
 
     /**
@@ -110,8 +110,8 @@ public class BombTest {
         Country l_countryToBomb = l_countries.getFirst();
         l_countryToBomb.setArmies(5);
 
-        Bomb bomb = new Bomb(this.d_player1, l_countryToBomb.getName());
-        assertFalse(bomb.isValid());
+        Bomb l_bombOrder = new Bomb(this.d_player1, l_countryToBomb.getName());
+        assertFalse(l_bombOrder.isValid());
     }
 
     /**
@@ -142,8 +142,8 @@ public class BombTest {
         Country l_countryToBomb = l_nonAdjacentCountries.getFirst();
         l_countryToBomb.setArmies(5);
 
-        Bomb bomb = new Bomb(this.d_player1, l_countryToBomb.getName());
-        assertFalse(bomb.isValid());
+        Bomb l_bombOrder = new Bomb(this.d_player1, l_countryToBomb.getName());
+        assertFalse(l_bombOrder.isValid());
     }
 
     /**
@@ -167,8 +167,8 @@ public class BombTest {
         Country l_countryToBomb = l_adjacentCountries.getFirst();
         l_countryToBomb.setArmies(10);
 
-        Bomb bomb = new Bomb(this.d_player1, l_countryToBomb.getName());
-        assertTrue(bomb.isValid());
+        Bomb l_bombOrder = new Bomb(this.d_player1, l_countryToBomb.getName());
+        assertTrue(l_bombOrder.isValid());
 
         System.out.println("\nSuccess: " + l_countryToBomb.getName() + " has been bombed by " + this.d_player1.getName());
     }
