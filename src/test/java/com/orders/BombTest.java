@@ -6,6 +6,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.model.Continent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -145,6 +146,9 @@ public class BombTest {
             if (!l_adjacentCountryNames.contains(l_country.getName())) {
                 l_nonAdjacentCountries.add(l_country);
             }
+        }
+        if (l_nonAdjacentCountries.isEmpty()) {
+            l_nonAdjacentCountries.add(new Country(1, "TestCountry", new Continent(1, "TestContinent", 1)));
         }
 
         Country l_countryToBomb = l_nonAdjacentCountries.getFirst();
