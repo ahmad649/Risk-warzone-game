@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * {@code CommandTest} class provides testing for the arguments passed in the user commands.
  */
-public class CommandTest {
+public class ParsingTest {
     /**
      * Parse edit continent arguments.
      */
