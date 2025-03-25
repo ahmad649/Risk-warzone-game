@@ -33,6 +33,7 @@ public class Player {
         d_ownedCountries = new ArrayList<>();
         d_playerOrders = new LinkedList<>();
         d_numReinforcement = 0;
+        d_cards = new ArrayList<>();
     }
 
     /**
@@ -89,6 +90,10 @@ public class Player {
             }
         }
         return null;
+    }
+
+    public void addCards(Card p_card) {
+        this.d_cards.add(p_card);
     }
 
     public List<Card> getD_cards() {
