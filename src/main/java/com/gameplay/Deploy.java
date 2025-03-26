@@ -1,9 +1,16 @@
 package com.gameplay;
 
-public class Deploy extends Order{
+import com.model.Country;
 
-    public Deploy(String p_orderType, String p_countryName, int p_numArmy, Player p_player){
-        super(p_orderType, p_countryName, p_numArmy, p_player);
+public class Deploy extends Order{
+    private final Player d_player;
+    private final String d_countryName;
+    private final int d_numArmy;
+
+    public Deploy(Player p_player, String p_countryName, int p_numArmy){
+        this.d_player = p_player;
+        this.d_countryName = p_countryName;
+        this.d_numArmy = p_numArmy;
     }
 
     public boolean isValid() {

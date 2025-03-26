@@ -11,7 +11,6 @@ public class Airlift extends Order {
     private final int d_numArmy;
 
     public Airlift(Player p_player, String p_sourceCountryName, String p_targetCountryName, int p_numArmy) {
-        super("airlift", p_sourceCountryName, p_numArmy, p_player);
         this.d_sourceCountryName = p_sourceCountryName;
         this.d_targetCountryName = p_targetCountryName;
         this.d_numArmy = p_numArmy;

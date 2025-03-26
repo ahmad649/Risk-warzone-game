@@ -4,10 +4,12 @@ import com.model.Country;
 
 public class Bomb extends Order {
 
-    Country l_countryToBomb;
+    private final Player d_player;
+    private Country l_countryToBomb;
 
     public Bomb(Player p_player, String p_countryName) {
-        super("bomb", p_countryName, 0, p_player);
+        this.d_player = p_player;
+        this.l_countryToBomb = this.d_player.getCountryByName(p_countryName);
     }
 
 
@@ -19,8 +21,7 @@ public class Bomb extends Order {
         }
 
         // Check if the specified country is owned by the current player
-        Country l_currentPlayerCountry = d_player.getCountryByName(d_countryName);
-        if (l_currentPlayerCountry != null) {
+        if (this.l_countryToBomb != null) {
             System.out.println("\nError: Player " + d_player.getName() + " cannot bomb your own country");
             return false;
         }

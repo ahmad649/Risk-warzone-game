@@ -3,11 +3,13 @@ package com.gameplay;
 import com.model.Country;
 
 public class Blockade extends Order {
-    Country l_countryToBlockade;
-    int l_numOfArmies;
+    private final Player d_player;
+    private final Country l_countryToBlockade;
+    private int l_numOfArmies;
 
     public Blockade(Player p_player, String p_countryName) {
-        super("blockade", p_countryName, 0, p_player);
+        this.d_player = p_player;
+        this.l_countryToBlockade = this.d_player.getCountryByName(p_countryName);
     }
 
     public boolean isValid() {
@@ -18,7 +20,6 @@ public class Blockade extends Order {
         }
 
         // Check if the specified country is owned by the current player
-        this.l_countryToBlockade = d_player.getCountryByName(d_countryName);
         if (this.l_countryToBlockade == null) {
             System.out.println("\nError: Player " + d_player.getName() + " does not own " + d_countryName + " country");
             return false;

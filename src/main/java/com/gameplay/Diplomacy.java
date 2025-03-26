@@ -10,7 +10,6 @@ public class Diplomacy extends Order {
     private final GameEngine d_gameEngine;
 
     public Diplomacy(GameEngine p_gameEngine ,Player p_currentPlayer, String p_targetPlayerName) {
-        super("negotiate", "none", 0, p_currentPlayer);
         this.d_currentPlayer = p_currentPlayer;
         this.d_gameEngine = p_gameEngine;
         this.d_targetPlayerName = p_targetPlayerName;
