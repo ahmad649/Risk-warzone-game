@@ -29,6 +29,7 @@ public class Advance extends Order{
         }
     }
 
+    @Override
     public boolean isValid() {
         // Ensure the player owns the source country before advancing
         if (!this.d_player.ownsCountry(this.d_countryNameFrom)) {

@@ -31,6 +31,9 @@ public abstract class Order {
 //        this.d_player = p_player;
 //    }
 
+
+    public abstract boolean isValid();
+
     /**
      * Deploy armies at d_countryName
      */

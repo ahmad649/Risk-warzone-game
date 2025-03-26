@@ -13,6 +13,7 @@ public class Deploy extends Order{
         this.d_numArmy = p_numArmy;
     }
 
+    @Override
     public boolean isValid() {
         // Ensure the player owns the country before deploying
         if (!this.d_player.ownsCountry(this.d_countryName)) {

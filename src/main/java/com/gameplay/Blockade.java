@@ -14,6 +14,7 @@ public class Blockade extends Order {
         this.d_countryToBlockade = this.d_player.getCountryByName(p_countryName);
     }
 
+    @Override
     public boolean isValid() {
         // Check if the player owns a blockade card
         if (!d_player.getD_cards().contains(Card.BLOCKADE)) {

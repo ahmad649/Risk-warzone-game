@@ -15,6 +15,7 @@ public class Diplomacy extends Order {
         this.d_targetPlayerName = p_targetPlayerName;
     }
 
+    @Override
     public boolean isValid() {
         // Check if the player owns a diplomacy card
         if (!this.d_currentPlayer.getD_cards().contains(Card.DIPLOMACY)) {

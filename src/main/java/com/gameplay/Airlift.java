@@ -18,6 +18,7 @@ public class Airlift extends Order {
         this.d_numArmy = p_numArmy;
     }
 
+    @Override
     public boolean isValid() {
         // Check if the player owns a airlift card
         if (!this.d_player.getD_cards().contains(Card.AIRLIFT)) {
