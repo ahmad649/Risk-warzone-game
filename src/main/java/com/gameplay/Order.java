@@ -8,13 +8,13 @@ package com.gameplay;
  * Player d_player player owner of the order
  */
 public abstract class Order {
-    public String d_countryName;
-    public int d_numArmy;
+//    public String d_countryName;
+//    public int d_numArmy;
     /**
      * The D order type.
      */
-    public String d_orderType;
-    public Player d_player;
+//    public String d_orderType;
+//    public Player d_player;
 
     /**
      * Order constructor
@@ -24,12 +24,15 @@ public abstract class Order {
      * @param p_numArmy     Integer number of reinforcements involved in the order
      * @param p_player      Player object owner of the order
      */
-    public Order(String p_orderType, String p_countryName, int p_numArmy, Player p_player) {
-        this.d_orderType = p_orderType;
-        this.d_countryName = p_countryName;
-        this.d_numArmy = p_numArmy;
-        this.d_player = p_player;
-    }
+//    public Order(String p_orderType, String p_countryName, int p_numArmy, Player p_player) {
+//        this.d_orderType = p_orderType;
+//        this.d_countryName = p_countryName;
+//        this.d_numArmy = p_numArmy;
+//        this.d_player = p_player;
+//    }
+
+
+    public abstract boolean isValid();
 
     /**
      * Deploy armies at d_countryName

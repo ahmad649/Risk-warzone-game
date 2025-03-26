@@ -4,6 +4,8 @@ import com.gameplay.Parsing;
 import com.gameplay.GameEngine;
 
 public interface Phase {
+    abstract public String currentPhase();
+
     default void addGamePlayer(Parsing l_parsing) {
         System.out.println("DEFAULTBODY");
     }

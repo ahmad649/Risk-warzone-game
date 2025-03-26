@@ -20,6 +20,10 @@ public class Startup implements Phase {
         this.engine = engine;
     }
 
+    public String currentPhase() {
+        return "Startup";
+    }
+
     @Override
     public void addGamePlayer(Parsing l_parsing) {
         if (l_parsing.d_argsLabeled.containsKey("-add")) {

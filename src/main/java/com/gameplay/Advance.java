@@ -2,94 +2,125 @@ package com.gameplay;
 
 import com.model.Country;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Advance extends Order{
+    private final GameEngine d_gameEngine;
+    private final Player d_player;
+    private final Country d_countryFrom;
+    private Country d_countryTo;
+    private final String d_countryNameFrom, d_countryNameTo;
+    private final int d_numArmies;
 
-    private String p_countryTo;
+    public Advance(GameEngine p_gameEngine, Player p_player, String p_countryFrom, String p_countryTo, int p_numArmies) {
+        this.d_gameEngine = p_gameEngine;
+        this.d_player = p_player;
+        this.d_countryFrom = p_player.getCountryByName(p_countryFrom);
+        this.d_countryNameFrom = p_countryFrom;
+        this.d_countryNameTo = p_countryTo;
+        this.d_numArmies = p_numArmies;
 
-    public Advance(String p_orderType, String p_countryFrom, String p_countryTo , int p_numArmy, Player p_player){
-        super(p_orderType, p_countryFrom, p_numArmy, p_player);
-        this.p_countryTo = p_countryTo;
+        for (Player l_player : p_gameEngine.getPlayersList()) {
+            if (l_player.getCountryByName(p_countryTo) != null) {
+                this.d_countryTo = l_player.getCountryByName(this.d_countryNameTo);
+            }
+        }
+    }
+
+    @Override
+    public boolean isValid() {
+        // Ensure the player owns the source country before advancing
+        if (!this.d_player.ownsCountry(this.d_countryNameFrom)) {
+            System.out.println("\nError: Player does not own country " + this.d_countryNameFrom);
+            return false;
+        }
+
+        // If the target country is owned by player in the diplomacy list
+        ArrayList<String> diplomacyPlayerNames = new ArrayList<>();
+        for (Player l_player : this.d_player.getD_diplomacyPlayers()) {
+            diplomacyPlayerNames.add(l_player.getName());
+        }
+
+        if (diplomacyPlayerNames.contains(this.d_countryTo.getOwner().getName())) {
+            System.out.println("\nError: " + this.d_countryNameTo + " is owned by a player that's in the diplomacy list");
+            return false;
+        }
+
+        // Source and target country are the same
+        if (this.d_countryFrom.getName().equals(this.d_countryTo.getName())) {
+            System.out.println("\nError: Source and target country are the same");
+            return false;
+        }
+
+        // Ensure the country has enough reinforcements
+        if (this.d_numArmies > this.d_countryFrom.getArmies()) {
+            System.out.println("\nError: Not enough armies are available in " + this.d_countryNameFrom);
+            return false;
+        }
+
+        //Ensure both countries are adjacent
+        if (!this.d_countryFrom.isNeighbor(this.d_countryTo.getName())){
+            System.out.println("\nError: Countries are not adjacent");
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public void execute(){
-        System.out.println(d_player.getName() + " is moving " + d_numArmy + " armies from country " + d_countryName + " to country " + p_countryTo);
-        Country d_sourceCountry = d_player.getCountryByName(d_countryName);
-        Country d_destiantionCountry = d_player.getCountryByName(p_countryTo);
+        if (isValid()) {
+            ArrayList<String> l_countryNamesOwned = new ArrayList<>();
+            for (Country l_country : this.d_player.getOwnedCountries()) {
+                l_countryNamesOwned.add(l_country.getName());
+            }
+            if (l_countryNamesOwned.contains(this.d_countryTo.getName())) {
+                // Move armies
+                this.d_countryFrom.setArmies(this.d_countryFrom.getArmies() - this.d_numArmies);
+                this.d_countryTo.setArmies(this.d_countryTo.getArmies() + this.d_numArmies);
+            } else {
+                // Battle
+                int l_attackingWinningChance = (int) Math.round(this.d_numArmies * 0.6);
+                int l_defendingWinningChance = (int) Math.round(this.d_countryTo.getArmies() * 0.7);
 
-        // Ensure the player owns the country before advancing
-        if (!d_player.ownsCountry(d_countryName)) {
-            System.out.println("Error: Player does not own country " + d_countryName);
-            return;
-        }
+                int l_attackingArmies = this.d_numArmies - l_defendingWinningChance;
+                int l_defendingArmies = this.d_countryTo.getArmies() - l_attackingWinningChance;
 
-        // Ensure the country has enough reinforcements
-        if (d_sourceCountry.getArmies() < d_numArmy) {
-            System.out.println("Error: Not enough armies in available in the country.");
-            return;
-        }
+                if (l_defendingArmies <= 0) {
+                    // Attacker wins
 
-        //Ensure both countries are adjacent
-        if (!d_sourceCountry.isNeighbor(p_countryTo)){
-            System.out.println("Error: Countries are not adjacent");
-            return;
-        }
+                    // Give random card to player
+                    Card l_card = this.getRandomCard();
+                    this.d_player.addCards(l_card);
 
-        //Advance logic
-        if (d_player.ownsCountry(p_countryTo)){
-            d_sourceCountry.removeReinforcements(d_numArmy);
-            d_destiantionCountry.addReinforcements(d_numArmy);
-            d_destiantionCountry.setOwner(d_player);
-            d_player.d_ownedCountries.add(d_destiantionCountry);
-            System.out.println("Successfully moved " + d_numArmy + " armies from country " + d_countryName + " to country " + p_countryTo);
-            System.out.println("-----------------------------------------------------------------------------");
-        }else{
-            //Battle Logic if the destination country is owned by another player
-            System.out.println("Starting attack from country " + d_countryName + " to country " + p_countryTo);
-            Country d_defenderCountry = d_sourceCountry.getNeighborByName(p_countryTo);
-            Player p_defenderPlayer = d_defenderCountry.getOwner();
+                    // Set number of armies
+                    this.d_countryFrom.setArmies(this.d_countryFrom.getArmies() - this.d_numArmies);
+                    this.d_countryTo.setArmies(l_attackingArmies);
 
-            Random random = new Random();
-            int d_attackingArmies = d_numArmy;
-            int d_defendingArmies = d_defenderCountry.getArmies();
+                    // Add and remove country
+                    this.d_player.addCountryToOwnedCountries(this.d_countryTo);
+                    this.d_countryTo.getOwner().removeCountry(this.d_countryTo.getName());
 
-            //Kill count to decide a winner after the attack
-            int d_attackersKilled = 0;
-            int d_defendersKilled = 0;
+                    // Change owner
+                    this.d_countryTo.setOwner(this.d_player);
+                } else {
+                    // Defender wins
 
-            //60% chances of killing a defender army
-            for (int i = 0; i<d_attackingArmies; i++){
-                if (random.nextDouble() < 0.60){
-                    d_defendersKilled++;
+                    // Set number of armies
+                    this.d_countryFrom.setArmies(l_attackingArmies + (this.d_countryFrom.getArmies() - this.d_numArmies));
+                    this.d_countryTo.setArmies(l_defendingArmies);
                 }
             }
-            //70% chances of killing an attacker army
-            for (int i = 0; i<d_defendingArmies; i++){
-                if (random.nextDouble() < 0.60){
-                    d_attackersKilled++;
-                }
-            }
-
-            //Updating the armies after attack
-            d_attackingArmies -= d_attackersKilled;
-            d_defendingArmies -= d_defendersKilled;
-
-            //After the attack results, the winner and owner of the defending country is set
-            //If the attacker wins, the country is conquered
-            if (d_defendingArmies <= 0){
-                System.out.println("Country has been captured by " +d_player.getName() + "!!!");
-                d_sourceCountry.removeReinforcements(d_numArmy);
-                d_defenderCountry.setArmies(d_numArmy);
-                d_player.d_ownedCountries.add(d_defenderCountry);
-                d_defenderCountry.setOwner(d_player);
-                p_defenderPlayer.d_ownedCountries.remove(d_defenderCountry);
-            }else{
-                System.out.println("Country was defended successfully!!!");
-                d_defenderCountry.setArmies(d_defendingArmies);
-                d_sourceCountry.setArmies(d_attackingArmies);
-            }
         }
+
+    }
+
+    public Card getRandomCard() {
+        ArrayList<Card> cards = new ArrayList<>(List.of(Card.BOMB, Card.BLOCKADE, Card.AIRLIFT, Card.DIPLOMACY));
+
+        Random random = new Random();
+        return cards.get(random.nextInt(cards.size()));
     }
 }

@@ -29,8 +29,9 @@ public class Preload implements Phase{
         d_countries = d_mapReader.getCountriesMap();
     }
 
-
-
+    public String currentPhase() {
+        return "Preload";
+    }
 
     /**
      * Loads a map file into memory.
