@@ -123,53 +123,63 @@ public class Player {
      * Takes input from user in this format "deploy countryID num" and adds a command to playerOrders
      * Decreases the appropriate number of reinforcements from the numReinforcement
      */
-    public void issue_order(GameEngine engine,Parsing l_parsing) {
+    public void issue_order(GameEngine p_gameEngine,Parsing l_parsing) {
         ArrayList<String> l_arguments = l_parsing.getArgArr();
 
-        if (l_parsing.d_commandType.equals("deploy")) {
-            int l_num = Integer.parseInt(l_arguments.get(1));
-            String l_countryName = l_arguments.get(0).replace('_', ' ');;
-            if (l_num <= d_numReinforcement && ownsCountry(l_countryName)) {
-                Order l_newOrder = new Deploy("deploy", l_countryName , l_num, this);
-                d_playerOrders.add(l_newOrder);
-                d_numReinforcement -= l_num;
-                System.out.println("Order added: Deploy " + l_num + " armies to country " + l_countryName);
-            } else {
-                System.out.println("Not enough reinforcements available or you don't own this country.");
+        switch (l_parsing.d_commandType) {
+            case "deploy" -> {
+                String l_countryName = l_arguments.get(0).replace('_', ' ');
+                int l_num = Integer.parseInt(l_arguments.get(1));
+
+                Order l_deployOrder = new Deploy(this, l_countryName, l_num);
+                if (l_deployOrder.isValid()) {
+                    this.d_playerOrders.add(l_deployOrder);
+                }
             }
-        } else if (l_parsing.d_commandType.equals("advance")) {
-            String l_countryFrom = l_arguments.get(0);
-            String l_countryTo = l_arguments.get(1);
-            int l_numArmies = Integer.parseInt(l_arguments.get(2));
+            case "advance" -> {
+                String l_countryFrom = l_arguments.get(0);
+                String l_countryTo = l_arguments.get(1);
+                int l_numArmies = Integer.parseInt(l_arguments.get(2));
 
-            Order l_advanceOrder = new Advance("advance", l_countryFrom, l_countryTo, l_numArmies, this);
-            this.d_playerOrders.add(l_advanceOrder);
+                Order l_advanceOrder = new Advance(p_gameEngine, this, l_countryFrom, l_countryTo, l_numArmies);
+                if (l_advanceOrder.isValid()) {
+                    this.d_playerOrders.add(l_advanceOrder);
+                }
+            }
+            case "bomb" -> {
+                String l_countryName = l_arguments.getFirst();
 
-        } else if (l_parsing.d_commandType.equals("bomb")) {
-            String l_countryName = l_arguments.getFirst();
+                Order l_bombOrder = new Bomb(this, l_countryName);
+                if (l_bombOrder.isValid()) {
+                    this.d_playerOrders.add(l_bombOrder);
+                }
+            }
+            case "blockade" -> {
+                String l_countryName = l_arguments.getFirst();
 
-            Order l_bombOrder = new Bomb(this, l_countryName);
-            this.d_playerOrders.add(l_bombOrder);
+                Order l_blockadeOrder = new Blockade(this, l_countryName);
+                if (l_blockadeOrder.isValid()) {
+                    this.d_playerOrders.add(l_blockadeOrder);
+                }
+            }
+            case "airlift" -> {
+                String l_sourceCountryName = l_arguments.get(0);
+                String l_targetCountryName = l_arguments.get(1);
+                int l_numArmy = Integer.parseInt(l_arguments.get(2));
 
-        } else if (l_parsing.d_commandType.equals("blockade")) {
-            String l_countryName = l_arguments.getFirst();
+                Order l_airliftOrder = new Airlift(this, l_sourceCountryName, l_targetCountryName, l_numArmy);
+                if (l_airliftOrder.isValid()) {
+                    this.d_playerOrders.add(l_airliftOrder);
+                }
+            }
+            case "negotiate" -> {
+                String l_playerName = l_arguments.getFirst();
 
-            Order l_blockadeOrder = new Blockade(this, l_countryName);
-            this.d_playerOrders.add(l_blockadeOrder);
-
-        } else if (l_parsing.d_commandType.equals("airlift")) {
-            String l_sourceCountryName = l_arguments.get(0);
-            String l_targetCountryName = l_arguments.get(1);
-            int l_numArmy = Integer.parseInt(l_arguments.get(2));
-
-            Order l_airliftOrder = new Airlift(this, l_sourceCountryName, l_targetCountryName, l_numArmy);
-            this.d_playerOrders.add(l_airliftOrder);
-
-        } else if (l_parsing.d_commandType.equals("negotiate")) {
-            String l_playerName = l_arguments.getFirst();
-
-            Order l_diplomacyOrder = new Diplomacy(engine,this, l_playerName);
-            this.d_playerOrders.add(l_diplomacyOrder);
+                Order l_diplomacyOrder = new Diplomacy(p_gameEngine, this, l_playerName);
+                if (l_diplomacyOrder.isValid()) {
+                    this.d_playerOrders.add(l_diplomacyOrder);
+                }
+            }
         }
     }
 
@@ -225,4 +235,9 @@ public class Player {
             }
         }
     }
+
+    public void addCountryToOwnedCountries(Country p_country) {
+        d_ownedCountries.add(p_country);
+    }
+
 }
