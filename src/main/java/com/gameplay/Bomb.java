@@ -5,11 +5,13 @@ import com.model.Country;
 public class Bomb extends Order {
 
     private final Player d_player;
-    private Country l_countryToBomb;
+    private Country d_countryToBomb;
+    private final String d_countryName;
 
     public Bomb(Player p_player, String p_countryName) {
         this.d_player = p_player;
-        this.l_countryToBomb = this.d_player.getCountryByName(p_countryName);
+        this.d_countryName = p_countryName;
+        this.d_countryToBomb = this.d_player.getCountryByName(p_countryName);
     }
 
 
@@ -21,7 +23,7 @@ public class Bomb extends Order {
         }
 
         // Check if the specified country is owned by the current player
-        if (this.l_countryToBomb != null) {
+        if (this.d_countryToBomb != null) {
             System.out.println("\nError: Player " + d_player.getName() + " cannot bomb your own country");
             return false;
         }
@@ -30,20 +32,20 @@ public class Bomb extends Order {
         for (Country l_country : d_player.getOwnedCountries()) {
             for (Country l_adjCountry : l_country.getNeighbors()) {
                 if (l_adjCountry.getName().equals(this.d_countryName)) {
-                    this.l_countryToBomb = l_adjCountry;
+                    this.d_countryToBomb = l_adjCountry;
                 }
             }
         }
 
         // Check if specified country is found as adjacent countries
-        if (this.l_countryToBomb == null) {
-            System.out.println("\nError: " + d_countryName + " is not adjacent with " + d_player.getName() + "'s countries");
+        if (this.d_countryToBomb == null) {
+            System.out.println("\nError: " + this.d_countryName + " is not adjacent with " + d_player.getName() + "'s countries");
             return false;
         }
 
         // Check if the country has armies
-        if (this.l_countryToBomb.getArmies() <= 0) {
-            System.out.println("\nError: Country " + d_countryName + " has no armies");
+        if (this.d_countryToBomb.getArmies() <= 0) {
+            System.out.println("\nError: Country " + this.d_countryName + " has no armies");
             return false;
         }
 
@@ -53,8 +55,8 @@ public class Bomb extends Order {
     @Override
     public void execute() {
         if (this.isValid()) {
-            l_countryToBomb.setArmies(Math.round((float) l_countryToBomb.getArmies() / 2));
-            System.out.println("\nSuccess: " + d_countryName + " has been bombed by " + d_player.getName());
+            d_countryToBomb.setArmies(Math.round((float) d_countryToBomb.getArmies() / 2));
+            System.out.println("\nSuccess: " + this.d_countryName + " has been bombed by " + d_player.getName());
 
             // Remove bomb card from the current player
             d_player.getD_cards().remove(Card.BOMB);
