@@ -46,7 +46,7 @@ public class DeployTest {
         System.out.println("\nTEST : Player deploys armies where it is not their country");
 
         Country l_countryToDeploy = this.d_player2.getOwnedCountries().getFirst();
-        Deploy l_deployOrder = new Deploy("deploy", l_countryToDeploy.getName(), 5, this.d_player1);
+        Deploy l_deployOrder = new Deploy(this.d_player1, l_countryToDeploy.getName(), 5);
         assertFalse(l_deployOrder.isValid());
     }
 
@@ -54,7 +54,7 @@ public class DeployTest {
      * Test deploying more armies than the available reinforcement pool.
      */
     @Test
-    public void NotenoughReinforcements() {
+    public void NotEnoughReinforcements() {
         System.out.println("\nTEST : Disallow deploying more armies than the reinforcement pool\n");
 
         // Change game phase to Issue Order
@@ -69,11 +69,11 @@ public class DeployTest {
 
         // Deploy armies
         System.out.println();
-        Order l_player1_order = new Deploy("deploy", l_countryOwnedByPlayer1, l_player1_deploy_armies, this.d_player1);
+        Order l_player1_order = new Deploy(this.d_player1, l_countryOwnedByPlayer1, l_player1_deploy_armies);
         l_player1_order.execute();
 
         System.out.println();
-        Order l_player2_order = new Deploy("deploy", l_countryOwnedByPlayer2, l_player2_deploy_armies, this.d_player2);
+        Order l_player2_order = new Deploy(this.d_player2, l_countryOwnedByPlayer2, l_player2_deploy_armies);
         l_player2_order.execute();
 
         assertNotEquals(l_player1_deploy_armies, this.d_player1.getReinforcements());
