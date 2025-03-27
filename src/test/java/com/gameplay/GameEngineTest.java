@@ -3,15 +3,11 @@ package com.gameplay;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import com.States.ExecuteOrder;
-import com.States.IssueOrder;
-import com.States.Phase;
-import com.States.Startup;
+import com.States.*;
 import com.model.Continent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import com.model.Country;
 
@@ -93,7 +89,7 @@ public class GameEngineTest {
         System.out.println("\nTEST : Verifying game phases\n");
 
         System.out.println("Set game phase to 'Startup'");
-        this.d_gamePhase = new Startup(this.d_gameEngine);
+        this.d_gamePhase = new Menu(this.d_gameEngine);
 
         System.out.println("Current game phase: " + this.d_gamePhase.currentPhase());
         assertEquals("Menu", this.d_gamePhase.currentPhase());
