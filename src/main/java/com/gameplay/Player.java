@@ -229,11 +229,7 @@ public class Player {
     }
 
     public void removeCountry(String p_countryName) {
-        for (Country l_country : d_ownedCountries) {
-            if (l_country.getName().equals(p_countryName)) {
-                d_ownedCountries.remove(l_country);
-            }
-        }
+        d_ownedCountries.removeIf(l_country -> l_country.getName().equals(p_countryName));
     }
 
     public void addCountryToOwnedCountries(Country p_country) {

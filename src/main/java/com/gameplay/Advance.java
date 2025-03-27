@@ -78,10 +78,16 @@ public class Advance extends Order{
             }
             if (l_countryNamesOwned.contains(this.d_countryTo.getName())) {
                 // Move armies
+
+                System.out.println("\nSuccess: Moving " + this.d_numArmies + " armies to " + this.d_countryTo.getName());
+
                 this.d_countryFrom.setArmies(this.d_countryFrom.getArmies() - this.d_numArmies);
                 this.d_countryTo.setArmies(this.d_countryTo.getArmies() + this.d_numArmies);
             } else {
                 // Battle
+
+                System.out.println("\nStarting battle between " + this.d_countryFrom.getName() + " and " + this.d_countryTo.getName());
+
                 int l_attackingWinningChance = (int) Math.round(this.d_numArmies * 0.6);
                 int l_defendingWinningChance = (int) Math.round(this.d_countryTo.getArmies() * 0.7);
 
@@ -90,27 +96,39 @@ public class Advance extends Order{
 
                 if (l_defendingArmies <= 0) {
                     // Attacker wins
+                    System.out.println("\nAttacker wins");
 
                     // Give random card to player
                     Card l_card = this.getRandomCard();
+
+                    System.out.println("\nPlayer " + this.d_player.getName() + " has received " + l_card + " card");
                     this.d_player.addCards(l_card);
 
                     // Set number of armies
+
                     this.d_countryFrom.setArmies(this.d_countryFrom.getArmies() - this.d_numArmies);
+                    System.out.println("\nNow " + this.d_countryFrom.getName() + " has " + this.d_countryFrom.getArmies() + " armies");
+
                     this.d_countryTo.setArmies(l_attackingArmies);
+                    System.out.println("Now " + this.d_countryTo.getName() + " has " + this.d_countryTo.getArmies() + " armies");
 
                     // Add and remove country
                     this.d_player.addCountryToOwnedCountries(this.d_countryTo);
-                    this.d_countryTo.getOwner().removeCountry(this.d_countryTo.getName());
+                    this.d_countryTo.getOwner().removeCountry(this.d_countryNameTo);
 
                     // Change owner
                     this.d_countryTo.setOwner(this.d_player);
                 } else {
                     // Defender wins
 
+                    System.out.println("\nDefender wins");
                     // Set number of armies
                     this.d_countryFrom.setArmies(l_attackingArmies + (this.d_countryFrom.getArmies() - this.d_numArmies));
+                    System.out.println("\nNow " + this.d_countryFrom.getName() + " has " + this.d_countryFrom.getArmies() + " armies");
+
                     this.d_countryTo.setArmies(l_defendingArmies);
+                    System.out.println("Now " + this.d_countryTo.getName() + " has " + this.d_countryTo.getArmies() + " armies");
+
                 }
             }
         }
