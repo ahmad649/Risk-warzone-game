@@ -3,12 +3,14 @@ package com.gameplay;
 import com.model.Country;
 
 public class Blockade extends Order {
+    private final GameEngine d_gameEngine;
     private final Player d_player;
     private final String d_countryName;
     private final Country d_countryToBlockade;
     private int d_numOfArmies;
 
-    public Blockade(Player p_player, String p_countryName) {
+    public Blockade(GameEngine p_gameEngine, Player p_player, String p_countryName) {
+        this.d_gameEngine = p_gameEngine;
         this.d_player = p_player;
         this.d_countryName = p_countryName;
         this.d_countryToBlockade = this.d_player.getCountryByName(p_countryName);
@@ -48,7 +50,11 @@ public class Blockade extends Order {
             // Remove the specified country from the current player's countries
             d_player.removeCountry(this.d_countryName);
 
-            // TODO:Convert the specified country into neutral territory
+            Player l_neutralPlayer = this.d_gameEngine.getneutralPlayer();
+
+            // Convert the specified country into neutral territory
+            this.d_countryToBlockade.setOwner(l_neutralPlayer);
+            l_neutralPlayer.addCountryToOwnedCountries(d_countryToBlockade);
 
             // Remove blockade card from the current player
             d_player.getD_cards().remove(Card.BLOCKADE);

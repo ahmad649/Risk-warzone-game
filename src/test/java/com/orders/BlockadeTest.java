@@ -60,7 +60,7 @@ public class BlockadeTest {
         // set a country to blockade and set the armies to be 0
         Country l_countryToBlockade = l_adjacentCountries.getFirst();
 
-        Blockade l_blockadeOrder = new Blockade(this.d_player1, l_countryToBlockade.getName());
+        Blockade l_blockadeOrder = new Blockade(this.d_gameEngine, this.d_player1, l_countryToBlockade.getName());
         assertFalse(l_blockadeOrder.isValid());
     }
 
@@ -86,7 +86,7 @@ public class BlockadeTest {
         // set a country to blockade and set the armies to be 0
         Country l_countryToBlockade = l_adjacentCountries.getFirst();
 
-        Blockade l_blockadeOrder = new Blockade(this.d_player1, l_countryToBlockade.getName());
+        Blockade l_blockadeOrder = new Blockade(this.d_gameEngine, this.d_player1, l_countryToBlockade.getName());
         assertFalse(l_blockadeOrder.isValid());
     }
 
@@ -103,7 +103,7 @@ public class BlockadeTest {
         Country l_countryToBlockade = this.d_player1.getOwnedCountries().getFirst();
         l_countryToBlockade.setArmies(0);
 
-        Blockade l_blockadeOrder = new Blockade(this.d_player1, l_countryToBlockade.getName());
+        Blockade l_blockadeOrder = new Blockade(this.d_gameEngine, this.d_player1, l_countryToBlockade.getName());
         assertFalse(l_blockadeOrder.isValid());
 
     }

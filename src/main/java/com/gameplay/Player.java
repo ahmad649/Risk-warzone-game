@@ -157,7 +157,7 @@ public class Player {
             case "blockade" -> {
                 String l_countryName = l_arguments.getFirst();
 
-                Order l_blockadeOrder = new Blockade(this, l_countryName);
+                Order l_blockadeOrder = new Blockade(p_gameEngine, this, l_countryName);
                 if (l_blockadeOrder.isValid()) {
                     this.d_playerOrders.add(l_blockadeOrder);
                 }

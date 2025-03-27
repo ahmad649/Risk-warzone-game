@@ -25,6 +25,8 @@ public class GameEngine {
      */
     public List<Country> d_countryList = new ArrayList<>();
 
+    private final Player d_neutralPlayer = new Player("Neutral");
+
     public Phase l_phase;
 
     public GameEngine(){
@@ -38,6 +40,10 @@ public class GameEngine {
      */
     public List<Player> getPlayersList() {
         return d_playersList;
+    }
+
+    public Player getneutralPlayer() {
+        return this.d_neutralPlayer;
     }
 
     /**
