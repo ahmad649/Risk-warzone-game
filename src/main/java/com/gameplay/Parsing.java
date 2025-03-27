@@ -3,7 +3,7 @@ package com.gameplay;
 import java.util.*;
 
 /**
- * {@code Command} class manages the parsing of user commands.
+ * {@code Parsing} class manages the parsing of user commands.
  */
 public class Parsing {
     Integer d_numArgs;
@@ -13,7 +13,7 @@ public class Parsing {
     String d_fullCommand;
 
     /**
-     * A constructor to initialize {@code Command} object which is used to parse user commands.
+     * A constructor to initialize {@code Parsing} object which is used to parse user commands.
      *
      * @param p_input The user command string that has been parsed, either in a form of {@code HashMap<String, List<String>>} or {@code ArrayList<String>}
      */
