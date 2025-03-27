@@ -81,6 +81,7 @@ public class Player {
 
     /**
      * getCountryByName method
+     *
      * @param p_countryName String containing the country's name being searched
      * @return Country object owned by the player
      */
@@ -93,28 +94,47 @@ public class Player {
         return null;
     }
 
+    /**
+     * Add cards to the card list
+     *
+     * @param p_card a card to add
+     */
     public void addCards(Card p_card) {
         this.d_cards.add(p_card);
     }
 
-    public List<Card> getD_cards() {
+    /**
+     * Gets a list of cards own by the current player
+     *
+     * @return a list of cards
+     */
+    public List<Card> getCards() {
         return d_cards;
     }
 
-    public List<Player> getD_diplomacyPlayers() {
+    /**
+     * Gets a list of diplomacy players of the current player
+     *
+     * @return a list of diplomacy players
+     */
+    public List<Player> getDiplomacyPlayers() {
         return d_diplomacyPlayers;
     }
 
-    public void addDiplomacyPlayers(Player p_diplomacyPlayers) {
+    /**
+     * Add player to the diplomacy list
+     *
+     * @param p_diplomacyPlayer the diplomacy player
+     */
+    public void addDiplomacyPlayers(Player p_diplomacyPlayer) {
         if (d_diplomacyPlayers.isEmpty()) {
-            d_diplomacyPlayers.add(p_diplomacyPlayers);
+            d_diplomacyPlayers.add(p_diplomacyPlayer);
             return;
         }
 
         for (Player l_player : d_diplomacyPlayers) {
-            if (!l_player.getName().equals(p_diplomacyPlayers.getName())) {
-                System.out.println("hee");
-                this.d_diplomacyPlayers.add(p_diplomacyPlayers);
+            if (!l_player.getName().equals(p_diplomacyPlayer.getName())) {
+                this.d_diplomacyPlayers.add(p_diplomacyPlayer);
             }
         }
     }
@@ -122,6 +142,9 @@ public class Player {
     /**
      * Takes input from user in this format "deploy countryID num" and adds a command to playerOrders
      * Decreases the appropriate number of reinforcements from the numReinforcement
+     *
+     * @param p_gameEngine the game engine
+     * @param l_parsing    the parsing object that returns parsed arguments
      */
     public void issue_order(GameEngine p_gameEngine,Parsing l_parsing) {
         ArrayList<String> l_arguments = l_parsing.getArgArr();
@@ -228,10 +251,20 @@ public class Player {
         }
     }
 
+    /**
+     * Remove country from the list of owned countries.
+     *
+     * @param p_countryName the country name
+     */
     public void removeCountry(String p_countryName) {
         d_ownedCountries.removeIf(l_country -> l_country.getName().equals(p_countryName));
     }
 
+    /**
+     * Add country to the list of owned countries
+     *
+     * @param p_country the country
+     */
     public void addCountryToOwnedCountries(Country p_country) {
         d_ownedCountries.add(p_country);
     }

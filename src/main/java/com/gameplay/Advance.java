@@ -54,7 +54,7 @@ public class Advance extends Order{
 
         // If the target country is owned by player in the diplomacy list
         ArrayList<String> diplomacyPlayerNames = new ArrayList<>();
-        for (Player l_player : this.d_player.getD_diplomacyPlayers()) {
+        for (Player l_player : this.d_player.getDiplomacyPlayers()) {
             diplomacyPlayerNames.add(l_player.getName());
         }
 

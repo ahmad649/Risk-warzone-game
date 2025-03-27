@@ -8,16 +8,11 @@ import com.maps.MapReader;
  * {@code InputOutput} class manages all Input and Output operations that are used in Map Editor and Gameplay.
  */
 public class InputOutput {
-    /*
-    TODO:
-        Take input Via scanner, validate and return
-        Different possible inputs depending on the stage of the game with varying argsLabled
-        Take stage as parameter and validate
-        Currently only 3 possible inputs refer grading sheet
-        2 for startup and 1 during issue_order
+
+    /**
+     * Instantiates a new InputOutput object.
      */
-
-
+    public InputOutput() {}
 
     /**
      * Prompts user to enter a command, perform command validation, and returns Command object where the user command has been parsed.
@@ -386,7 +381,8 @@ public class InputOutput {
         // Check if command equals to 'menu'
         return p_command.trim().equals("menu");
     }
-        /**
+
+    /**
      * Validates whether the given 'editor' command is valid.
      *
      * @param p_command The user command string to validate
@@ -396,7 +392,8 @@ public class InputOutput {
         // Check if command equals to 'editor'
         return p_command.trim().equals("editor");
     }
-        /**
+
+    /**
      * Validates whether the given 'startgame' command is valid.
      *
      * @param p_command The user command string to validate
@@ -589,6 +586,7 @@ public class InputOutput {
         }
         return true;
     }
+
     /**
      * Validates whether the given 'quit' command is valid.
      *

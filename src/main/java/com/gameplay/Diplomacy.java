@@ -29,7 +29,7 @@ public class Diplomacy extends Order {
     @Override
     public boolean isValid() {
         // Check if the player owns a diplomacy card
-        if (!this.d_currentPlayer.getD_cards().contains(Card.DIPLOMACY)) {
+        if (!this.d_currentPlayer.getCards().contains(Card.DIPLOMACY)) {
             System.out.println("\nError: Player " + this.d_currentPlayer.getName() + " does not own " + Card.DIPLOMACY + " card");
             return false;
         }
@@ -64,7 +64,7 @@ public class Diplomacy extends Order {
             System.out.println("\nSuccess: Now, " + this.d_currentPlayer.getName() + " cannot attack " + this.d_targetPlayer.getName() + " until the end of the turn and vice versa");
 
             // Remove diplomacy card from the current player
-            this.d_currentPlayer.getD_cards().remove(Card.DIPLOMACY);
+            this.d_currentPlayer.getCards().remove(Card.DIPLOMACY);
         }
     }
 }

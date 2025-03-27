@@ -30,7 +30,7 @@ public class Blockade extends Order {
     @Override
     public boolean isValid() {
         // Check if the player owns a blockade card
-        if (!d_player.getD_cards().contains(Card.BLOCKADE)) {
+        if (!d_player.getCards().contains(Card.BLOCKADE)) {
             System.out.println("\nError: Player " + d_player.getName() + " does not own " + Card.BLOCKADE + " card");
             return false;
         }
@@ -68,7 +68,7 @@ public class Blockade extends Order {
             l_neutralPlayer.addCountryToOwnedCountries(d_countryToBlockade);
 
             // Remove blockade card from the current player
-            d_player.getD_cards().remove(Card.BLOCKADE);
+            d_player.getCards().remove(Card.BLOCKADE);
         }
     }
 }

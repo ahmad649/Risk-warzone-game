@@ -28,13 +28,26 @@ public class GameEngine {
      */
     public List<Country> d_countryList = new ArrayList<>();
 
+    /**
+     * The game phase.
+     */
     public Phase d_phase;
-    private final Player d_neutralPlayer = new Player("Neutral");
 
+    /**
+     * The L phase.
+     */
     public Phase l_phase;
 
+    private final Player d_neutralPlayer;
+
+
+    /**
+     * Instantiates a new Game engine.
+     */
     public GameEngine(){
-    d_phase = new Menu(this);
+        d_phase = new Menu(this);
+
+        this.d_neutralPlayer = new Player("Neutral");
     }
 
     /**
@@ -46,6 +59,11 @@ public class GameEngine {
         return d_playersList;
     }
 
+    /**
+     * Get neutral player.
+     *
+     * @return the neutral player
+     */
     public Player getneutralPlayer() {
         return this.d_neutralPlayer;
     }
@@ -59,14 +77,14 @@ public class GameEngine {
         this.d_countryList = countryList;
     }
 
+    // Game starter
+
     /**
      * startup() method in charge of initiating the game taking no parameters
      * Manages player creation and controls the first stage of the game managing the users input through the InputOutput class methods
      * If the command given by the user is valid, Command class methods are called to determine either if the command adds or removes players
      * On the other hand, if the command corresponds to assigning countries, the process is called as well as the loop method running the main stage of the game
      */
-    // Game starter
-
     public void gameLoop() {
         while (true) {
             Parsing l_parsing = null;

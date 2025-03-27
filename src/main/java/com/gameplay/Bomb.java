@@ -27,7 +27,7 @@ public class Bomb extends Order {
     @Override
     public boolean isValid() {
         // Check if the player owns a bomb card
-        if (!d_player.getD_cards().contains(Card.BOMB)) {
+        if (!d_player.getCards().contains(Card.BOMB)) {
             System.out.println("\nError: Player " + d_player.getName() + " does not own " + Card.BOMB + " card");
             return false;
         }
@@ -69,7 +69,7 @@ public class Bomb extends Order {
             System.out.println("\nSuccess: " + this.d_countryName + " has been bombed by " + d_player.getName());
 
             // Remove bomb card from the current player
-            d_player.getD_cards().remove(Card.BOMB);
+            d_player.getCards().remove(Card.BOMB);
         }
     }
 }

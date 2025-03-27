@@ -6,10 +6,25 @@ import java.util.*;
  * {@code Parsing} class manages the parsing of user commands.
  */
 public class Parsing {
+    /**
+     * The number of arguments.
+     */
     Integer d_numArgs;
+    /**
+     * The command type.
+     */
     public String d_commandType;
+    /**
+     * The arguments in a form of hashmap.
+     */
     public HashMap<String, List<String>> d_argsLabeled;
+    /**
+     * The arguments in a form of array.
+     */
     public ArrayList<String> d_argArr;
+    /**
+     * The full command.
+     */
     String d_fullCommand;
 
     /**

@@ -84,7 +84,7 @@ public class DiplomacyTest {
         Diplomacy l_diplomacyOrder = new Diplomacy(this.d_gameEngine, this.d_player1, this.d_player2.getName());
         l_diplomacyOrder.execute();
 
-        String l_playerInDiplomacyList = this.d_player1.getD_diplomacyPlayers().getFirst().getName();
+        String l_playerInDiplomacyList = this.d_player1.getDiplomacyPlayers().getFirst().getName();
 
         assertEquals(l_playerInDiplomacyList, this.d_player2.getName());
     }

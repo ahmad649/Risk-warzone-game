@@ -33,7 +33,7 @@ public class Airlift extends Order {
     @Override
     public boolean isValid() {
         // Check if the player owns a airlift card
-        if (!this.d_player.getD_cards().contains(Card.AIRLIFT)) {
+        if (!this.d_player.getCards().contains(Card.AIRLIFT)) {
             System.out.println("\nError: Player " + this.d_player.getName() + " does not own " + Card.AIRLIFT + " card");
             return false;
         }
@@ -78,7 +78,7 @@ public class Airlift extends Order {
             System.out.println("Now " + this.d_targetCountry.getName() + " has " + this.d_targetCountry.getArmies() + " armies");
 
             // Remove airlift card from the current player
-            this.d_player.getD_cards().remove(Card.AIRLIFT);
+            this.d_player.getCards().remove(Card.AIRLIFT);
         }
     }
 }

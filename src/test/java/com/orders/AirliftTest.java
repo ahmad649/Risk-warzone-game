@@ -53,7 +53,7 @@ public class AirliftTest {
     public void sameSourceAndTargetCountry() {
         System.out.println("\nTEST : Player performs airlift with the same source and target country");
 
-        this.d_player1.getD_cards().add(Card.AIRLIFT);
+        this.d_player1.getCards().add(Card.AIRLIFT);
 
         Airlift l_airliftOrder = new Airlift(this.d_player1, "Peru", "Peru", 5);
 
@@ -67,7 +67,7 @@ public class AirliftTest {
     public void playerDoesNotOwnSourceCountry() {
         System.out.println("\nTEST : Player performs airlift from the source country that is not owned by the player");
 
-        this.d_player1.getD_cards().add(Card.AIRLIFT);
+        this.d_player1.getCards().add(Card.AIRLIFT);
 
         Country l_sourceCountry = this.d_player2.getOwnedCountries().getFirst();
         Country l_targetCountry = this.d_player1.getOwnedCountries().getFirst();
@@ -84,7 +84,7 @@ public class AirliftTest {
     public void playerDoesNotOwnTargetCountry() {
         System.out.println("\nTEST : Player performs airlift to the target country that is not owned by the player");
 
-        this.d_player1.getD_cards().add(Card.AIRLIFT);
+        this.d_player1.getCards().add(Card.AIRLIFT);
 
         Country l_sourceCountry = this.d_player1.getOwnedCountries().getFirst();
         Country l_targetCountry = this.d_player2.getOwnedCountries().getFirst();
@@ -101,7 +101,7 @@ public class AirliftTest {
     public void insufficientArmies() {
         System.out.println("\nTEST : Player performs airlift where the source country does not have sufficient armies");
 
-        this.d_player1.getD_cards().add(Card.AIRLIFT);
+        this.d_player1.getCards().add(Card.AIRLIFT);
 
         Country l_sourceCountry = this.d_player1.getOwnedCountries().getFirst();
         Country l_targetCountry = this.d_player1.getOwnedCountries().getLast();
@@ -118,7 +118,7 @@ public class AirliftTest {
     public void successfulAirlift() {
         System.out.println("\nTEST : Player performs airlift successfully");
 
-        this.d_player1.getD_cards().add(Card.AIRLIFT);
+        this.d_player1.getCards().add(Card.AIRLIFT);
 
         Country l_sourceCountry = this.d_player1.getOwnedCountries().getFirst();
         Country l_targetCountry = this.d_player1.getOwnedCountries().getLast();
