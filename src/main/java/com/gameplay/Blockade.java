@@ -2,6 +2,10 @@ package com.gameplay;
 
 import com.model.Country;
 
+/**
+ * Blockade class is used to triple the number of armies on one of the current player’s territories and make
+ * it a neutral territory.
+ */
 public class Blockade extends Order {
     private final GameEngine d_gameEngine;
     private final Player d_player;
@@ -9,6 +13,13 @@ public class Blockade extends Order {
     private final Country d_countryToBlockade;
     private int d_numOfArmies;
 
+    /**
+     * Instantiates a new Blockade object.
+     *
+     * @param p_gameEngine  the game engine that controls the game flow
+     * @param p_player      the current player
+     * @param p_countryName the target country name
+     */
     public Blockade(GameEngine p_gameEngine, Player p_player, String p_countryName) {
         this.d_gameEngine = p_gameEngine;
         this.d_player = p_player;

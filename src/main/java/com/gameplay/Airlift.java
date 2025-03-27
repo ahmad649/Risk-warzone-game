@@ -4,6 +4,10 @@ import com.model.Country;
 
 import java.util.Objects;
 
+/**
+ * Airlift class is used to advance some armies from one of the
+ * current player’s territories to any another territory.
+ */
 public class Airlift extends Order {
 
     private final Player d_player;
@@ -11,6 +15,14 @@ public class Airlift extends Order {
     private Country d_sourceCountry, d_targetCountry;
     private final int d_numArmy;
 
+    /**
+     * Instantiates a new Airlift object
+     *
+     * @param p_player            the current player
+     * @param p_sourceCountryName the source country name
+     * @param p_targetCountryName the target country name
+     * @param p_numArmy           the number of armies
+     */
     public Airlift(Player p_player, String p_sourceCountryName, String p_targetCountryName, int p_numArmy) {
         this.d_player = p_player;
         this.d_sourceCountryName = p_sourceCountryName;

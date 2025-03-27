@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Advance class is used to move some armies from one of the current player's territories (source)
+ * to an adjacent territory (target). if the target territory belongs to the current player,
+ * the armies are moved to the target territory. If the target territory belongs to another player,
+ * an attack happens between the two territories.
+ */
 public class Advance extends Order{
     private final GameEngine d_gameEngine;
     private final Player d_player;
@@ -14,6 +20,15 @@ public class Advance extends Order{
     private final String d_countryNameFrom, d_countryNameTo;
     private final int d_numArmies;
 
+    /**
+     * Instantiates a new Advance object.
+     *
+     * @param p_gameEngine  the game engine that controls the game flow
+     * @param p_player      the current player
+     * @param p_countryFrom the source country
+     * @param p_countryTo   the target country
+     * @param p_numArmies   the number of armies
+     */
     public Advance(GameEngine p_gameEngine, Player p_player, String p_countryFrom, String p_countryTo, int p_numArmies) {
         this.d_gameEngine = p_gameEngine;
         this.d_player = p_player;
@@ -135,6 +150,12 @@ public class Advance extends Order{
 
     }
 
+    /**
+     * After conquering the target country (owned by other players),
+     * a random card will be given to the current player.
+     *
+     * @return a random {@link Card} value
+     */
     public Card getRandomCard() {
         ArrayList<Card> cards = new ArrayList<>(List.of(Card.BOMB, Card.BLOCKADE, Card.AIRLIFT, Card.DIPLOMACY));
 

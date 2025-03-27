@@ -2,6 +2,10 @@ package com.gameplay;
 
 import java.util.Objects;
 
+/**
+ * Diplomacy class is used to prevent attacks between the current player and another player until the end of
+ * the turn.
+ */
 public class Diplomacy extends Order {
 
     private final Player d_currentPlayer;
@@ -9,6 +13,13 @@ public class Diplomacy extends Order {
     private final String d_targetPlayerName;
     private final GameEngine d_gameEngine;
 
+    /**
+     * Instantiates a new Diplomacy.
+     *
+     * @param p_gameEngine       the game engine that controls the game flow
+     * @param p_currentPlayer    the current player
+     * @param p_targetPlayerName the target player name
+     */
     public Diplomacy(GameEngine p_gameEngine, Player p_currentPlayer, String p_targetPlayerName) {
         this.d_currentPlayer = p_currentPlayer;
         this.d_gameEngine = p_gameEngine;

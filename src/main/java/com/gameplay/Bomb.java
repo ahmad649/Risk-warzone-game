@@ -2,12 +2,22 @@ package com.gameplay;
 
 import com.model.Country;
 
+/**
+ * Bomb class is used to destroy half of the armies located on an opponent’s territory that is adjacent to
+ * one of the current player’s territories.
+ */
 public class Bomb extends Order {
 
     private final Player d_player;
     private Country d_countryToBomb;
     private final String d_countryName;
 
+    /**
+     * Instantiates a new Bomb object.
+     *
+     * @param p_player      the current player
+     * @param p_countryName the target country name
+     */
     public Bomb(Player p_player, String p_countryName) {
         this.d_player = p_player;
         this.d_countryName = p_countryName;

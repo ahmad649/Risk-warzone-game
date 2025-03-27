@@ -1,12 +1,20 @@
 package com.gameplay;
 
-import com.model.Country;
-
+/**
+ * Deploy class is used to place some armies on one of the current player’s territories.
+ */
 public class Deploy extends Order{
     private final Player d_player;
     private final String d_countryName;
     private final int d_numArmy;
 
+    /**
+     * Instantiates a new Deploy object.
+     *
+     * @param p_player      the current player
+     * @param p_countryName the target country name
+     * @param p_numArmy     the number of armies
+     */
     public Deploy(Player p_player, String p_countryName, int p_numArmy){
         this.d_player = p_player;
         this.d_countryName = p_countryName;
