@@ -23,7 +23,7 @@ public class IssueOrder implements Phase {
     public IssueOrder(GameEngine engine) {
         if (engine.d_playersList.isEmpty()) {
             System.out.println("No players available. Exiting game loop.");
-            engine.l_phase = new Startup(engine);
+            engine.d_phase = new Startup(engine);
             return;
         }
         this.engine = engine;

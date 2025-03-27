@@ -1,6 +1,6 @@
 package com;
 
-import com.gameplay.MainMenu;
+import com.gameplay.GameEngine;
 
 /**
  * Main class to run the application
@@ -12,8 +12,7 @@ public class Main {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        MainMenu l_mainMenu = new MainMenu();
-
-        l_mainMenu.run_main_menu();
+        GameEngine MapEngine = new GameEngine();
+        MapEngine.gameLoop();
     }
 }
