@@ -12,7 +12,7 @@ public class Diplomacy extends Order {
     private Player d_targetPlayer;
     private final String d_targetPlayerName;
     private final GameEngine d_gameEngine;
-
+    private String d_LogINFO;
     /**
      * Instantiates a new Diplomacy.
      *
@@ -24,7 +24,19 @@ public class Diplomacy extends Order {
         this.d_currentPlayer = p_currentPlayer;
         this.d_gameEngine = p_gameEngine;
         this.d_targetPlayerName = p_targetPlayerName;
+        d_LogINFO = String.format(
+                "-----------------------------------------------------------------------\n" +
+                        "ISSUED: Diplomacy: IssuingPlayer: %s, TargetPlayer: %s\n" +
+                        "-----------------------------------------------------------------------\n",
+                d_currentPlayer.getName(), d_targetPlayerName
+        );
     }
+
+    @Override
+    public String getLogInfo() {
+        return d_LogINFO;
+    }
+
 
     @Override
     public boolean isValid() {
@@ -58,13 +70,16 @@ public class Diplomacy extends Order {
     @Override
     public void execute() {
         if (this.isValid()) {
+            d_LogINFO = "\n-----------------------------------------------------------------------------";
             // Add players to diplomacy list
             this.d_currentPlayer.addDiplomacyPlayers(this.d_targetPlayer);
             this.d_targetPlayer.addDiplomacyPlayers(this.d_currentPlayer);
-            System.out.println("\nSuccess: Now, " + this.d_currentPlayer.getName() + " cannot attack " + this.d_targetPlayer.getName() + " until the end of the turn and vice versa");
+            d_LogINFO += "\nSuccess: Now, " + this.d_currentPlayer.getName() + " cannot attack " + this.d_targetPlayer.getName() + " until the end of the turn and vice versa";
 
             // Remove diplomacy card from the current player
             this.d_currentPlayer.getCards().remove(Card.DIPLOMACY);
+            d_LogINFO += "\n-----------------------------------------------------------------------------";
+            System.out.println(d_LogINFO);
         }
     }
 }

@@ -19,6 +19,7 @@ public class Advance extends Order{
     private Country d_countryTo;
     private final String d_countryNameFrom, d_countryNameTo;
     private final int d_numArmies;
+    private String d_LogINFO;
 
     /**
      * Instantiates a new Advance object.
@@ -36,12 +37,21 @@ public class Advance extends Order{
         this.d_countryNameFrom = p_countryFrom;
         this.d_countryNameTo = p_countryTo;
         this.d_numArmies = p_numArmies;
-
+        d_LogINFO = String.format(
+                "-----------------------------------------------------------------------\n" +
+                        "ISSUED: Advance: Player: %s, Source: %s, Destination: %s, Armies: %d\n" +
+                        "-----------------------------------------------------------------------\n",
+                d_player.getName(), d_countryNameFrom, d_countryNameTo, d_numArmies
+        );
         for (Player l_player : p_gameEngine.getPlayersList()) {
             if (l_player.getCountryByName(p_countryTo) != null) {
                 this.d_countryTo = l_player.getCountryByName(this.d_countryNameTo);
             }
         }
+    }
+    @Override
+    public String getLogInfo() {
+        return d_LogINFO;
     }
 
     @Override
@@ -87,6 +97,7 @@ public class Advance extends Order{
     @Override
     public void execute(){
         if (isValid()) {
+            d_LogINFO = "\n-----------------------------------------------------------------------------";
             ArrayList<String> l_countryNamesOwned = new ArrayList<>();
             for (Country l_country : this.d_player.getOwnedCountries()) {
                 l_countryNamesOwned.add(l_country.getName());
@@ -94,14 +105,14 @@ public class Advance extends Order{
             if (l_countryNamesOwned.contains(this.d_countryTo.getName())) {
                 // Move armies
 
-                System.out.println("\nSuccess: Moving " + this.d_numArmies + " armies to " + this.d_countryTo.getName());
+                d_LogINFO += "\nSuccess: Moving " + this.d_numArmies + " armies to " + this.d_countryTo.getName();
 
                 this.d_countryFrom.setArmies(this.d_countryFrom.getArmies() - this.d_numArmies);
                 this.d_countryTo.setArmies(this.d_countryTo.getArmies() + this.d_numArmies);
             } else {
                 // Battle
 
-                System.out.println("\nStarting battle between " + this.d_countryFrom.getName() + " and " + this.d_countryTo.getName());
+                d_LogINFO += "\nStarting battle between " + this.d_countryFrom.getName() + " and " + this.d_countryTo.getName();
 
                 int l_attackingWinningChance = (int) Math.round(this.d_numArmies * 0.6);
                 int l_defendingWinningChance = (int) Math.round(this.d_countryTo.getArmies() * 0.7);
@@ -111,21 +122,21 @@ public class Advance extends Order{
 
                 if (l_defendingArmies <= 0) {
                     // Attacker wins
-                    System.out.println("\nAttacker wins");
+                    d_LogINFO += "\nAttacker wins";
 
                     // Give random card to player
                     Card l_card = this.getRandomCard();
 
-                    System.out.println("\nPlayer " + this.d_player.getName() + " has received " + l_card + " card");
+                    d_LogINFO += "\nPlayer " + this.d_player.getName() + " has received " + l_card + " card";
                     this.d_player.addCards(l_card);
 
                     // Set number of armies
 
                     this.d_countryFrom.setArmies(this.d_countryFrom.getArmies() - this.d_numArmies);
-                    System.out.println("\nNow " + this.d_countryFrom.getName() + " has " + this.d_countryFrom.getArmies() + " armies");
+                    d_LogINFO += "\nNow " + this.d_countryFrom.getName() + " has " + this.d_countryFrom.getArmies() + " armies";
 
                     this.d_countryTo.setArmies(l_attackingArmies);
-                    System.out.println("Now " + this.d_countryTo.getName() + " has " + this.d_countryTo.getArmies() + " armies");
+                    d_LogINFO += "\nNow " + this.d_countryTo.getName() + " has " + this.d_countryTo.getArmies() + " armies";
 
                     // Add and remove country
                     this.d_player.addCountryToOwnedCountries(this.d_countryTo);
@@ -136,18 +147,19 @@ public class Advance extends Order{
                 } else {
                     // Defender wins
 
-                    System.out.println("\nDefender wins");
+                    d_LogINFO += "\nDefender wins";
                     // Set number of armies
                     this.d_countryFrom.setArmies(l_attackingArmies + (this.d_countryFrom.getArmies() - this.d_numArmies));
-                    System.out.println("\nNow " + this.d_countryFrom.getName() + " has " + this.d_countryFrom.getArmies() + " armies");
+                    d_LogINFO += "\nNow " + this.d_countryFrom.getName() + " has " + this.d_countryFrom.getArmies() + " armies";
 
                     this.d_countryTo.setArmies(l_defendingArmies);
-                    System.out.println("Now " + this.d_countryTo.getName() + " has " + this.d_countryTo.getArmies() + " armies");
+                    d_LogINFO += "\nNow " + this.d_countryTo.getName() + " has " + this.d_countryTo.getArmies() + " armies";
 
                 }
             }
+            d_LogINFO += "\n-----------------------------------------------------------------------------";
+            System.out.println(d_LogINFO);
         }
-
     }
 
     /**

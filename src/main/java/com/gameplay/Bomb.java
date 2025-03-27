@@ -11,7 +11,7 @@ public class Bomb extends Order {
     private final Player d_player;
     private Country d_countryToBomb;
     private final String d_countryName;
-
+    public String d_LogINFO;
     /**
      * Instantiates a new Bomb object.
      *
@@ -22,6 +22,16 @@ public class Bomb extends Order {
         this.d_player = p_player;
         this.d_countryName = p_countryName;
         this.d_countryToBomb = this.d_player.getCountryByName(p_countryName);
+        d_LogINFO = String.format(
+                "-----------------------------------------------------------------------\n" +
+                        "ISSUED: Bomb: Player: %s, Target: %s\n" +
+                        "-----------------------------------------------------------------------\n",
+                d_player.getName(), d_countryName
+        );
+    }
+    @Override
+    public String getLogInfo() {
+        return d_LogINFO;
     }
 
     @Override
@@ -65,11 +75,14 @@ public class Bomb extends Order {
     @Override
     public void execute() {
         if (this.isValid()) {
+            d_LogINFO = "\n-----------------------------------------------------------------------------";
             d_countryToBomb.setArmies(Math.round((float) d_countryToBomb.getArmies() / 2));
-            System.out.println("\nSuccess: " + this.d_countryName + " has been bombed by " + d_player.getName());
+            d_LogINFO += "\nSuccess: " + this.d_countryName + " has been bombed by " + d_player.getName();
 
             // Remove bomb card from the current player
             d_player.getCards().remove(Card.BOMB);
+            d_LogINFO += "\n-----------------------------------------------------------------------------";
+            System.out.println(d_LogINFO);
         }
     }
 }

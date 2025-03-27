@@ -9,6 +9,9 @@ import com.States.Menu;
 import com.States.Phase;
 import com.States.Preload;
 import com.States.Startup;
+import com.logs.LogEntryBuffer;
+import com.logs.LogFileWriter;
+import com.logs.LogObserver;
 import com.maps.MapReader;
 import com.model.Country;
 
@@ -33,12 +36,9 @@ public class GameEngine {
      */
     public Phase d_phase;
 
-    /**
-     * The L phase.
-     */
-    public Phase l_phase;
-
     private final Player d_neutralPlayer;
+
+    public LogEntryBuffer d_logbuffer = new LogEntryBuffer();
 
 
     /**
@@ -46,6 +46,7 @@ public class GameEngine {
      */
     public GameEngine(){
         d_phase = new Menu(this);
+        d_logbuffer.addObserver(new LogFileWriter("h.txt"));
 
         this.d_neutralPlayer = new Player("Neutral");
     }
@@ -102,13 +103,14 @@ public class GameEngine {
                 d_phase.loadMap(l_parsing);
             } else if (l_parsing.d_commandType.equals("showmap")) {
                 d_phase.displayMap();
+            } else if (l_parsing.d_commandType.equals("endturn")) {
+                d_phase.endTurn();
             } else if (l_parsing.d_commandType.equals("assigncountries")) {
                 d_phase.assignCountries();
-                d_phase = new IssueOrder(this);
                 d_phase.assignReinforcements();
             } else if (checkIssuable(l_parsing)) {
-                if (d_phase.createOrder(l_parsing)) {
-                    d_phase = new ExecuteOrder(this);
+                d_phase.createOrder(l_parsing);
+                if (d_phase.currentPhase().equals("ExecuteOrder")) {
                     while (true) {
                         if (d_phase.executeOrder()) {
                             d_phase = new IssueOrder(this);
@@ -139,7 +141,7 @@ public class GameEngine {
     }
 
     public boolean checkIssuable(Parsing l_parsing) {
-        ArrayList<String> possibleOrders = new ArrayList<>(List.of("deploy","advance"));
+        ArrayList<String> possibleOrders = new ArrayList<>(List.of("deploy","advance","bomb","diplomacy","airlift","blockade"));
         return possibleOrders.contains(l_parsing.d_commandType.toLowerCase());
     }
 

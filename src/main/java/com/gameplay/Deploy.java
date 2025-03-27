@@ -7,6 +7,7 @@ public class Deploy extends Order{
     private final Player d_player;
     private final String d_countryName;
     private final int d_numArmy;
+    private String d_LogINFO;
 
     /**
      * Instantiates a new Deploy object.
@@ -19,6 +20,18 @@ public class Deploy extends Order{
         this.d_player = p_player;
         this.d_countryName = p_countryName;
         this.d_numArmy = p_numArmy;
+         d_LogINFO = String.format(
+                "-----------------------------------------------------------------------\n" +
+                        "ISSUED: Deploy: Player: %s, Country: %s, Armies: %d\n" +
+                        "-----------------------------------------------------------------------\n",
+                d_player.getName(), d_countryName, d_numArmy
+        );
+    }
+
+
+    @Override
+    public String getLogInfo() {
+        return d_LogINFO;
     }
 
     @Override
@@ -46,8 +59,11 @@ public class Deploy extends Order{
             // Deploy armies
             //        d_player.removeReinforcement(d_numArmy);
             d_player.addArmiesToCountry(this.d_countryName, this.d_numArmy);
-            System.out.println("Successfully deployed " + this.d_numArmy + " armies to country " + this.d_countryName);
-            System.out.println("-----------------------------------------------------------------------------");
+            d_LogINFO =
+                    "-----------------------------------------------------------------------------\n"+
+                    "Successfully deployed " + this.d_numArmy + " armies to country " + this.d_countryName +
+                    "\n-----------------------------------------------------------------------------\n";
+            System.out.println(d_LogINFO);
         }
     }
 }

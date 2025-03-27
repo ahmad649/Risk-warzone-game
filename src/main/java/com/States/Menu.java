@@ -14,7 +14,7 @@ public class Menu implements Phase {
                 Commands:
 
                 startgame
-                editor      
+                editor
                 quit
                 -----------------------------------------------------------------------
                 """

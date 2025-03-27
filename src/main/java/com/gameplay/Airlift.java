@@ -14,6 +14,7 @@ public class Airlift extends Order {
     private final String d_sourceCountryName, d_targetCountryName;
     private Country d_sourceCountry, d_targetCountry;
     private final int d_numArmy;
+    private String d_LogINFO;
 
     /**
      * Instantiates a new Airlift object
@@ -28,6 +29,16 @@ public class Airlift extends Order {
         this.d_sourceCountryName = p_sourceCountryName;
         this.d_targetCountryName = p_targetCountryName;
         this.d_numArmy = p_numArmy;
+        d_LogINFO = String.format(
+                "-----------------------------------------------------------------------\n" +
+                        "ISSUED: Airlift: Player: %s, Source: %s, Destination: %s, Armies: %d\n" +
+                        "-----------------------------------------------------------------------\n",
+                d_player.getName(), d_sourceCountryName, d_targetCountryName, d_numArmy
+        );
+    }
+    @Override
+    public String getLogInfo() {
+        return d_LogINFO;
     }
 
     @Override
@@ -70,12 +81,15 @@ public class Airlift extends Order {
     @Override
     public void execute() {
         if (this.isValid()) {
+            d_LogINFO = "\n-----------------------------------------------------------------------------";
             // Perform airlift
             this.d_sourceCountry.setArmies(this.d_sourceCountry.getArmies() - this.d_numArmy);
             this.d_targetCountry.setArmies(this.d_targetCountry.getArmies() + this.d_numArmy);
-            System.out.println("\nAirlift successfully executed");
-            System.out.println("Now " + this.d_sourceCountry.getName() + " has " + this.d_sourceCountry.getArmies() + " armies");
-            System.out.println("Now " + this.d_targetCountry.getName() + " has " + this.d_targetCountry.getArmies() + " armies");
+            d_LogINFO += "\nAirlift successfully executed";
+            d_LogINFO += "Now " + this.d_sourceCountry.getName() + " has " + this.d_sourceCountry.getArmies() + " armies";
+            d_LogINFO += "Now " + this.d_targetCountry.getName() + " has " + this.d_targetCountry.getArmies() + " armies";
+            d_LogINFO += "\n-----------------------------------------------------------------------------";
+            System.out.println(d_LogINFO);
 
             // Remove airlift card from the current player
             this.d_player.getCards().remove(Card.AIRLIFT);

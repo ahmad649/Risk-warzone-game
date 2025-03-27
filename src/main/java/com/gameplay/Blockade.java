@@ -12,7 +12,7 @@ public class Blockade extends Order {
     private final String d_countryName;
     private final Country d_countryToBlockade;
     private int d_numOfArmies;
-
+    private String d_LogINFO;
     /**
      * Instantiates a new Blockade object.
      *
@@ -25,8 +25,18 @@ public class Blockade extends Order {
         this.d_player = p_player;
         this.d_countryName = p_countryName;
         this.d_countryToBlockade = this.d_player.getCountryByName(p_countryName);
+        d_LogINFO = String.format(
+                "-----------------------------------------------------------------------\n" +
+                        "ISSUED: Blockade: Player: %s, Source: %s\n" +
+                        "-----------------------------------------------------------------------\n",
+                d_player.getName(), d_countryName
+        );
     }
 
+    @Override
+    public String getLogInfo() {
+        return d_LogINFO;
+    }
     @Override
     public boolean isValid() {
         // Check if the player owns a blockade card
@@ -55,8 +65,9 @@ public class Blockade extends Order {
     public void execute() {
         if (this.isValid()) {
             // Triple the number of armies on the specified country
+            d_LogINFO = "\n-----------------------------------------------------------------------------";
             this.d_countryToBlockade.setArmies(d_numOfArmies * 3);
-            System.out.println("\nSuccess: Now country " + this.d_countryName + " has " + this.d_numOfArmies + " armies");
+            d_LogINFO += "\nSuccess: Now country " + this.d_countryName + " has " + this.d_numOfArmies + " armies";
 
             // Remove the specified country from the current player's countries
             d_player.removeCountry(this.d_countryName);
@@ -69,6 +80,8 @@ public class Blockade extends Order {
 
             // Remove blockade card from the current player
             d_player.getCards().remove(Card.BLOCKADE);
+            d_LogINFO += "\n-----------------------------------------------------------------------------";
+            System.out.println(d_LogINFO);
         }
     }
 }

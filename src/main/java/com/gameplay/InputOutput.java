@@ -586,6 +586,16 @@ public class InputOutput {
         }
         return true;
     }
+    /**
+     * Validates whether the given 'endturn' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_endturn_command_valid(String p_command) {
+        return p_command.trim().equals("endturn");
+    }
+
 
     /**
      * Validates whether the given 'quit' command is valid.

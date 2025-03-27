@@ -7,18 +7,19 @@ import com.model.Continent;
 import com.model.Country;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Iterator;
 
 public class IssueOrder implements Phase {
 
     GameEngine engine;
-    public ArrayList<String> possibleOrders = new ArrayList<>(List.of("deploy","advance"));
+    public ArrayList<Player> p_players;
 
     public String currentPhase() {
         return "IssueOrder";
     }
+    Iterator<Player> p_players_iterator;
+    public Player current_player;
 
     public IssueOrder(GameEngine engine) {
         if (engine.d_playersList.isEmpty()) {
@@ -27,6 +28,9 @@ public class IssueOrder implements Phase {
             return;
         }
         this.engine = engine;
+        p_players = new ArrayList<>(engine.d_playersList);
+        p_players_iterator = p_players.iterator();
+        current_player = p_players_iterator.next();
     }
 
     @Override
@@ -45,6 +49,13 @@ public class IssueOrder implements Phase {
                 l_processedCountries.add(otherCountry);
                 System.out.println(otherCountry);
             }
+        }
+    }
+    @Override
+    public void endTurn() {
+        p_players_iterator.remove();
+        if(p_players.isEmpty()) {
+            engine.d_phase = new ExecuteOrder(engine);
         }
     }
 
@@ -80,14 +91,11 @@ public class IssueOrder implements Phase {
     }
 
     @Override
-    public boolean createOrder(Parsing l_parsing) {
-        for (Player l_player : engine.d_playersList) {
-            if (l_player.getReinforcements() > 0) {
-                l_player.issue_order(engine, l_parsing);
-                //TODO: MAYBE CREATE A ENDTURN COMMAND
-                return false;
-            }
+    public void createOrder(Parsing l_parsing) {
+        current_player.issue_order(engine, l_parsing);
+        if (p_players_iterator.hasNext()) {
+            current_player = p_players_iterator.next();
         }
-        return true;
+        System.out.println("Next turn will be" + current_player.getName());
     }
 }

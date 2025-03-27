@@ -90,5 +90,6 @@ public class Startup implements Phase {
             l_index = (l_index + 1) % engine.d_playersList.size();
         }
         System.out.println("All countries have been assigned to players.");
+        engine.d_phase = new IssueOrder(engine);
     }
 }

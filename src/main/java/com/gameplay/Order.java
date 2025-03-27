@@ -13,7 +13,7 @@ public abstract class Order {
      * Instantiates a new Order object.
      */
     public Order() {}
-
+    public abstract String getLogInfo();
     /**
      * To verify whether the given order is valid or not
      *
@@ -25,4 +25,5 @@ public abstract class Order {
      * To execute the given order command.
      */
     public abstract void execute();
+
 }

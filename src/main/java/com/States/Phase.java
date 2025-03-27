@@ -19,11 +19,15 @@ public interface Phase {
     default void assignCountries() {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
+    default void endTurn(){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
+    }
+
     default void assignReinforcements() {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
-    default boolean createOrder(Parsing l_parsing) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");        return false;
+    default void createOrder(Parsing l_parsing) {
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
     }
 
     default boolean executeOrder() {

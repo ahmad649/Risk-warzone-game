@@ -20,6 +20,7 @@ public class ExecuteOrder implements Phase {
             Order l_pendingOrder = l_player.next_order();
             if (l_pendingOrder != null) {
                 l_pendingOrder.execute();
+                engine.d_logbuffer.addEntry(l_pendingOrder);
                 return false;
             }
         }
