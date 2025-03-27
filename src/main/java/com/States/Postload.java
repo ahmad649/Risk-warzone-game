@@ -38,7 +38,7 @@ public class Postload implements Phase{
     /**
      * Displays the loaded map.
      */
-    public void showMap() {
+    public void displayMap() {
         // Display continents
         System.out.println("--------------------Map---------------------------");
         System.out.println("Continents:");
@@ -97,13 +97,73 @@ public class Postload implements Phase{
         return true;
     }
 
+    public void editCountry(Parsing l_parsing){
+        Parsing l_arguments=l_parsing;
+        if (l_arguments.getArgsLabeled().containsKey("-add")) {
+            // Get continentID and continentValue
+            String l_continentID = l_arguments.getArgsLabeled().get("-add").getFirst();
+            String l_continentValue = l_arguments.getArgsLabeled().get("-add").getLast();
+
+            this.addContinent(l_continentID, Integer.parseInt(l_continentValue));
+        }
+
+        // Remove continent
+        if (l_arguments.getArgsLabeled().containsKey("-remove")) {
+            // Get continentID
+            String l_continentID = l_arguments.getArgsLabeled().get("-remove").getFirst();
+
+            this.removeContinent(l_continentID);
+        }
+    }
+
+    public void editContinent(Parsing l_parsing){
+        Parsing l_arguments=l_parsing;
+        if (l_arguments.getArgsLabeled().containsKey("-add")) {
+            // Get countryID and continentID
+            String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
+            String l_continentID = l_arguments.getArgsLabeled().get("-add").getLast();
+
+            this.addCountry(l_countryID, l_continentID);
+        }
+
+        // Remove country
+        if (l_arguments.getArgsLabeled().containsKey("-remove")) {
+            // Get countryID
+            String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
+
+            this.removeCountry(l_countryID);
+        }
+    }
+
+
+    public void editNeighbor(Parsing l_parsing){
+        Parsing l_arguments=l_parsing;
+
+        if (l_arguments.getArgsLabeled().containsKey("-add")) {
+            // Get countryID and continentID
+            String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
+            String l_neighborCountryID = l_arguments.getArgsLabeled().get("-add").getLast();
+
+            this.addNeighbor(l_countryID, l_neighborCountryID);
+        }
+
+        // Remove neighbor
+        if (l_arguments.getArgsLabeled().containsKey("-remove")) {
+            // Get countryID and neighborCountryID
+            String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
+            String l_neighborCountryID = l_arguments.getArgsLabeled().get("-remove").getLast();
+
+            this.removeNeighbor(l_countryID, l_neighborCountryID);
+        }
+    }
 
     /**
      * Saves the currently loaded map to a file.
      * @param p_filename Name of the file to save.
      * @return true if saving is successful, false otherwise.
      */
-    public boolean saveMap(String p_filename) {
+    public boolean saveMap(Parsing l_parsing) {
+        String p_filename = l_parsing.getArgArr().getFirst();
         // Retrieve the currently loaded map data
         Map<String, Continent> l_continents = d_mapReader.getContinentsMap();
         Map<String, Country> l_countries = d_mapReader.getCountriesMap();
@@ -367,21 +427,6 @@ public class Postload implements Phase{
 
         // Print success message
         System.out.println("Neighbor relationship removed between " + p_countryName + " and " + p_neighborName + ".");
-    }
-
-
-
-    @Override
-    public void addGamePlayer(GameEngine engine, Parsing l_parsing) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in postload phase!");
-    }
-
-
-
-    @Override
-    public boolean loadMap(String p_filename) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in postload phase!");
-        return false;
     }
 
 }

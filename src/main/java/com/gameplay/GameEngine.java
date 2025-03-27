@@ -5,8 +5,11 @@ import java.util.List;
 
 import com.States.ExecuteOrder;
 import com.States.IssueOrder;
+import com.States.Menu;
 import com.States.Phase;
+import com.States.Preload;
 import com.States.Startup;
+import com.maps.MapReader;
 import com.model.Country;
 
 /**
@@ -25,12 +28,13 @@ public class GameEngine {
      */
     public List<Country> d_countryList = new ArrayList<>();
 
+    public Phase d_phase;
     private final Player d_neutralPlayer = new Player("Neutral");
 
     public Phase l_phase;
 
     public GameEngine(){
-        l_phase = new Startup(this);
+    d_phase = new Menu(this);
     }
 
     /**
@@ -69,29 +73,48 @@ public class GameEngine {
             while (l_parsing == null) {
                 l_parsing = InputOutput.get_user_command();
             }
-            if (l_parsing.d_commandType.equals("gameplayer")) {
-                l_phase.addGamePlayer(l_parsing);
+            if (l_parsing.d_commandType.equals("startgame")){
+                d_phase.startGame();
+            }
+            else if ((l_parsing.d_commandType.equals("editor"))){
+                d_phase.editor();
+            }else if(l_parsing.d_commandType.equals("gameplayer")) {
+                d_phase.addGamePlayer(l_parsing);
             } else if (l_parsing.d_commandType.equals("loadmap")) {
-                l_phase.loadMap(l_parsing);
+                d_phase.loadMap(l_parsing);
             } else if (l_parsing.d_commandType.equals("showmap")) {
-                l_phase.displayMap();
+                d_phase.displayMap();
             } else if (l_parsing.d_commandType.equals("assigncountries")) {
-                l_phase.assignCountries();
-                l_phase = new IssueOrder(this);
-                l_phase.assignReinforcements();
+                d_phase.assignCountries();
+                d_phase = new IssueOrder(this);
+                d_phase.assignReinforcements();
             } else if (checkIssuable(l_parsing)) {
-                if (l_phase.createOrder(l_parsing)) {
-                    l_phase = new ExecuteOrder(this);
+                if (d_phase.createOrder(l_parsing)) {
+                    d_phase = new ExecuteOrder(this);
                     while (true) {
-                        if (l_phase.executeOrder()) {
-                            l_phase = new IssueOrder(this);
+                        if (d_phase.executeOrder()) {
+                            d_phase = new IssueOrder(this);
                             break;
                         }
                     }
                 }
             } else if (l_parsing.d_commandType.equals("quit")) {
                 return;
-            } else {
+            }else if (l_parsing.d_commandType.equals("validatemap")){
+                d_phase.validateMap();
+            }else if (l_parsing.d_commandType.equals("editcountry")){
+                d_phase.editCountry(l_parsing);
+            }else if (l_parsing.d_commandType.equals("editcontinent")){
+                d_phase.editContinent(l_parsing);
+            }else if (l_parsing.d_commandType.equals("editneighbor")){
+                d_phase.editNeighbor(l_parsing);
+            }else if (l_parsing.d_commandType.equals("editmap")){
+                d_phase.editMap(l_parsing);
+            }else if (l_parsing.d_commandType.equals("savemap")){
+                d_phase.saveMap(l_parsing);
+            }else if (l_parsing.d_commandType.equals("menu")){
+                d_phase.returnToMenu(this);
+            }else {
                 System.out.println("Invalid command. Try again.");
             }
         }

@@ -7,69 +7,63 @@ public interface Phase {
     abstract public String currentPhase();
 
     default void addGamePlayer(Parsing l_parsing) {
-        System.out.println("DEFAULTBODY");
-    }
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
     default void loadMap(Parsing l_parsing) {
-        System.out.println("DEFAULTBODY");
-
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
     }
 
     default void displayMap() {
-        System.out.println("DEFAULTBODY");
-    }
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
     default void assignCountries() {
-        System.out.println("DEFAULTBODY");
-    }
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
     default void assignReinforcements() {
-        System.out.println("DEFAULTBODY");
-    }
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
     default boolean createOrder(Parsing l_parsing) {
-        System.out.println("DEFAULTBODY");
-        return false;
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");        return false;
     }
 
     default boolean executeOrder() {
-        System.out.println("DEFAULTBODY");
-        return false;
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");        return false;
     }
 
     default void addGamePlayer(GameEngine engine, Parsing l_parsing){
-        System.out.println("DEFAULTBODY");
-    }
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
     default void showMap(){
-    System.out.println("DEFAULTBODY");
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
+
+    default boolean saveMap(Parsing l_parsing){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    return false;
+    }
+    
+    default boolean validateMap(){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");        return false;
     }
 
-    default boolean saveMap(String p_filename){
-    System.out.println("DEFAULTBODY");
-    return false;
+    default void editMap(Parsing l_parsing){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
+
+    default void editCountry(Parsing l_parsing){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    };
+
+    default void editContinent(Parsing l_parsing){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
+    };
+
+    default void editor(){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
+    };
+    default void startGame(){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
+    };
+    default void returnToMenu(GameEngine engine){
+        engine.d_phase = new Menu(engine);
     }
+    default void editNeighbor(Parsing l_parsing){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
-    default void addContinent(String p_name, int p_bonusValue){
-    System.out.println("DEFAULTBODY");}
-
-    default void removeContinent(String p_name){
-    System.out.println("DEFAULTBODY");}
-
-    default void addCountry(String p_name, String p_continentName){
-    System.out.println("DEFAULTBODY");}
-
-    default void removeCountry(String p_name){
-    System.out.println("DEFAULTBODY");}
-
-    default void addNeighbor(String p_countryName, String p_neighborName){
-    System.out.println("DEFAULTBODY");}
-
-    default void removeNeighbor(String p_countryName, String p_neighborName){
-    System.out.println("DEFAULTBODY");}
-
-    default boolean loadMap(String p_filename){
-    System.out.println("DEFAULTBODY");
-    return false;
-    }
 }

@@ -17,155 +17,7 @@ public class InputOutput {
         2 for startup and 1 during issue_order
      */
 
-//    private final MapEditor d_mapEditor;
-    private MapReader d_mapReader;
-//    private final MapWriter d_mapWriter;
 
-    /**
-     * A constructor to initialize {@code InputOutput} object.
-     *
-     * <p>
-     * This constructor creates a new {@link MapReader} object and passes it to {@link MapEditor} and {@link MapWriter} objects.
-     * </p>
-     */
-    public InputOutput() {
-        this.d_mapReader = new MapReader();
-//        this.d_mapEditor = new MapEditor(this.d_mapReader);
-//        this.d_mapWriter = new MapWriter(this.d_mapReader);
-    }
-
-    /**
-     * Runs Map Editor menu that allows the user to perform different types of map operations.
-     * <p>
-     * The following user commands are accepted:
-     * <ul>
-     *   <li>{@code editcontinent}:
-     *       <ul>
-     *         <li>{@code -add} flag is used to add a continent by specifying a continent ID and a continent value.</li>
-     *         <li>{@code -remove} flag is used to remove a continent by specifying a continent ID.</li>
-     *       </ul>
-     *   </li>
-     *   <li>{@code editcountry}:
-     *       <ul>
-     *         <li>{@code -add} flag is used to add a country by specifying a country ID and its corresponding continent ID.</li>
-     *         <li>{@code -remove} flag is used to remove a country by specifying a country ID.</li>
-     *       </ul>
-     *   </li>
-     *   <li>{@code editneighbor}:
-     *       <ul>
-     *         <li>{@code -add} flag is used to add a neighbor country by specifying a country ID and a neighbor country ID.</li>
-     *         <li>{@code -remove} flag is used to remove a neighbor country by specifying a country ID and a neighbor country ID.</li>
-     *       </ul>
-     *   </li>
-     *   <li>{@code showmap}: Displays the currently loaded map.</li>
-     *   <li>{@code savemap}: Saves the map to a file.</li>
-     *   <li>{@code editmap}: Loads a map from a file.</li>
-     *   <li>{@code validatemap}: Validates the currently loaded map.</li>
-     *   <li>{@code return}: Exits the Map Editor menu and returns to the main menu.</li>
-     * </ul>
-     *
-     */
-//    public void run_map_editor() {
-//        String l_command;
-//
-//        do {
-//            System.out.println("\n***********************");
-//            System.out.println("*     Map Editor      *");
-//            System.out.println("***********************");
-//
-//            Scanner l_scanner = new Scanner(System.in);
-//
-//            System.out.println("\nEnter your command (enter 'return' to go back to main menu): ");
-//            l_command = l_scanner.nextLine();
-//
-//            // Validate map commands given by the user, then perform actions
-//            if (is_editcontinent_command_valid(l_command)) {
-//                Command l_arguments = new Command(l_command);
-//
-//                // Add continent
-//                if (l_arguments.getArgsLabeled().containsKey("-add")) {
-//                    // Get continentID and continentValue
-//                    String l_continentID = l_arguments.getArgsLabeled().get("-add").getFirst();
-//                    String l_continentValue = l_arguments.getArgsLabeled().get("-add").getLast();
-//
-//                    this.d_mapEditor.addContinent(l_continentID, Integer.parseInt(l_continentValue));
-//                }
-//
-//                // Remove continent
-//                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
-//                    // Get continentID
-//                    String l_continentID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-//
-//                    this.d_mapEditor.removeContinent(l_continentID);
-//                }
-//            } else if (is_editcountry_command_valid(l_command)) {
-//                Command l_arguments = new Command(l_command);
-//
-//                // Add country
-//                if (l_arguments.getArgsLabeled().containsKey("-add")) {
-//                    // Get countryID and continentID
-//                    String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
-//                    String l_continentID = l_arguments.getArgsLabeled().get("-add").getLast();
-//
-//                    this.d_mapEditor.addCountry(l_countryID, l_continentID);
-//                }
-//
-//                // Remove country
-//                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
-//                    // Get countryID
-//                    String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-//
-//                    this.d_mapEditor.removeCountry(l_countryID);
-//                }
-//            } else if (is_editneighbor_command_valid(l_command)) {
-//                Command l_arguments = new Command(l_command);
-//
-//                // Add neighbor
-//                if (l_arguments.getArgsLabeled().containsKey("-add")) {
-//                    // Get countryID and continentID
-//                    String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
-//                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("-add").getLast();
-//
-//                    this.d_mapEditor.addNeighbor(l_countryID, l_neighborCountryID);
-//                }
-//
-//                // Remove neighbor
-//                if (l_arguments.getArgsLabeled().containsKey("-remove")) {
-//                    // Get countryID and neighborCountryID
-//                    String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-//                    String l_neighborCountryID = l_arguments.getArgsLabeled().get("-remove").getLast();
-//
-//                    this.d_mapEditor.removeNeighbor(l_countryID, l_neighborCountryID);
-//                }
-//
-//            } else if (is_showmap_command_valid(l_command)) {
-//                // Show map
-//                this.d_mapReader.showMap();
-//
-//            } else if (is_savemap_command_valid(l_command)) {
-//                String l_filename = new Command(l_command).getArgArr().getFirst();
-//
-//                // Save map
-//                this.d_mapWriter.saveMap(l_filename);
-//
-//            } else if (is_editmap_command_valid(l_command)) {
-//                String l_filename = new Command(l_command).getArgArr().getFirst();
-//
-//                // Perform load map
-//                this.d_mapReader.loadMap(l_filename);
-//
-//            } else if (is_validatemap_command_valid(l_command)) {
-//                // Validate map
-//                this.d_mapReader.validateMap();
-//
-//            } else if (l_command.equals("return")) {
-//                System.out.println("\nReturn to main menu.");
-//
-//            } else {
-//                System.out.println("\nInvalid command. Please try again.");
-//            }
-//        } while(!l_command.equals("return"));
-//    }
 
     /**
      * Prompts user to enter a command, perform command validation, and returns Command object where the user command has been parsed.
@@ -266,8 +118,17 @@ public class InputOutput {
         } else if (is_continue_command_valid(l_command)) {
             System.out.println("Executing continue command");
             return new Parsing(l_command);
-
-        } else {
+        } else if (is_menu_command_valid(l_command)) {
+            System.out.println("Executing menu command");
+            return new Parsing(l_command);
+        }else if (is_editor_command_valid(l_command)) {
+            System.out.println("Executing editor command");
+            return new Parsing(l_command);
+        }else if (is_startgame_command_valid(l_command)) {
+            System.out.println("Executing startgame command");
+            return new Parsing(l_command);
+        }
+         else {
             System.out.println("Command does not exist. Please try again.");
         }
         return null;
@@ -513,6 +374,37 @@ public class InputOutput {
         }
 
         return true;
+    }
+
+    /**
+     * Validates whether the given 'menu' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_menu_command_valid(String p_command) {
+        // Check if command equals to 'menu'
+        return p_command.trim().equals("menu");
+    }
+        /**
+     * Validates whether the given 'editor' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_editor_command_valid(String p_command) {
+        // Check if command equals to 'editor'
+        return p_command.trim().equals("editor");
+    }
+        /**
+     * Validates whether the given 'startgame' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_startgame_command_valid(String p_command) {
+        // Check if command equals to 'startgame'
+        return p_command.trim().equals("startgame");
     }
 
     /**

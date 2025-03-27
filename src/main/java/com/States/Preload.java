@@ -17,14 +17,15 @@ public class Preload implements Phase{
     private MapReader d_mapReader;
     public Map<String, Continent> d_continents;
     public Map<String, Country> d_countries;
-
+    GameEngine engine;
     /**
      * Instantiate a new Pre load state.
      *
      * @param p_mapReader the map reader
      */
-    public Preload(MapReader p_mapReader) {
+    public Preload(GameEngine engine, MapReader p_mapReader) {
         this.d_mapReader = p_mapReader;
+        this.engine = engine;
         d_continents = d_mapReader.getContinentsMap();
         d_countries = d_mapReader.getCountriesMap();
     }
@@ -147,6 +148,17 @@ public class Preload implements Phase{
         }
     }
 
+    public void editor(){
+        if (engine.d_phase.currentPhase()=="Preload")
+        engine.d_phase = new Postload(d_mapReader);
+    }
+
+
+    public void editMap(Parsing l_parsing){
+        String l_filename = l_parsing.getArgArr().getFirst();
+        loadMap(l_filename);
+    }
+
         /**
      * Validates the map structure.
      *
@@ -180,74 +192,4 @@ public class Preload implements Phase{
         return true;
     }
 
-
-    @Override
-    public void addGamePlayer(GameEngine engine, Parsing l_parsing) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
-    }
-
-
-
-
-    @Override
-    public void showMap() {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
-    }
-
-
-
-
-    @Override
-    public boolean saveMap(String p_filename) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
-        return false;
-    }
-
-
-
-
-    @Override
-    public void addContinent(String p_name, int p_bonusValue) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
-    }
-
-
-
-
-    @Override
-    public void removeContinent(String p_name) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
-    }
-
-
-
-
-    @Override
-    public void addCountry(String p_name, String p_continentName) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
-    }
-
-
-
-
-    @Override
-    public void removeCountry(String p_name) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
-    }
-
-
-
-
-    @Override
-    public void addNeighbor(String p_countryName, String p_neighborName) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
-    }
-
-
-
-
-    @Override
-    public void removeNeighbor(String p_countryName, String p_neighborName) {
-        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in preload phase!");
-    }
 }

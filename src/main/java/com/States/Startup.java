@@ -18,6 +18,9 @@ public class Startup implements Phase {
 
     public Startup(GameEngine engine) {
         this.engine = engine;
+        //clearing previous game
+        engine.d_countryList.clear();
+        engine.d_playersList.clear();
     }
 
     public String currentPhase() {
@@ -39,14 +42,14 @@ public class Startup implements Phase {
 
     @Override
     public void loadMap(Parsing l_parsing) {
-        Preload l_mapreader = new Preload(new MapReader());
+        Preload l_mapreader = new Preload(engine,new MapReader());
         l_mapreader.loadMap(l_parsing.d_argArr.getFirst());
         engine.d_countryList = l_mapreader.d_countries.values().stream().toList();
         if (engine.d_countryList.isEmpty()) {
             System.out.println("Empty map loaded. Please try again.");
             return;
         }
-        l_mapreader.showMap();
+        this.displayMap();
     }
 
     @Override
