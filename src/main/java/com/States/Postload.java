@@ -100,25 +100,6 @@ public class Postload implements Phase{
     public void editCountry(Parsing l_parsing){
         Parsing l_arguments=l_parsing;
         if (l_arguments.getArgsLabeled().containsKey("-add")) {
-            // Get continentID and continentValue
-            String l_continentID = l_arguments.getArgsLabeled().get("-add").getFirst();
-            String l_continentValue = l_arguments.getArgsLabeled().get("-add").getLast();
-
-            this.addContinent(l_continentID, Integer.parseInt(l_continentValue));
-        }
-
-        // Remove continent
-        if (l_arguments.getArgsLabeled().containsKey("-remove")) {
-            // Get continentID
-            String l_continentID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-
-            this.removeContinent(l_continentID);
-        }
-    }
-
-    public void editContinent(Parsing l_parsing){
-        Parsing l_arguments=l_parsing;
-        if (l_arguments.getArgsLabeled().containsKey("-add")) {
             // Get countryID and continentID
             String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
             String l_continentID = l_arguments.getArgsLabeled().get("-add").getLast();
@@ -132,6 +113,25 @@ public class Postload implements Phase{
             String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
 
             this.removeCountry(l_countryID);
+        }
+    }
+
+    public void editContinent(Parsing l_parsing){
+        Parsing l_arguments=l_parsing;
+        if (l_arguments.getArgsLabeled().containsKey("-add")) {
+            // Get continentID and continentValue
+            String l_continentID = l_arguments.getArgsLabeled().get("-add").getFirst();
+            String l_continentValue = l_arguments.getArgsLabeled().get("-add").getLast();
+
+            this.addContinent(l_continentID, Integer.parseInt(l_continentValue));
+        }
+
+        // Remove continent
+        if (l_arguments.getArgsLabeled().containsKey("-remove")) {
+            // Get continentID
+            String l_continentID = l_arguments.getArgsLabeled().get("-remove").getFirst();
+
+            this.removeContinent(l_continentID);
         }
     }
 
