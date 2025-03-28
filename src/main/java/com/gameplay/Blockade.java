@@ -54,7 +54,7 @@ public class Blockade extends Order {
         this.d_numOfArmies = this.d_countryToBlockade.getArmies();
         // Check the number of armies in the specified country
         if (this.d_numOfArmies <= 0) {
-            System.out.println("\nError: Country " + this.d_countryName + " has 0 armies");
+            System.out.println("\nError: Country " + this.d_countryName + " has no armies");
             return false;
         }
 
@@ -63,6 +63,7 @@ public class Blockade extends Order {
 
     @Override
     public void execute() {
+        System.out.println(d_LogINFO);
         if (this.isValid()) {
             // Triple the number of armies on the specified country
             d_LogINFO = "\n-----------------------------------------------------------------------------";
@@ -79,7 +80,7 @@ public class Blockade extends Order {
             l_neutralPlayer.addCountryToOwnedCountries(d_countryToBlockade);
 
             // Remove blockade card from the current player
-            d_player.getCards().remove(Card.BLOCKADE);
+            this.d_player.removeCard(Card.BLOCKADE);
             d_LogINFO += "\n-----------------------------------------------------------------------------";
             System.out.println(d_LogINFO);
         }

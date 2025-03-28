@@ -30,6 +30,11 @@ public class ExecuteOrder implements Phase {
                 return false;
             }
         }
+
+        // Clear diplomacy players for all players
+        for (Player l_player : engine.getPlayersList()) {
+            l_player.clearDiplomacyPlayers();
+        }
         return true;
     }
 }

@@ -113,6 +113,15 @@ public class Player {
     }
 
     /**
+     * Remove card from the list
+     *
+     * @param p_card the card
+     */
+    public void removeCard(Card p_card) {
+        this.d_cards.remove(p_card);
+    }
+
+    /**
      * Gets a list of diplomacy players of the current player
      *
      * @return a list of diplomacy players
@@ -140,6 +149,13 @@ public class Player {
     }
 
     /**
+     * Remove all diplomacy players.
+     */
+    public void clearDiplomacyPlayers() {
+        d_diplomacyPlayers.clear();
+    }
+
+    /**
      * Takes input from user in this format "deploy countryID num" and adds a command to playerOrders
      * Decreases the appropriate number of reinforcements from the numReinforcement
      *
@@ -151,63 +167,57 @@ public class Player {
 
         switch (l_parsing.d_commandType) {
             case "deploy" -> {
-                String l_countryName = l_arguments.get(0).replace('_', ' ');
+                String l_countryName = l_arguments.get(0);
                 int l_num = Integer.parseInt(l_arguments.get(1));
 
-                Order l_deployOrder = new Deploy(this, l_countryName, l_num);
+                Deploy l_deployOrder = new Deploy(this, l_countryName, l_num);
                 p_gameEngine.d_logbuffer.addEntry(l_deployOrder);
-                if (l_deployOrder.isValid()) {
-                    this.d_playerOrders.add(l_deployOrder);
-                }
+
+                this.d_playerOrders.add(l_deployOrder);
             }
             case "advance" -> {
                 String l_countryFrom = l_arguments.get(0);
                 String l_countryTo = l_arguments.get(1);
                 int l_numArmies = Integer.parseInt(l_arguments.get(2));
 
-                Order l_advanceOrder = new Advance(p_gameEngine, this, l_countryFrom, l_countryTo, l_numArmies);
+                Advance l_advanceOrder = new Advance(p_gameEngine, this, l_countryFrom, l_countryTo, l_numArmies);
                 p_gameEngine.d_logbuffer.addEntry(l_advanceOrder);
-                if (l_advanceOrder.isValid()) {
-                    this.d_playerOrders.add(l_advanceOrder);
-                }
+
+                this.d_playerOrders.add(l_advanceOrder);
             }
             case "bomb" -> {
                 String l_countryName = l_arguments.getFirst();
 
-                Order l_bombOrder = new Bomb(this, l_countryName);
+                Bomb l_bombOrder = new Bomb(this, l_countryName);
                 p_gameEngine.d_logbuffer.addEntry(l_bombOrder);
-                if (l_bombOrder.isValid()) {
-                    this.d_playerOrders.add(l_bombOrder);
-                }
+
+                this.d_playerOrders.add(l_bombOrder);
             }
             case "blockade" -> {
                 String l_countryName = l_arguments.getFirst();
 
-                Order l_blockadeOrder = new Blockade(p_gameEngine, this, l_countryName);
+                Blockade l_blockadeOrder = new Blockade(p_gameEngine, this, l_countryName);
                 p_gameEngine.d_logbuffer.addEntry(l_blockadeOrder);
-                if (l_blockadeOrder.isValid()) {
-                    this.d_playerOrders.add(l_blockadeOrder);
-                }
+
+                this.d_playerOrders.add(l_blockadeOrder);
             }
             case "airlift" -> {
                 String l_sourceCountryName = l_arguments.get(0);
                 String l_targetCountryName = l_arguments.get(1);
                 int l_numArmy = Integer.parseInt(l_arguments.get(2));
 
-                Order l_airliftOrder = new Airlift(this, l_sourceCountryName, l_targetCountryName, l_numArmy);
+                Airlift l_airliftOrder = new Airlift(this, l_sourceCountryName, l_targetCountryName, l_numArmy);
                 p_gameEngine.d_logbuffer.addEntry(l_airliftOrder);
-                if (l_airliftOrder.isValid()) {
-                    this.d_playerOrders.add(l_airliftOrder);
-                }
+
+                this.d_playerOrders.add(l_airliftOrder);
             }
             case "negotiate" -> {
                 String l_playerName = l_arguments.getFirst();
 
-                Order l_diplomacyOrder = new Diplomacy(p_gameEngine, this, l_playerName);
+                Diplomacy l_diplomacyOrder = new Diplomacy(p_gameEngine, this, l_playerName);
                 p_gameEngine.d_logbuffer.addEntry(l_diplomacyOrder);
-                if (l_diplomacyOrder.isValid()) {
-                    this.d_playerOrders.add(l_diplomacyOrder);
-                }
+
+                this.d_playerOrders.add(l_diplomacyOrder);
             }
         }
     }

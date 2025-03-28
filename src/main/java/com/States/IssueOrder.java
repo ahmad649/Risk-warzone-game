@@ -1,8 +1,6 @@
 package com.States;
 
-import com.gameplay.Parsing;
-import com.gameplay.GameEngine;
-import com.gameplay.Player;
+import com.gameplay.*;
 import com.model.Continent;
 import com.model.Country;
 
@@ -23,6 +21,11 @@ public class IssueOrder implements Phase {
         if(current_player == null){return;}
         System.out.println("-----------------------------------------------------------------------------");
         System.out.println(current_player.getName()+"'s turn to play");
+        System.out.println("CARDS OWNED: ");
+        for (Card l_card : current_player.getCards()) {
+            System.out.print(l_card + " ");
+        }
+        System.out.println();
         System.out.println("-----------------------------------------------------------------------------");
     }
 
@@ -34,7 +37,7 @@ public class IssueOrder implements Phase {
         }
         this.engine = engine;
         System.out.println("""
-                -----------------------------------------------------------------------
+                \n-----------------------------------------------------------------------
                                              ISSUE ORDERS
                 -----------------------------------------------------------------------
                 Commands:

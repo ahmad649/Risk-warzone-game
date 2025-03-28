@@ -80,6 +80,7 @@ public class Airlift extends Order {
 
     @Override
     public void execute() {
+        System.out.println(d_LogINFO);
         if (this.isValid()) {
             d_LogINFO = "\n-----------------------------------------------------------------------------";
             // Perform airlift
@@ -92,7 +93,7 @@ public class Airlift extends Order {
             System.out.println(d_LogINFO);
 
             // Remove airlift card from the current player
-            this.d_player.getCards().remove(Card.AIRLIFT);
+            this.d_player.removeCard(Card.AIRLIFT);
         }
     }
 }

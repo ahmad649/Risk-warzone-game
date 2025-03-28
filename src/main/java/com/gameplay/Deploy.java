@@ -1,5 +1,7 @@
 package com.gameplay;
 
+import com.model.Country;
+
 /**
  * Deploy class is used to place some armies on one of the current player’s territories.
  */
@@ -38,13 +40,13 @@ public class Deploy extends Order{
     public boolean isValid() {
         // Ensure the player owns the country before deploying
         if (!this.d_player.ownsCountry(this.d_countryName)) {
-            System.out.println("\nError: Player does not own country " + this.d_countryName);
+            System.out.println("\nError: Player " + this.d_player.getName() + " does not own country " + this.d_countryName);
             return false;
         }
 
         // Ensure the player has enough reinforcements
         if (this.d_player.getReinforcements() < this.d_numArmy) {
-            System.out.println("\nError: Player reinforcement limit exceeded");
+            System.out.println("\nError: Player " + this.d_player.getName() + " does not have enough reinforcements");
             return false;
         }
 
@@ -53,14 +55,15 @@ public class Deploy extends Order{
 
     @Override
     public void execute(){
+        System.out.println(d_LogINFO);
         if (this.isValid()) {
-            System.out.println(d_player.getName() + " is deploying " + this.d_numArmy + " armies to country " + this.d_countryName);
+            d_LogINFO = d_player.getName() + " is deploying " + this.d_numArmy + " armies to country " + this.d_countryName;
 
             // Deploy armies
             d_player.removeReinforcement(d_numArmy);
             d_player.addArmiesToCountry(this.d_countryName, this.d_numArmy);
-            d_LogINFO =
-                    "-----------------------------------------------------------------------------\n"+
+            d_LogINFO +=
+                    "\n-----------------------------------------------------------------------------\n"+
                     "Successfully deployed " + this.d_numArmy + " armies to country " + this.d_countryName +
                     "\n-----------------------------------------------------------------------------\n";
             System.out.println(d_LogINFO);

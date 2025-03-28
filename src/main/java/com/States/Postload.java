@@ -93,7 +93,7 @@ public class Postload implements Phase{
             }
         }
 
-        System.out.println("Map is valid!");
+        System.out.println("\nMap is valid!");
         return true;
     }
 

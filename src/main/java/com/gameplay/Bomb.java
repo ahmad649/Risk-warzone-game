@@ -74,13 +74,14 @@ public class Bomb extends Order {
 
     @Override
     public void execute() {
+        System.out.println(d_LogINFO);
         if (this.isValid()) {
             d_LogINFO = "\n-----------------------------------------------------------------------------";
             d_countryToBomb.setArmies(Math.round((float) d_countryToBomb.getArmies() / 2));
             d_LogINFO += "\nSuccess: " + this.d_countryName + " has been bombed by " + d_player.getName();
-
+            d_LogINFO += "\n" + d_countryToBomb.getName() + " now has " + d_countryToBomb.getArmies() + " armies";
             // Remove bomb card from the current player
-            d_player.getCards().remove(Card.BOMB);
+            this.d_player.removeCard(Card.BOMB);
             d_LogINFO += "\n-----------------------------------------------------------------------------";
             System.out.println(d_LogINFO);
         }

@@ -69,6 +69,7 @@ public class Diplomacy extends Order {
 
     @Override
     public void execute() {
+        System.out.println(d_LogINFO);
         if (this.isValid()) {
             d_LogINFO = "\n-----------------------------------------------------------------------------";
             // Add players to diplomacy list
@@ -77,7 +78,7 @@ public class Diplomacy extends Order {
             d_LogINFO += "\nSuccess: Now, " + this.d_currentPlayer.getName() + " cannot attack " + this.d_targetPlayer.getName() + " until the end of the turn and vice versa";
 
             // Remove diplomacy card from the current player
-            this.d_currentPlayer.getCards().remove(Card.DIPLOMACY);
+            this.d_currentPlayer.removeCard(Card.DIPLOMACY);
             d_LogINFO += "\n-----------------------------------------------------------------------------";
             System.out.println(d_LogINFO);
         }

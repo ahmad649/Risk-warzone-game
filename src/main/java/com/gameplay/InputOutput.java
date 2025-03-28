@@ -38,7 +38,7 @@ public class InputOutput {
     public static Parsing get_user_command() {
         Scanner l_scanner = new Scanner(System.in);
 
-        System.out.println("Enter command: ");
+        System.out.println("\nEnter command: ");
         String l_command = l_scanner.nextLine();
 
         // Validate all commands, then perform actions
@@ -83,27 +83,21 @@ public class InputOutput {
             return new Parsing(l_command);
 
         } else if (is_deploy_command_valid(l_command)) {
-            System.out.println("Executing deploy command");
             return new Parsing(l_command);
 
         } else if (is_advance_command_valid(l_command)) {
-            System.out.println("Executing advance command");
             return new Parsing(l_command);
 
         } else if (is_bomb_command_valid(l_command)) {
-            System.out.println("Executing bomb command");
             return new Parsing(l_command);
 
         } else if (is_blockade_command_valid(l_command)) {
-            System.out.println("Executing blockade command");
             return new Parsing(l_command);
 
         } else if (is_airlift_command_valid(l_command)) {
-            System.out.println("Executing airlift command");
             return new Parsing(l_command);
 
         } else if (is_negotiate_command_valid(l_command)) {
-            System.out.println("Executing negotiate command");
             return new Parsing(l_command);
 
         } else if (is_quit_command_valid(l_command)) {
@@ -631,7 +625,7 @@ public class InputOutput {
             return false;
         }
         // Check if countryNameFrom and countryNameTo are strings
-        if (!l_parts[1].matches("[a-zA-Z]+") || !l_parts[2].matches("[a-zA-Z]+")){
+        if (!isValidString(l_parts[1]) || !isValidString(l_parts[1])) {
             System.out.println("\nSource and target country names must be string.");
             return false;
         }
@@ -669,7 +663,7 @@ public class InputOutput {
         }
 
         // Check if countryID is a string containing only letters
-        if (!l_parts[1].matches("[a-zA-Z]+")) {
+        if (!isValidString(l_parts[1])) {
             System.out.println("\n'CountryID' must be a string.");
             return false;
         }
@@ -699,7 +693,7 @@ public class InputOutput {
         }
 
         // Check if countryID is a string containing only letters
-        if (!l_parts[1].matches("[a-zA-Z]+")) {
+        if (!isValidString(l_parts[1])) {
             System.out.println("\n'CountryID' must be a string.");
             return false;
         }
@@ -729,13 +723,13 @@ public class InputOutput {
         }
 
         // Check if sourceCountryID is a string containing only letters
-        if (!l_parts[1].matches("[a-zA-Z]+")) {
+        if (!isValidString(l_parts[1])) {
             System.out.println("\n'sourceCountryID' must be a string.");
             return false;
         }
 
         // Check if targetCountryID is a string containing only letters
-        if (!l_parts[2].matches("[a-zA-Z]+")) {
+        if (!isValidString(l_parts[2])) {
             System.out.println("\n'targetCountryID' must be a string.");
             return false;
         }
@@ -773,10 +767,19 @@ public class InputOutput {
         }
 
         // Check if playerID is a string containing only letters
-        if (!l_parts[1].matches("[a-zA-Z]+")) {
+        if (!isValidString(l_parts[1])) {
             System.out.println("\n'playerID' must be a string.");
             return false;
         }
         return true;
+    }
+
+    public static boolean isValidString(String p_input) {
+        for (char l_char : p_input.toCharArray()) {
+            if (!Character.isLetter(l_char) && l_char != '_') {
+                return false;
+            }
+        }
+        return !p_input.isEmpty();
     }
 }

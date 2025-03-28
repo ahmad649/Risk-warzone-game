@@ -58,7 +58,7 @@ public class Advance extends Order{
     public boolean isValid() {
         // Ensure the player owns the source country before advancing
         if (!this.d_player.ownsCountry(this.d_countryNameFrom)) {
-            System.out.println("\nError: Player does not own country " + this.d_countryNameFrom);
+            System.out.println("\nError: Player " + this.d_player.getName() + " does not own country " + this.d_countryNameFrom);
             return false;
         }
 
@@ -75,7 +75,7 @@ public class Advance extends Order{
 
         // Source and target country are the same
         if (this.d_countryFrom.getName().equals(this.d_countryTo.getName())) {
-            System.out.println("\nError: Source and target country are the same");
+            System.out.println("\nError: Source and target country cannot be the same");
             return false;
         }
 
@@ -87,7 +87,7 @@ public class Advance extends Order{
 
         //Ensure both countries are adjacent
         if (!this.d_countryFrom.isNeighbor(this.d_countryTo.getName())){
-            System.out.println("\nError: Countries are not adjacent");
+            System.out.println("\nError: " + this.d_countryNameFrom + " and " + this.d_countryNameTo + " are not adjacent");
             return false;
         }
 
@@ -100,6 +100,7 @@ public class Advance extends Order{
      */
     @Override
     public void execute(){
+        System.out.println(d_LogINFO);
         if (isValid()) {
             d_LogINFO = "\n-----------------------------------------------------------------------------";
             ArrayList<String> l_countryNamesOwned = new ArrayList<>();
