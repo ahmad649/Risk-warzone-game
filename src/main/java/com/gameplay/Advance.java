@@ -94,6 +94,10 @@ public class Advance extends Order{
         return true;
     }
 
+    /**
+     * execute() method inherited from the abstract Order class where the Advance logic is placed.
+     * Validations about the player issuing the order owns the source country are made, as well as the number of armies in the country to check if the operation is possible.
+     */
     @Override
     public void execute(){
         if (isValid()) {
