@@ -1,18 +1,14 @@
 package com.gameplay;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.States.ExecuteOrder;
-import com.States.IssueOrder;
 import com.States.Menu;
 import com.States.Phase;
-import com.States.Preload;
-import com.States.Startup;
 import com.logs.LogEntryBuffer;
 import com.logs.LogFileWriter;
-import com.logs.LogObserver;
-import com.maps.MapReader;
 import com.model.Country;
 
 /**
@@ -46,7 +42,7 @@ public class GameEngine {
      */
     public GameEngine(){
         d_phase = new Menu(this);
-        d_logbuffer.addObserver(new LogFileWriter("h.txt"));
+        d_logbuffer.addObserver(new LogFileWriter("logs/logs-"+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss")) + ".txt"));
 
         this.d_neutralPlayer = new Player("Neutral");
     }
@@ -107,17 +103,8 @@ public class GameEngine {
                 d_phase.endTurn();
             } else if (l_parsing.d_commandType.equals("assigncountries")) {
                 d_phase.assignCountries();
-                d_phase.assignReinforcements();
             } else if (checkIssuable(l_parsing)) {
                 d_phase.createOrder(l_parsing);
-                if (d_phase.currentPhase().equals("ExecuteOrder")) {
-                    while (true) {
-                        if (d_phase.executeOrder()) {
-                            d_phase = new IssueOrder(this);
-                            break;
-                        }
-                    }
-                }
             } else if (l_parsing.d_commandType.equals("quit")) {
                 return;
             }else if (l_parsing.d_commandType.equals("validatemap")){

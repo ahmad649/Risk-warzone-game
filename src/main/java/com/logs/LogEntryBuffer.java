@@ -19,7 +19,6 @@ public class LogEntryBuffer{
 
     public void addEntry(Order entry) {
         logbuffer.add(entry);
-        System.out.println(entry);
         notifyObservers();
     }
 

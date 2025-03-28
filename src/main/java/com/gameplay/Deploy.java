@@ -57,7 +57,7 @@ public class Deploy extends Order{
             System.out.println(d_player.getName() + " is deploying " + this.d_numArmy + " armies to country " + this.d_countryName);
 
             // Deploy armies
-            //        d_player.removeReinforcement(d_numArmy);
+            d_player.removeReinforcement(d_numArmy);
             d_player.addArmiesToCountry(this.d_countryName, this.d_numArmy);
             d_LogINFO =
                     "-----------------------------------------------------------------------------\n"+

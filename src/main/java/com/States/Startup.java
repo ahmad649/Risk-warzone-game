@@ -21,6 +21,20 @@ public class Startup implements Phase {
         //clearing previous game
         engine.d_countryList.clear();
         engine.d_playersList.clear();
+        System.out.println("""
+                -----------------------------------------------------------------------
+                                                STARTUP
+                -----------------------------------------------------------------------
+                Commands:
+
+                loadmap
+                gameplayer
+                showmap
+                assigncountries
+                menu
+                -----------------------------------------------------------------------
+                """
+        );
     }
 
     public String currentPhase() {

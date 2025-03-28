@@ -6,20 +6,25 @@ import com.gameplay.Player;
 import com.model.Continent;
 import com.model.Country;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 public class IssueOrder implements Phase {
 
     GameEngine engine;
-    public ArrayList<Player> p_players;
+    public Queue<Player> p_players;
 
     public String currentPhase() {
         return "IssueOrder";
     }
-    Iterator<Player> p_players_iterator;
     public Player current_player;
+
+    public void next_player(){
+        current_player = p_players.poll();
+        if(current_player == null){return;}
+        System.out.println("-----------------------------------------------------------------------------");
+        System.out.println(current_player.getName()+"'s turn to play");
+        System.out.println("-----------------------------------------------------------------------------");
+    }
 
     public IssueOrder(GameEngine engine) {
         if (engine.d_playersList.isEmpty()) {
@@ -28,9 +33,27 @@ public class IssueOrder implements Phase {
             return;
         }
         this.engine = engine;
-        p_players = new ArrayList<>(engine.d_playersList);
-        p_players_iterator = p_players.iterator();
-        current_player = p_players_iterator.next();
+        System.out.println("""
+                -----------------------------------------------------------------------
+                                             ISSUE ORDERS
+                -----------------------------------------------------------------------
+                Commands:
+
+                showmap
+                endturn
+                menu
+                deploy
+                advance
+                bomb
+                diplomacy
+                airlift
+                blockade
+                -----------------------------------------------------------------------
+                """
+        );
+        p_players = new LinkedList<>(engine.d_playersList);
+        next_player();
+        assignReinforcements();
     }
 
     @Override
@@ -53,9 +76,17 @@ public class IssueOrder implements Phase {
     }
     @Override
     public void endTurn() {
-        p_players_iterator.remove();
-        if(p_players.isEmpty()) {
+        next_player();
+        if(p_players.isEmpty()&&current_player == null) {
             engine.d_phase = new ExecuteOrder(engine);
+            if (engine.d_phase.currentPhase().equals("ExecuteOrder")) {
+                while (true) {
+                    if (engine.d_phase.executeOrder()) {
+                        engine.d_phase = new IssueOrder(engine);
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -93,9 +124,7 @@ public class IssueOrder implements Phase {
     @Override
     public void createOrder(Parsing l_parsing) {
         current_player.issue_order(engine, l_parsing);
-        if (p_players_iterator.hasNext()) {
-            current_player = p_players_iterator.next();
-        }
-        System.out.println("Next turn will be" + current_player.getName());
+        p_players.add(current_player);
+        next_player();
     }
 }

@@ -8,6 +8,12 @@ public class ExecuteOrder implements Phase {
     GameEngine engine;
     public ExecuteOrder(GameEngine engine) {
         this.engine = engine;
+        System.out.println("""
+                -----------------------------------------------------------------------
+                                             EXECUTING ORDERS
+                -----------------------------------------------------------------------
+                """
+        );
     }
 
     public String currentPhase() {

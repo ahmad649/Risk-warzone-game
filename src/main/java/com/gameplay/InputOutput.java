@@ -113,6 +113,9 @@ public class InputOutput {
         } else if (is_continue_command_valid(l_command)) {
             System.out.println("Executing continue command");
             return new Parsing(l_command);
+        } else if (is_endturn_command_valid(l_command)) {
+            System.out.println("Executing endturn command");
+            return new Parsing(l_command);
         } else if (is_menu_command_valid(l_command)) {
             System.out.println("Executing menu command");
             return new Parsing(l_command);
