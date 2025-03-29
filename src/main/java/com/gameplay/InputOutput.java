@@ -149,10 +149,10 @@ public class InputOutput {
             switch (l_parts[l_i]) {
                 case "-add":
                     // Check if there are multiple '-add' flags
-                    if (l_addFlag) {
-                        System.out.println("\n'editcontinent' command cannot have multiple '-add' flags.");
-                        return false;
-                    }
+                    // if (l_addFlag) {
+                    //     System.out.println("\n'editcontinent' command cannot have multiple '-add' flags.");
+                    //     return false;
+                    // }
 
                     // Check if 'continentID' and 'continentValue' are given in the '-add' flag
                     if (l_i + 2 >= l_parts.length) {
@@ -171,10 +171,10 @@ public class InputOutput {
                     break;
                 case "-remove":
                     // Check if there are multiple '-remove' flags
-                    if (l_removeFlag) {
-                        System.out.println("\n'editcontinent' command cannot have multiple -remove flags.");
-                        return false;
-                    }
+                    // if (l_removeFlag) {
+                    //     System.out.println("\n'editcontinent' command cannot have multiple -remove flags.");
+                    //     return false;
+                    // }
 
                     // Check if 'continentID' is given in the '-remove' flag
                     if (l_i + 1 >= l_parts.length) {
@@ -222,10 +222,10 @@ public class InputOutput {
             switch (l_parts[l_i]) {
                 case "-add":
                     // Check if there are multiple '-add' flags
-                    if (l_addFlag) {
-                        System.out.println("\n'editcountry' command cannot have multiple '-add' flags.");
-                        return false;
-                    }
+                    // if (l_addFlag) {
+                    //     System.out.println("\n'editcountry' command cannot have multiple '-add' flags.");
+                    //     return false;
+                    // }
 
                     // Check if 'countryID' and 'continentID' are given in the '-add' flag
                     if (l_i + 2 >= l_parts.length) {
@@ -238,10 +238,10 @@ public class InputOutput {
                     break;
                 case "-remove":
                     // Check if there are multiple '-remove' flags
-                    if (l_removeFlag) {
-                        System.out.println("\n'editcountry' command cannot have multiple '-remove' flags.");
-                        return false;
-                    }
+                    // if (l_removeFlag) {
+                    //     System.out.println("\n'editcountry' command cannot have multiple '-remove' flags.");
+                    //     return false;
+                    // }
 
                     // Check if 'countryID' is given in the '-remove' flag
                     if (l_i + 1 >= l_parts.length) {
@@ -289,10 +289,10 @@ public class InputOutput {
             switch (l_parts[l_i]) {
                 case "-add":
                     // Check if there are multiple '-add' flags
-                    if (l_addFlag) {
-                        System.out.println("\n'editneighbor' command cannot have multiple '-add' flags.");
-                        return false;
-                    }
+                    // if (l_addFlag) {
+                    //     System.out.println("\n'editneighbor' command cannot have multiple '-add' flags.");
+                    //     return false;
+                    // }
                     // Check if 'countryID' and 'neighborCountryID' are given in the '-add' flag
                     if (l_i + 2 >= l_parts.length) {
                         System.out.println("\n'-add' flag must be followed by 'countryID' and 'neighborCountryID'.");
@@ -304,10 +304,10 @@ public class InputOutput {
                     break;
                 case "-remove":
                     // Check if there are multiple '-remove' flags
-                    if (l_removeFlag) {
-                        System.out.println("\n'editneighbor' command cannot have multiple '-remove' flags.");
-                        return false;
-                    }
+                    // if (l_removeFlag) {
+                    //     System.out.println("\n'editneighbor' command cannot have multiple '-remove' flags.");
+                    //     return false;
+                    // }
 
                     // Check if 'countryID' and 'neighborCountryID' are given in the '-remove' flag
                     if (l_i + 2 >= l_parts.length) {
