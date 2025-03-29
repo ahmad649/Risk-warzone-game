@@ -1,4 +1,7 @@
 com
 com.gameplay
+com.logs
 com.maps
 com.model
+com.orders
+com.States
