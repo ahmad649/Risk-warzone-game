@@ -7,15 +7,15 @@ import com.maps.MapReader;
  * Defines Menu phase and its methods.
  */
 public class Menu implements Phase {
-    GameEngine engine;
+    GameEngine d_engine;
 
     /**
      * Instantiates a new Menu.
      *
-     * @param engine the engine
+     * @param p_engine the engine
      */
-    public Menu(GameEngine engine){
-        this.engine = engine;
+    public Menu(GameEngine p_engine){
+        this.d_engine = p_engine;
         System.out.println("""
                 -----------------------------------------------------------------------
                                                 MAIN MENU
@@ -30,16 +30,18 @@ public class Menu implements Phase {
         );
     }
     /**
-     * Starts the map editor.
+     * Starts the map editor and transitions to the Preload phase.
+     * The map editor will be used to create or modify maps for the game.
      */
     public void editor(){
-        engine.d_phase = new Preload(engine,new MapReader());
+        d_engine.d_phase = new Preload(d_engine,new MapReader());
     }
     /**
-     * Starts the game.
+     * Starts the game and transitions to the Startup phase.
+     * This method begins the game by initializing the necessary game components.
      */
     public void startGame(){
-        engine.d_phase = new Startup(engine); 
+        d_engine.d_phase = new Startup(d_engine); 
     }
     /**
      * Current phase string.

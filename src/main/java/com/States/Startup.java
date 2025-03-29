@@ -17,18 +17,18 @@ import java.util.List;
  */
 public class Startup implements Phase {
 
-    GameEngine engine;
+    GameEngine d_engine;
 
     /**
      * Instantiates a new Startup.
      *
-     * @param engine the engine
+     * @param p_engine the engine
      */
-    public Startup(GameEngine engine) {
-        this.engine = engine;
+    public Startup(GameEngine p_engine) {
+        this.d_engine = p_engine;
         //clearing previous game
-        engine.d_countryList.clear();
-        engine.d_playersList.clear();
+        p_engine.d_countryList.clear();
+        p_engine.d_playersList.clear();
         System.out.println("""
                 -----------------------------------------------------------------------
                                                 STARTUP
@@ -57,17 +57,17 @@ public class Startup implements Phase {
     /**
      * Add game player.
      *
-     * @param l_parsing the parsing
+     * @param p_parsing the parsing
      */
     @Override
-    public void addGamePlayer(Parsing l_parsing) {
-        if (l_parsing.d_argsLabeled.containsKey("-add")) {
-            String l_playername = l_parsing.d_argsLabeled.get("-add").getFirst();
-            engine.d_playersList.add(new Player(l_playername));
+    public void addGamePlayer(Parsing p_parsing) {
+        if (p_parsing.d_argsLabeled.containsKey("-add")) {
+            String l_playername = p_parsing.d_argsLabeled.get("-add").getFirst();
+            d_engine.d_playersList.add(new Player(l_playername));
             System.out.println("Player added: " + l_playername);
-        } else if (l_parsing.d_argsLabeled.containsKey("-remove")) {
-            String l_playerName = l_parsing.d_argsLabeled.get("-remove").getFirst();
-            engine.d_playersList.removeIf(p -> p.getName().equals(l_playerName));
+        } else if (p_parsing.d_argsLabeled.containsKey("-remove")) {
+            String l_playerName = p_parsing.d_argsLabeled.get("-remove").getFirst();
+            d_engine.d_playersList.removeIf(p -> p.getName().equals(l_playerName));
             System.out.println("Player removed: " + l_playerName);
         }
     }
@@ -75,14 +75,14 @@ public class Startup implements Phase {
     /**
      * Load map.
      *
-     * @param l_parsing the parsing
+     * @param p_parsing the parsing
      */
     @Override
-    public void loadMap(Parsing l_parsing) {
-        Preload l_mapreader = new Preload(engine,new MapReader());
-        l_mapreader.loadMap(l_parsing.d_argArr.getFirst());
-        engine.d_countryList = l_mapreader.d_countries.values().stream().toList();
-        if (engine.d_countryList.isEmpty()) {
+    public void loadMap(Parsing p_parsing) {
+        Preload l_mapreader = new Preload(d_engine,new MapReader());
+        l_mapreader.loadMap(p_parsing.d_argArr.getFirst());
+        d_engine.d_countryList = l_mapreader.d_countries.values().stream().toList();
+        if (d_engine.d_countryList.isEmpty()) {
             System.out.println("Empty map loaded. Please try again.");
             return;
         }
@@ -95,7 +95,7 @@ public class Startup implements Phase {
     @Override
     public void displayMap() {
         HashSet<Country> l_processedCountries = new HashSet<>();
-        for (Country l_country : engine.d_countryList) {
+        for (Country l_country : d_engine.d_countryList) {
             if (l_processedCountries.contains(l_country)) {
                 continue;
             }
@@ -116,23 +116,23 @@ public class Startup implements Phase {
      */
     @Override
     public void assignCountries() {
-        if (engine.d_playersList.isEmpty() || engine.d_countryList.isEmpty()) {
+        if (d_engine.d_playersList.isEmpty() || d_engine.d_countryList.isEmpty()) {
             System.out.println("Cannot assign countries. Ensure players and countries are available.");
             return;
         }
 
         int l_index = 0;
 
-        List<Country> l_shuffledCountries = new ArrayList<>(engine.d_countryList); // Create a mutable copy
+        List<Country> l_shuffledCountries = new ArrayList<>(d_engine.d_countryList); // Create a mutable copy
         Collections.shuffle(l_shuffledCountries); // Shuffle the countries
 
         for (Country l_country : l_shuffledCountries) {
-            Player l_player = engine.d_playersList.get(l_index);
+            Player l_player = d_engine.d_playersList.get(l_index);
             l_player.d_ownedCountries.add(l_country);
             l_country.setOwner(l_player);
-            l_index = (l_index + 1) % engine.d_playersList.size();
+            l_index = (l_index + 1) % d_engine.d_playersList.size();
         }
         System.out.println("All countries have been assigned to players.");
-        engine.d_phase = new IssueOrder(engine);
+        d_engine.d_phase = new IssueOrder(d_engine);
     }
 }

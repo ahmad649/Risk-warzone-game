@@ -15,16 +15,16 @@ public interface Phase {
 
     /**
      * Method to add a player to the game
-     * @param l_parsing the parsing object
+     * @param p_parsing the parsing object
      */
-    default void addGamePlayer(Parsing l_parsing) {
+    default void addGamePlayer(Parsing p_parsing) {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
     /**
      * Method to load a map
-     * @param l_parsing the parsing object
+     * @param p_parsing the parsing object
      */
-    default void loadMap(Parsing l_parsing) {
+    default void loadMap(Parsing p_parsing) {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
     }
 
@@ -55,9 +55,9 @@ public interface Phase {
 
     /**
      * Method to create an order
-     * @param l_parsing
+     * @param p_parsing
      */
-    default void createOrder(Parsing l_parsing) {
+    default void createOrder(Parsing p_parsing) {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
     }
 
@@ -71,10 +71,10 @@ public interface Phase {
 
     /**
      * Method to add a player to the game
-     * @param engine the game engine
-     * @param l_parsing the parsing object
+     * @param p_engine the game engine
+     * @param p_parsing the parsing object
      */
-    default void addGamePlayer(GameEngine engine, Parsing l_parsing){
+    default void addGamePlayer(GameEngine p_engine, Parsing p_parsing){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
     /**
@@ -85,10 +85,10 @@ public interface Phase {
 
     /**
      * Method to save the map
-     * @param l_parsing the parsing object
+     * @param p_parsing the parsing object
      * @return true if the map is saved, false otherwise
      */
-    default boolean saveMap(Parsing l_parsing){
+    default boolean saveMap(Parsing p_parsing){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    return false;
     }
     
@@ -102,29 +102,29 @@ public interface Phase {
 
     /**
      * Method to edit the map
-     * @param l_parsing the parsing object
+     * @param p_parsing the parsing object
      */
-    default void editMap(Parsing l_parsing){
+    default void editMap(Parsing p_parsing){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
     /**
      * Method to edit a country
-     * @param l_parsing the parsing object
+     * @param p_parsing the parsing object
      */
-    default void editCountry(Parsing l_parsing){
+    default void editCountry(Parsing p_parsing){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    };
 
     /**
      * Method to edit a continent
-     * @param l_parsing the parsing object
+     * @param p_parsing the parsing object
      */
-    default void editContinent(Parsing l_parsing){
+    default void editContinent(Parsing p_parsing){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
     };
 
     /**
      * Method to begin editing
-     * @param l_parsing the parsing object
+     * @param p_parsing the parsing object
      */
     default void editor(){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
@@ -139,17 +139,17 @@ public interface Phase {
     
     /**
      * Method to return to the menu
-     * @param engine the game engine
+     * @param p_engine the game engine
      */
-    default void returnToMenu(GameEngine engine){
-        engine.d_phase = new Menu(engine);
+    default void returnToMenu(GameEngine p_engine){
+        p_engine.d_phase = new Menu(p_engine);
     }
     
     /**
      * Method to edit a neighbor
-     * @param l_parsing the parsing object
+     * @param p_parsing the parsing object
      */
-    default void editNeighbor(Parsing l_parsing){
+    default void editNeighbor(Parsing p_parsing){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
 }

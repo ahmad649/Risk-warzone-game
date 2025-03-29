@@ -5,14 +5,14 @@ import com.gameplay.Order;
 import com.gameplay.Player;
 
 public class ExecuteOrder implements Phase {
-    GameEngine engine;
+    GameEngine d_engine;
     /**
      * Instantiates a new Execute order.
      *
-     * @param engine the engine
+     * @param p_engine the engine
      */
-    public ExecuteOrder(GameEngine engine) {
-        this.engine = engine;
+    public ExecuteOrder(GameEngine p_engine) {
+        this.d_engine = p_engine;
         System.out.println("""
                 -----------------------------------------------------------------------
                                              EXECUTING ORDERS
@@ -33,21 +33,21 @@ public class ExecuteOrder implements Phase {
     /**
      * Execute order boolean.
      *
-     * @return the boolean
+     * @return true if all orders are executed, false if still processing orders
      */
     @Override
     public boolean executeOrder() {
-        for (Player l_player : engine.d_playersList) {
+        for (Player l_player : d_engine.d_playersList) {
             Order l_pendingOrder = l_player.next_order();
             if (l_pendingOrder != null) {
                 l_pendingOrder.execute();
-                engine.d_logbuffer.addEntry(l_pendingOrder);
+                d_engine.d_logbuffer.addEntry(l_pendingOrder);
                 return false;
             }
         }
 
         // Clear diplomacy players for all players
-        for (Player l_player : engine.getPlayersList()) {
+        for (Player l_player : d_engine.getPlayersList()) {
             l_player.clearDiplomacyPlayers();
         }
         return true;

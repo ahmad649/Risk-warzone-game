@@ -11,12 +11,12 @@ import java.util.*;
  */
 public class IssueOrder implements Phase {
 
-    GameEngine engine;
+    GameEngine d_engine;
     
     /**
      * Queue of players.
      */
-    public Queue<Player> p_players;
+    public Queue<Player> d_players;
 
     /**
      * Current phase string.
@@ -31,19 +31,19 @@ public class IssueOrder implements Phase {
     /**
      * Current player for the turn.
      */
-    public Player current_player;
+    public Player d_current_player;
 
 
     /**
      * next_player method is used to switch to the next player in the queue.
      */
     public void next_player(){
-        current_player = p_players.poll();
-        if(current_player == null){return;}
+        d_current_player = d_players.poll();
+        if(d_current_player == null){return;}
         System.out.println("-----------------------------------------------------------------------------");
-        System.out.println(current_player.getName()+"'s turn to play");
+        System.out.println(d_current_player.getName()+"'s turn to play");
         System.out.println("CARDS OWNED: ");
-        for (Card l_card : current_player.getCards()) {
+        for (Card l_card : d_current_player.getCards()) {
             System.out.print(l_card + " ");
         }
         System.out.println();
@@ -53,15 +53,15 @@ public class IssueOrder implements Phase {
     /**
      * Used to switch to IssueOrder phase and assign reinforcements to the players.
      * Prints the commands available to the player.
-     * @param engine
+     * @param p_engine
      */
-    public IssueOrder(GameEngine engine) {
-        if (engine.d_playersList.isEmpty()) {
+    public IssueOrder(GameEngine p_engine) {
+        if (p_engine.d_playersList.isEmpty()) {
             System.out.println("No players available. Exiting game loop.");
-            engine.d_phase = new Startup(engine);
+            p_engine.d_phase = new Startup(p_engine);
             return;
         }
-        this.engine = engine;
+        this.d_engine = p_engine;
         System.out.println("""
                 \n-----------------------------------------------------------------------
                                              ISSUE ORDERS
@@ -80,7 +80,7 @@ public class IssueOrder implements Phase {
                 -----------------------------------------------------------------------
                 """
         );
-        p_players = new LinkedList<>(engine.d_playersList);
+        d_players = new LinkedList<>(p_engine.d_playersList);
         next_player();
         assignReinforcements();
     }
@@ -91,7 +91,7 @@ public class IssueOrder implements Phase {
     @Override
     public void displayMap() {
         HashSet<Country> l_processedCountries = new HashSet<>();
-        for (Country l_country : engine.d_countryList) {
+        for (Country l_country : d_engine.d_countryList) {
             if (l_processedCountries.contains(l_country)) {
                 continue;
             }
@@ -115,13 +115,13 @@ public class IssueOrder implements Phase {
     @Override
     public void endTurn() {
         next_player();
-        if(p_players.isEmpty()&&current_player == null) {
-            engine.d_phase = new ExecuteOrder(engine);
-            if (engine.d_phase.currentPhase().equals("ExecuteOrder")) {
+        if(d_players.isEmpty()&&d_current_player == null) {
+            d_engine.d_phase = new ExecuteOrder(d_engine);
+            if (d_engine.d_phase.currentPhase().equals("ExecuteOrder")) {
                 while (true) {
-                    if (engine.d_phase.executeOrder()) {
+                    if (d_engine.d_phase.executeOrder()) {
                         HashSet<Player> l_processedPlayers = new HashSet<>();
-                        for (Country l_country : engine.d_countryList){
+                        for (Country l_country : d_engine.d_countryList){
                             if (l_country.getOwner()!=null) {
                                 l_processedPlayers.add(l_country.getOwner());
                             }
@@ -129,10 +129,10 @@ public class IssueOrder implements Phase {
                         if (l_processedPlayers.size()==1){
                             System.out.println(((Player)l_processedPlayers.toArray()[0]).getName() + " CONQUERED ALL COUNTRIES AND WON THE GAME!!!!");
                             System.out.println("THANKS FOR PLAYING");
-                            engine.d_phase = new Menu(engine);
+                            d_engine.d_phase = new Menu(d_engine);
                             return;
                         }
-                        engine.d_phase = new IssueOrder(engine);
+                        d_engine.d_phase = new IssueOrder(d_engine);
                         break;
                     }
                 }
@@ -148,7 +148,7 @@ public class IssueOrder implements Phase {
     @Override
     public void assignReinforcements() {
         System.out.println("-----------------------------------------------------------------------------");
-        for (Player l_player : engine.d_playersList) {
+        for (Player l_player : d_engine.d_playersList) {
             int l_reinforcements = 5;
 
             HashSet<Country> l_processedCountries = new HashSet<>();
@@ -177,13 +177,14 @@ public class IssueOrder implements Phase {
     }
 
     /**
-     * Create order for the player.
-     * @param l_parsing
+     * Creates an order for the current player based on the provided parsing input.
+     * Adds the player back to the queue and moves to the next player.
+     * @param p_parsing parsed commands for the order
      */
     @Override
-    public void createOrder(Parsing l_parsing) {
-        current_player.issue_order(engine, l_parsing);
-        p_players.add(current_player);
+    public void createOrder(Parsing p_parsing) {
+        d_current_player.issue_order(d_engine, p_parsing);
+        d_players.add(d_current_player);
         next_player();
     }
 }
