@@ -85,12 +85,25 @@ public class IssueOrder implements Phase {
             if (engine.d_phase.currentPhase().equals("ExecuteOrder")) {
                 while (true) {
                     if (engine.d_phase.executeOrder()) {
+                        HashSet<Player> l_processedPlayers = new HashSet<>();
+                        for (Country l_country : engine.d_countryList){
+                            if (l_country.getOwner()!=null) {
+                                l_processedPlayers.add(l_country.getOwner());
+                            }
+                        }
+                        if (l_processedPlayers.size()==1){
+                            System.out.println(((Player)l_processedPlayers.toArray()[0]).getName() + " CONQUERED ALL COUNTRIES AND WON THE GAME!!!!");
+                            System.out.println("THANKS FOR PLAYING");
+                            engine.d_phase = new Menu(engine);
+                            return;
+                        }
                         engine.d_phase = new IssueOrder(engine);
                         break;
                     }
                 }
             }
         }
+
     }
 
     @Override
