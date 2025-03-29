@@ -34,7 +34,7 @@ public class Startup implements Phase {
                                                 STARTUP
                 -----------------------------------------------------------------------
                 Commands:
-
+                
                 loadmap
                 gameplayer
                 showmap
@@ -62,13 +62,16 @@ public class Startup implements Phase {
     @Override
     public void addGamePlayer(Parsing p_parsing) {
         if (p_parsing.d_argsLabeled.containsKey("-add")) {
-            String l_playername = p_parsing.d_argsLabeled.get("-add").getFirst();
-            d_engine.d_playersList.add(new Player(l_playername));
-            System.out.println("Player added: " + l_playername);
-        } else if (p_parsing.d_argsLabeled.containsKey("-remove")) {
-            String l_playerName = p_parsing.d_argsLabeled.get("-remove").getFirst();
-            d_engine.d_playersList.removeIf(p -> p.getName().equals(l_playerName));
-            System.out.println("Player removed: " + l_playerName);
+            for (String l_playername : p_parsing.d_argsLabeled.get("-add")) {
+                d_engine.d_playersList.add(new Player(l_playername));
+                System.out.println("Player added: " + l_playername);
+            }
+        }
+        if (p_parsing.d_argsLabeled.containsKey("-remove")) {
+            for (String l_playername : p_parsing.d_argsLabeled.get("-remove")) {
+                d_engine.d_playersList.removeIf(p -> p.getName().equals(l_playername));
+                System.out.println("Player removed: " + l_playername);
+            }
         }
     }
 
@@ -79,7 +82,7 @@ public class Startup implements Phase {
      */
     @Override
     public void loadMap(Parsing p_parsing) {
-        Preload l_mapreader = new Preload(d_engine,new MapReader());
+        Preload l_mapreader = new Preload(d_engine, new MapReader());
         l_mapreader.loadMap(p_parsing.d_argArr.getFirst());
         d_engine.d_countryList = l_mapreader.d_countries.values().stream().toList();
         if (d_engine.d_countryList.isEmpty()) {
