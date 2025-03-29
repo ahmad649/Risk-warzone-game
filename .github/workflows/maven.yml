@@ -5,6 +5,7 @@ on:
     branches:
       - Gameplay
       - handika/ci-setup
+      - States
 
 jobs:
   build:
