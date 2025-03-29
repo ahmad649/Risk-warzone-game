@@ -58,6 +58,7 @@ public class Parsing {
                 }
 
                 // Add to key-value pairs to hashmap
+                l_values.addAll(d_argsLabeled.getOrDefault(l_flag,new ArrayList<>()));
                 d_argsLabeled.put(l_flag, l_values);
                 l_i = l_j - 1; // Move i to the end of the processed arguments
             } else {
