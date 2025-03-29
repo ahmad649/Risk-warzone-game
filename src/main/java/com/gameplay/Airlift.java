@@ -36,11 +36,20 @@ public class Airlift extends Order {
                 d_player.getName(), d_sourceCountryName, d_targetCountryName, d_numArmy
         );
     }
+
+    /**
+     * Gets the log info.
+     */
     @Override
     public String getLogInfo() {
         return d_LogINFO;
     }
 
+    /**
+     * Checks if the airlift order is valid.
+     *
+     * @return true if the airlift order is valid, false otherwise
+     */
     @Override
     public boolean isValid() {
         // Check if the player owns a airlift card
@@ -78,6 +87,9 @@ public class Airlift extends Order {
         return true;
     }
 
+    /**
+     * Executes the airlift order.
+     */
     @Override
     public void execute() {
         System.out.println(d_LogINFO);

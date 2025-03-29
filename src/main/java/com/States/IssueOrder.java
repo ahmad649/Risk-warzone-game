@@ -6,16 +6,37 @@ import com.model.Country;
 
 import java.util.*;
 
+/**
+ * Defines IssueOrder phase and its methods.
+ */
 public class IssueOrder implements Phase {
 
     GameEngine engine;
+    
+    /**
+     * Queue of players.
+     */
     public Queue<Player> p_players;
 
+    /**
+     * Current phase string.
+     *
+     * @return the string
+     */ 
     public String currentPhase() {
         return "IssueOrder";
     }
+
+
+    /**
+     * Current player for the turn.
+     */
     public Player current_player;
 
+
+    /**
+     * next_player method is used to switch to the next player in the queue.
+     */
     public void next_player(){
         current_player = p_players.poll();
         if(current_player == null){return;}
@@ -29,6 +50,11 @@ public class IssueOrder implements Phase {
         System.out.println("-----------------------------------------------------------------------------");
     }
 
+    /**
+     * Used to switch to IssueOrder phase and assign reinforcements to the players.
+     * Prints the commands available to the player.
+     * @param engine
+     */
     public IssueOrder(GameEngine engine) {
         if (engine.d_playersList.isEmpty()) {
             System.out.println("No players available. Exiting game loop.");
@@ -59,6 +85,9 @@ public class IssueOrder implements Phase {
         assignReinforcements();
     }
 
+    /**
+     * Display the map.
+     */
     @Override
     public void displayMap() {
         HashSet<Country> l_processedCountries = new HashSet<>();
@@ -77,6 +106,12 @@ public class IssueOrder implements Phase {
             }
         }
     }
+    
+    /**
+     * End the turn and switch to the next player.
+     * If all players have played, switch to ExecuteOrder phase.
+     * If a player has conquered all countries, the player wins the game.
+     */
     @Override
     public void endTurn() {
         next_player();
@@ -106,6 +141,10 @@ public class IssueOrder implements Phase {
 
     }
 
+    /**
+     * Calculates the reinforcements for each player.
+     * The player receives 5 reinforcements and an additional reinforcement for each continent owned.
+     */
     @Override
     public void assignReinforcements() {
         System.out.println("-----------------------------------------------------------------------------");
@@ -137,6 +176,10 @@ public class IssueOrder implements Phase {
         System.out.println("-----------------------------------------------------------------------------");
     }
 
+    /**
+     * Create order for the player.
+     * @param l_parsing
+     */
     @Override
     public void createOrder(Parsing l_parsing) {
         current_player.issue_order(engine, l_parsing);

@@ -9,10 +9,20 @@ import java.io.IOException;
 public class LogFileWriter implements LogObserver {
     String filename;
 
+    /**
+     * Instantiates a new Log file writer.
+     *
+     * @param filename the filename
+     */
     public LogFileWriter(String filename) {
         this.filename = filename;
     }
 
+    /**
+     * Update the log buffer.
+     *
+     * @param logBuffer the log buffer
+     */
     @Override
     public void update(LogEntryBuffer logBuffer) {
 

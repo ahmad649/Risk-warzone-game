@@ -148,12 +148,19 @@ public class Preload implements Phase{
         }
     }
 
+    /**
+     * Method to start map editor
+     */
     public void editor(){
         if (engine.d_phase.currentPhase()=="Preload")
         engine.d_phase = new Postload(d_mapReader);
     }
 
 
+    /**
+     * Method to edit the map
+     * @param l_parsing the parsing object
+     */
     public void editMap(Parsing l_parsing){
         String l_filename = l_parsing.getArgArr().getFirst();
         loadMap(l_filename);

@@ -12,10 +12,18 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Defines Startup phase and its methods.
+ */
 public class Startup implements Phase {
 
     GameEngine engine;
 
+    /**
+     * Instantiates a new Startup.
+     *
+     * @param engine the engine
+     */
     public Startup(GameEngine engine) {
         this.engine = engine;
         //clearing previous game
@@ -37,10 +45,20 @@ public class Startup implements Phase {
         );
     }
 
+    /**
+     * Current phase string.
+     *
+     * @return the string
+     */
     public String currentPhase() {
         return "Startup";
     }
 
+    /**
+     * Add game player.
+     *
+     * @param l_parsing the parsing
+     */
     @Override
     public void addGamePlayer(Parsing l_parsing) {
         if (l_parsing.d_argsLabeled.containsKey("-add")) {
@@ -54,6 +72,11 @@ public class Startup implements Phase {
         }
     }
 
+    /**
+     * Load map.
+     *
+     * @param l_parsing the parsing
+     */
     @Override
     public void loadMap(Parsing l_parsing) {
         Preload l_mapreader = new Preload(engine,new MapReader());
@@ -66,6 +89,9 @@ public class Startup implements Phase {
         this.displayMap();
     }
 
+    /**
+     * Display the map.
+     */
     @Override
     public void displayMap() {
         HashSet<Country> l_processedCountries = new HashSet<>();
@@ -85,6 +111,9 @@ public class Startup implements Phase {
         }
     }
 
+    /**
+     * Assign countries to the players.
+     */
     @Override
     public void assignCountries() {
         if (engine.d_playersList.isEmpty() || engine.d_countryList.isEmpty()) {

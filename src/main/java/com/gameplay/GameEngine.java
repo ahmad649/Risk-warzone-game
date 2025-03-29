@@ -127,6 +127,12 @@ public class GameEngine {
         }
     }
 
+    /**
+     * Check if the command is issuable.
+     *
+     * @param l_parsing input parsed for usage
+     * @return boolean
+     */
     public boolean checkIssuable(Parsing l_parsing) {
         ArrayList<String> possibleOrders = new ArrayList<>(List.of("deploy","advance","bomb","negotiate","airlift","blockade"));
         return possibleOrders.contains(l_parsing.d_commandType.toLowerCase());

@@ -32,12 +32,20 @@ public class Diplomacy extends Order {
         );
     }
 
+    /**
+     * Gets the log info.
+     */
     @Override
     public String getLogInfo() {
         return d_LogINFO;
     }
 
 
+    /**
+     * Checks if the diplomacy order is valid.
+     *
+     * @return true if the diplomacy order is valid, false otherwise
+     */
     @Override
     public boolean isValid() {
         // Check if the player owns a diplomacy card
@@ -67,6 +75,9 @@ public class Diplomacy extends Order {
         return true;
     }
 
+    /**
+     * Executes the diplomacy order.
+     */
     @Override
     public void execute() {
         System.out.println(d_LogINFO);

@@ -30,12 +30,19 @@ public class Deploy extends Order{
         );
     }
 
-
+    /**
+     * Gets the log info.
+     */
     @Override
     public String getLogInfo() {
         return d_LogINFO;
     }
 
+    /**
+     * Checks if the deploy order is valid.
+     *
+     * @return true if the deploy order is valid, false otherwise
+     */
     @Override
     public boolean isValid() {
         // Ensure the player owns the country before deploying
@@ -53,6 +60,9 @@ public class Deploy extends Order{
         return true;
     }
 
+    /**
+     * Executes the deploy order.
+     */
     @Override
     public void execute(){
         System.out.println(d_LogINFO);

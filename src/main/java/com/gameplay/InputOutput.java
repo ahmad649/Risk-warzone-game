@@ -774,6 +774,12 @@ public class InputOutput {
         return true;
     }
 
+    /**
+     * Validates whether the given string is a valid string.
+     *
+     * @param p_input The string to validate
+     * @return {@code true} if the string is valid, otherwise {@code false}
+     */
     public static boolean isValidString(String p_input) {
         for (char l_char : p_input.toCharArray()) {
             if (!Character.isLetter(l_char) && l_char != '_') {

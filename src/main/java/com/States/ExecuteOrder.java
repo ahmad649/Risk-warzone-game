@@ -6,6 +6,11 @@ import com.gameplay.Player;
 
 public class ExecuteOrder implements Phase {
     GameEngine engine;
+    /**
+     * Instantiates a new Execute order.
+     *
+     * @param engine the engine
+     */
     public ExecuteOrder(GameEngine engine) {
         this.engine = engine;
         System.out.println("""
@@ -16,10 +21,20 @@ public class ExecuteOrder implements Phase {
         );
     }
 
+    /**
+     * Current phase string.
+     *
+     * @return the string
+     */
     public String currentPhase() {
         return "ExecuteOrder";
     }
 
+    /**
+     * Execute order boolean.
+     *
+     * @return the boolean
+     */
     @Override
     public boolean executeOrder() {
         for (Player l_player : engine.d_playersList) {

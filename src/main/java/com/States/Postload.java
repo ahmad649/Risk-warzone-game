@@ -15,6 +15,9 @@ import com.maps.MapReader;
 import com.model.Continent;
 import com.model.Country;
 
+/**
+ * Postload phase class.
+ */
 public class Postload implements Phase{
     
     private MapReader d_mapReader;
@@ -97,6 +100,10 @@ public class Postload implements Phase{
         return true;
     }
 
+    /**
+     * Edits the map.
+     * @param l_parsing the parsing object
+     */
     public void editCountry(Parsing l_parsing){
         Parsing l_arguments=l_parsing;
         if (l_arguments.getArgsLabeled().containsKey("-add")) {
@@ -116,6 +123,10 @@ public class Postload implements Phase{
         }
     }
 
+    /**
+     * Edits the continent.
+     * @param l_parsing the parsing object
+     */
     public void editContinent(Parsing l_parsing){
         Parsing l_arguments=l_parsing;
         if (l_arguments.getArgsLabeled().containsKey("-add")) {
@@ -136,6 +147,11 @@ public class Postload implements Phase{
     }
 
 
+    /**
+     * Saves the currently loaded map to a file.
+     * @param p_filename Name of the file to save.
+     * @return true if saving is successful, false otherwise.
+     */
     public void editNeighbor(Parsing l_parsing){
         Parsing l_arguments=l_parsing;
 

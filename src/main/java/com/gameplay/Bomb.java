@@ -29,11 +29,19 @@ public class Bomb extends Order {
                 d_player.getName(), d_countryName
         );
     }
+    /**
+     * Gets the log info.
+     */
     @Override
     public String getLogInfo() {
         return d_LogINFO;
     }
 
+    /**
+     * Checks if the bomb order is valid.
+     *
+     * @return true if the bomb order is valid, false otherwise
+     */
     @Override
     public boolean isValid() {
         // Check if the player owns a bomb card
@@ -72,6 +80,9 @@ public class Bomb extends Order {
         return true;
     }
 
+    /**
+     * Executes the bomb order.
+     */
     @Override
     public void execute() {
         System.out.println(d_LogINFO);

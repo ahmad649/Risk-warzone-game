@@ -49,11 +49,19 @@ public class Advance extends Order{
             }
         }
     }
+    /**
+     * Gets the log info.
+     */
     @Override
     public String getLogInfo() {
         return d_LogINFO;
     }
 
+    /**
+     * Checks if the advance order is valid.
+     *
+     * @return true if the advance order is valid, false otherwise
+     */
     @Override
     public boolean isValid() {
         // Ensure the player owns the source country before advancing
