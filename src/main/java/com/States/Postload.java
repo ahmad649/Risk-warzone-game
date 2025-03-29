@@ -18,11 +18,12 @@ import com.model.Country;
 /**
  * Postload phase class.
  */
-public class Postload implements Phase{
-    
+public class Postload implements Phase {
+
     private MapReader d_mapReader;
     private Map<String, Continent> d_continents;
     private Map<String, Country> d_countries;
+
     /**
      * Instantiate a new Post load state.
      *
@@ -49,20 +50,20 @@ public class Postload implements Phase{
             System.out.println("--------------------------------------------------");
             System.out.println(l_continent.getName() + " (ID: " + l_continent.getId() + ", Bonus: " + l_continent.getBonus() + ")");
             System.out.println("Countries in this continent:");
-    
+
             // Display countries in the continent
             for (Country l_country : l_continent.getCountries()) {
                 System.out.print("    " + l_country.getName() + " (ID: " + l_country.getId() + ") -> Neighbors: ");
-                
+
                 List<String> l_neighborNames = new ArrayList<>();
                 for (Country l_neighbor : l_country.getNeighbors()) {
                     l_neighborNames.add(l_neighbor.getName());
                 }
-                
+
                 // Print neighbors
                 System.out.println(String.join(", ", l_neighborNames));
             }
-    
+
             System.out.println("--------------------------------------------------\n");
         }
     }
@@ -102,79 +103,90 @@ public class Postload implements Phase{
 
     /**
      * Edits the map.
+     *
      * @param l_parsing the parsing object
      */
-    public void editCountry(Parsing l_parsing){
-        Parsing l_arguments=l_parsing;
+    public void editCountry(Parsing l_parsing) {
+        Parsing l_arguments = l_parsing;
         if (l_arguments.getArgsLabeled().containsKey("-add")) {
-            // Get countryID and continentID
-            String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
-            String l_continentID = l_arguments.getArgsLabeled().get("-add").getLast();
-
-            this.addCountry(l_countryID, l_continentID);
+            for (int i = 0; i < l_arguments.getArgsLabeled().get("-add").size(); i += 2) {
+                // Get countryID and continentID
+                String l_countryID = l_arguments.getArgsLabeled().get("-add").get(i);
+                String l_continentID = l_arguments.getArgsLabeled().get("-add").get(i + 1);
+                this.addCountry(l_countryID, l_continentID);
+            }
         }
 
         // Remove country
         if (l_arguments.getArgsLabeled().containsKey("-remove")) {
             // Get countryID
-            String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-
-            this.removeCountry(l_countryID);
+            for(int i = 0; i < l_arguments.getArgsLabeled().get("-remove").size(); i++) {
+                String l_countryID = l_arguments.getArgsLabeled().get("-remove").get(i);
+                this.removeCountry(l_countryID);
+            }
         }
     }
 
     /**
      * Edits the continent.
+     *
      * @param l_parsing the parsing object
      */
-    public void editContinent(Parsing l_parsing){
-        Parsing l_arguments=l_parsing;
+    public void editContinent(Parsing l_parsing) {
+        Parsing l_arguments = l_parsing;
         if (l_arguments.getArgsLabeled().containsKey("-add")) {
-            // Get continentID and continentValue
-            String l_continentID = l_arguments.getArgsLabeled().get("-add").getFirst();
-            String l_continentValue = l_arguments.getArgsLabeled().get("-add").getLast();
-
-            this.addContinent(l_continentID, Integer.parseInt(l_continentValue));
+            for (int i = 0; i < l_arguments.getArgsLabeled().get("-add").size(); i += 2) {
+                // Get continentID and continentValue
+                String l_continentID = l_arguments.getArgsLabeled().get("-add").get(i);
+                String l_continentValue = l_arguments.getArgsLabeled().get("-add").get(i+1);
+                this.addContinent(l_continentID, Integer.parseInt(l_continentValue));
+            }
         }
 
         // Remove continent
         if (l_arguments.getArgsLabeled().containsKey("-remove")) {
             // Get continentID
-            String l_continentID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-
-            this.removeContinent(l_continentID);
+            for(int i = 0; i < l_arguments.getArgsLabeled().get("-remove").size(); i++) {
+                String l_continentID = l_arguments.getArgsLabeled().get("-remove").get(i);
+                this.removeContinent(l_continentID);
+            }
         }
     }
 
 
     /**
      * Saves the currently loaded map to a file.
+     *
      * @param p_filename Name of the file to save.
      * @return true if saving is successful, false otherwise.
      */
-    public void editNeighbor(Parsing l_parsing){
-        Parsing l_arguments=l_parsing;
+    public void editNeighbor(Parsing l_parsing) {
+        Parsing l_arguments = l_parsing;
 
         if (l_arguments.getArgsLabeled().containsKey("-add")) {
             // Get countryID and continentID
-            String l_countryID = l_arguments.getArgsLabeled().get("-add").getFirst();
-            String l_neighborCountryID = l_arguments.getArgsLabeled().get("-add").getLast();
-
-            this.addNeighbor(l_countryID, l_neighborCountryID);
+            for (int i = 0; i < l_arguments.getArgsLabeled().get("-add").size(); i += 2) {
+                String l_countryID = l_arguments.getArgsLabeled().get("-add").get(i);
+                String l_neighborCountryID = l_arguments.getArgsLabeled().get("-add").get(i+1);
+                this.addNeighbor(l_countryID, l_neighborCountryID);
+            }
         }
 
         // Remove neighbor
         if (l_arguments.getArgsLabeled().containsKey("-remove")) {
             // Get countryID and neighborCountryID
-            String l_countryID = l_arguments.getArgsLabeled().get("-remove").getFirst();
-            String l_neighborCountryID = l_arguments.getArgsLabeled().get("-remove").getLast();
+            for (int i = 0; i < l_arguments.getArgsLabeled().get("-add").size(); i += 2) {
+                String l_countryID = l_arguments.getArgsLabeled().get("-remove").get(i);
+                String l_neighborCountryID = l_arguments.getArgsLabeled().get("-remove").get(i+1);
 
-            this.removeNeighbor(l_countryID, l_neighborCountryID);
+                this.removeNeighbor(l_countryID, l_neighborCountryID);
+            }
         }
     }
 
     /**
      * Saves the currently loaded map to a file.
+     *
      * @param p_filename Name of the file to save.
      * @return true if saving is successful, false otherwise.
      */
@@ -183,28 +195,30 @@ public class Postload implements Phase{
         // Retrieve the currently loaded map data
         Map<String, Continent> l_continents = d_mapReader.getContinentsMap();
         Map<String, Country> l_countries = d_mapReader.getCountriesMap();
-    
+
         if (l_continents.isEmpty() || l_countries.isEmpty()) {
             System.err.println("Error: No map data loaded. Cannot save.");
             return false;
         }
-        if(!validateMap()) {return false;}
-    
+        if (!validateMap()) {
+            return false;
+        }
+
         // Construct the file path
         String l_mapFilePath = "src/main/resources/maps/" + p_filename + ".txt";
         File l_mapFile = new File(l_mapFilePath);
-    
+
         // Check if the file already exists
         if (l_mapFile.exists()) {
             System.out.println("Error: A map with the name '" + p_filename + "' already exists. Please provide a unique name.");
             return false;
         }
-    
+
         // Attempt to create the directory if it does not exist
         if (l_mapFile.getParentFile() != null) {
             l_mapFile.getParentFile().mkdirs();
         }
-    
+
         try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(l_mapFile))) {
             // Write map header
             l_writer.write("[Map]\n");
@@ -213,19 +227,19 @@ public class Postload implements Phase{
             l_writer.write("wrap=no\n");
             l_writer.write("scroll=horizontal\n");
             l_writer.write("warn=yes\n\n");
-    
+
             // Write continents section
             l_writer.write("[Continents]\n");
-    
+
             // Iterate over all continents in the order they are present in the mapReader
             for (Continent l_continent : l_continents.values()) {
                 l_writer.write(l_continent.getName() + "=" + l_continent.getBonus() + "\n");
             }
             l_writer.write("\n");
-    
+
             // Write territories section
             l_writer.write("[Territories]\n");
-    
+
             // Iterate through countries and write their territory data
             for (Country l_country : l_countries.values()) {
                 String continentName = l_country.getContinent().getName();
@@ -233,14 +247,14 @@ public class Postload implements Phase{
                 for (Country l_neighbor : l_country.getNeighbors()) {
                     l_neighborNames.add(l_neighbor.getName());
                 }
-    
+
                 // Write the country data with coordinates and neighbors
                 int l_x = 0;
                 int l_y = 0;
-    
+
                 l_writer.write(String.format("%s,%d,%d,%s,%s\n", l_country.getName(), l_x, l_y, continentName, String.join(",", l_neighborNames)));
             }
-    
+
             System.out.println("Map saved successfully to " + l_mapFilePath);
             return true;
         } catch (IOException e) {
@@ -287,7 +301,7 @@ public class Postload implements Phase{
             while (l_iterator.hasNext()) {
                 Map.Entry<String, Country> l_entry = l_iterator.next();
                 Country l_country = l_entry.getValue();
-                
+
                 // Check if the continent is null and print the country name
                 if (l_country.getContinent() == null) {
                     System.out.println("Country " + l_country.getName() + " has no continent assigned.");
