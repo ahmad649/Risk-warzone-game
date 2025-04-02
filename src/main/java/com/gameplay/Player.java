@@ -1,6 +1,7 @@
 package com.gameplay;
 
 import com.model.Country;
+import com.strategy.PlayerStrategy;
 
 import java.util.*;
 
@@ -22,6 +23,8 @@ public class Player {
     private String d_name;
     private List<Card> d_cards;
     private List<Player> d_diplomacyPlayers;
+
+    private PlayerStrategy d_playerStrategy;
 
     /**
      * Player generic constructor
@@ -163,63 +166,10 @@ public class Player {
      * @param l_parsing    the parsing object that returns parsed arguments
      */
     public void issue_order(GameEngine p_gameEngine,Parsing l_parsing) {
-        ArrayList<String> l_arguments = l_parsing.getArgArr();
+        Order l_order = this.d_playerStrategy.createOrder(l_parsing);
+        d_playerOrders.add(l_order);
 
-        switch (l_parsing.d_commandType) {
-            case "deploy" -> {
-                String l_countryName = l_arguments.get(0);
-                int l_num = Integer.parseInt(l_arguments.get(1));
-
-                Deploy l_deployOrder = new Deploy(this, l_countryName, l_num);
-                p_gameEngine.d_logbuffer.addEntry(l_deployOrder);
-
-                this.d_playerOrders.add(l_deployOrder);
-            }
-            case "advance" -> {
-                String l_countryFrom = l_arguments.get(0);
-                String l_countryTo = l_arguments.get(1);
-                int l_numArmies = Integer.parseInt(l_arguments.get(2));
-
-                Advance l_advanceOrder = new Advance(p_gameEngine, this, l_countryFrom, l_countryTo, l_numArmies);
-                p_gameEngine.d_logbuffer.addEntry(l_advanceOrder);
-
-                this.d_playerOrders.add(l_advanceOrder);
-            }
-            case "bomb" -> {
-                String l_countryName = l_arguments.getFirst();
-
-                Bomb l_bombOrder = new Bomb(this, l_countryName);
-                p_gameEngine.d_logbuffer.addEntry(l_bombOrder);
-
-                this.d_playerOrders.add(l_bombOrder);
-            }
-            case "blockade" -> {
-                String l_countryName = l_arguments.getFirst();
-
-                Blockade l_blockadeOrder = new Blockade(p_gameEngine, this, l_countryName);
-                p_gameEngine.d_logbuffer.addEntry(l_blockadeOrder);
-
-                this.d_playerOrders.add(l_blockadeOrder);
-            }
-            case "airlift" -> {
-                String l_sourceCountryName = l_arguments.get(0);
-                String l_targetCountryName = l_arguments.get(1);
-                int l_numArmy = Integer.parseInt(l_arguments.get(2));
-
-                Airlift l_airliftOrder = new Airlift(this, l_sourceCountryName, l_targetCountryName, l_numArmy);
-                p_gameEngine.d_logbuffer.addEntry(l_airliftOrder);
-
-                this.d_playerOrders.add(l_airliftOrder);
-            }
-            case "negotiate" -> {
-                String l_playerName = l_arguments.getFirst();
-
-                Diplomacy l_diplomacyOrder = new Diplomacy(p_gameEngine, this, l_playerName);
-                p_gameEngine.d_logbuffer.addEntry(l_diplomacyOrder);
-
-                this.d_playerOrders.add(l_diplomacyOrder);
-            }
-        }
+        p_gameEngine.d_logbuffer.addEntry(l_order);
     }
 
     /**
@@ -283,6 +233,10 @@ public class Player {
      */
     public void addCountryToOwnedCountries(Country p_country) {
         d_ownedCountries.add(p_country);
+    }
+
+    public void setPlayerStrategy(PlayerStrategy p_playerStrategy) {
+        this.d_playerStrategy = p_playerStrategy;
     }
 
 }

@@ -6,6 +6,7 @@ import com.gameplay.Player;
 import com.maps.MapReader;
 import com.model.Continent;
 import com.model.Country;
+import com.strategy.HumanPlayerStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,7 +64,9 @@ public class Startup implements Phase {
     public void addGamePlayer(Parsing p_parsing) {
         if (p_parsing.d_argsLabeled.containsKey("-add")) {
             for (String l_playername : p_parsing.d_argsLabeled.get("-add")) {
-                d_engine.d_playersList.add(new Player(l_playername));
+                Player l_player = new Player(l_playername);
+                l_player.setPlayerStrategy(new HumanPlayerStrategy(this.d_engine, l_player));
+                d_engine.d_playersList.add(l_player);
                 System.out.println("Player added: " + l_playername);
             }
         }
