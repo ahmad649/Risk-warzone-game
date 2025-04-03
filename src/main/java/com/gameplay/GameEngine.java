@@ -90,10 +90,11 @@ public class GameEngine {
             }
             if (l_parsing.d_commandType.equals("startgame")){
                 d_phase.startGame();
-            }
-            else if ((l_parsing.d_commandType.equals("editor"))){
+            } else if (l_parsing.d_commandType.equals("starttournament")){
+                d_phase.startTournament(l_parsing);
+            } else if ((l_parsing.d_commandType.equals("editor"))){
                 d_phase.editor();
-            }else if(l_parsing.d_commandType.equals("gameplayer")) {
+            } else if(l_parsing.d_commandType.equals("gameplayer")) {
                 d_phase.addGamePlayer(l_parsing);
             } else if (l_parsing.d_commandType.equals("loadmap")) {
                 d_phase.loadMap(l_parsing);
@@ -121,6 +122,8 @@ public class GameEngine {
                 d_phase.saveMap(l_parsing);
             }else if (l_parsing.d_commandType.equals("menu")){
                 d_phase.returnToMenu(this);
+            }else if (l_parsing.d_commandType.equals("tournament")){
+                d_phase.startTournament(l_parsing);
             }else {
                 System.out.println("Invalid command. Try again.");
             }

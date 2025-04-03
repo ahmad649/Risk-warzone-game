@@ -136,6 +136,10 @@ public interface Phase {
     default void startGame(){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
     };
+
+    default void startTournament(Parsing p_parsing){
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
+    };
     
     /**
      * Method to return to the menu

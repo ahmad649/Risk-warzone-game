@@ -1,6 +1,7 @@
 package com.States;
 
 import com.gameplay.GameEngine;
+import com.gameplay.Parsing;
 import com.maps.MapReader;
 
 /**
@@ -23,6 +24,7 @@ public class Menu implements Phase {
                 Commands:
 
                 startgame
+                starttournament
                 editor
                 quit
                 -----------------------------------------------------------------------
@@ -36,6 +38,7 @@ public class Menu implements Phase {
     public void editor(){
         d_engine.d_phase = new Preload(d_engine,new MapReader());
     }
+
     /**
      * Starts the game and transitions to the Startup phase.
      * This method begins the game by initializing the necessary game components.
@@ -43,6 +46,11 @@ public class Menu implements Phase {
     public void startGame(){
         d_engine.d_phase = new Startup(d_engine); 
     }
+
+    public void startTournament(Parsing p_parsing) {
+        d_engine.d_phase = new TournamentMode();
+    }
+
     /**
      * Current phase string.
      *

@@ -1,8 +1,7 @@
 package com.gameplay;
 
+import java.util.ArrayList;
 import java.util.Scanner;
-
-import com.maps.MapReader;
 
 /**
  * {@code InputOutput} class manages all Input and Output operations that are used in Map Editor and Gameplay.
@@ -119,8 +118,13 @@ public class InputOutput {
         }else if (is_startgame_command_valid(l_command)) {
             System.out.println("Executing startgame command");
             return new Parsing(l_command);
-        }
-         else {
+        } else if (is_starttournament_command_valid(l_command)) {
+            System.out.println("Executing starttournament command");
+            return new Parsing(l_command);
+        } else if (is_tournament_command_valid(l_command)) {
+            System.out.println("Executing tournament command");
+            return new Parsing(l_command);
+        } else {
             System.out.println("Command does not exist. Please try again.");
         }
         return null;
@@ -788,4 +792,119 @@ public class InputOutput {
         }
         return !p_input.isEmpty();
     }
+
+    public static boolean is_starttournament_command_valid(String p_command) {
+        return p_command.trim().equals("starttournament");
+    }
+
+    public static boolean is_tournament_command_valid(String p_command) {
+        // Check if command starts with 'tournament '
+        if (!p_command.startsWith("tournament ")) {
+            System.out.println("\n'tournament' command must have 4 flags.");
+            return false;
+        }
+
+        ArrayList<String> l_maps = new ArrayList<>();
+        ArrayList<String> l_playerStrategies = new ArrayList<>();
+        int l_numOfGames = 0;
+        int l_maxNumOfTurns = 0;
+
+        // Split command into an array of strings
+        String[] l_parts = p_command.trim().split(" ");
+        boolean l_hasMapFlag = false, l_hasPlayerStrategiesFlag = false, l_hasNumOfGamesFlag = false, l_hasMaxNumOfTurns = false;
+
+        // Loop through the given command
+        for (int i = 1; i < l_parts.length; i++) {
+            switch (l_parts[i]) {
+                case "-M":
+                    if (i + 1 >= l_parts.length || l_parts[i + 1].startsWith("-")) {
+                        System.out.println("\nMissing argument for -M");
+                        return false;
+                    }
+                    l_hasMapFlag = true;
+                    while (i + 1 < l_parts.length && !l_parts[i + 1].startsWith("-")) {
+                        System.out.println("Map: " + l_parts[i + 1]);
+                        l_maps.add(l_parts[i + 1]);
+                        i++;
+                    }
+                    break;
+                case "-P":
+                    if (i + 1 >= l_parts.length || l_parts[i + 1].startsWith("-")) {
+                        System.out.println("\nMissing argument for -P");
+                        return false;
+                    }
+                    l_hasPlayerStrategiesFlag = true;
+                    while (i + 1 < l_parts.length && !l_parts[i + 1].startsWith("-")) {
+                        l_playerStrategies.add(l_parts[i + 1]);
+                        i++;
+                    }
+                    break;
+                case "-G":
+                    if (i + 1 >= l_parts.length || l_parts[i + 1].startsWith("-")) {
+                        System.out.println("\nMissing argument for -G");
+                        return false;
+                    }
+                    try {
+                        l_numOfGames = Integer.parseInt(l_parts[++i]);
+                        l_hasNumOfGamesFlag = l_numOfGames > 0;
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nInvalid number of games");
+                        return false;
+                    }
+                    break;
+                case "-D":
+                    if (i + 1 >= l_parts.length || l_parts[i + 1].startsWith("-")) {
+                        System.out.println("\nMissing argument for -D");
+                        return false;
+                    }
+                    try {
+                        l_maxNumOfTurns = Integer.parseInt(l_parts[++i]);
+                        l_hasMaxNumOfTurns = l_maxNumOfTurns > 0;
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nInvalid maximum number of turns");
+                        return false;
+                    }
+                    break;
+                default:
+                    if (!l_parts[i].startsWith("-")) {
+                        System.out.println("\nInvalid argument detected: " + l_parts[i]);
+
+                        return false;
+                    }
+            }
+        }
+
+        // Check if '-M', '-P', '-G', '-D' flags are provided
+        if (!l_hasMapFlag || !l_hasPlayerStrategiesFlag || !l_hasNumOfGamesFlag || !l_hasMaxNumOfTurns) {
+            System.out.println("\n'tournament' command must have '-M', '-P', '-G', '-D' flags.");
+            return false;
+        }
+
+        // Check if the number of maps are between 1 and 5
+        if (l_maps.size() < 1 || l_maps.size() > 5 ) {
+            System.out.println("\nThere must be 1-5 number of maps.");
+            return false;
+        }
+
+        // Check if the number of player strategies are between 2 and 4
+        if (l_playerStrategies.size() < 2 || l_playerStrategies.size() > 4) {
+            System.out.println("\nThere must be 2-4 player strategies.");
+            return false;
+        }
+
+        // Check if the number of games are between 1 and 5
+        if (l_numOfGames < 1 || l_numOfGames > 5) {
+            System.out.println("\nThere must be 1-5 number of games per map");
+            return false;
+        }
+
+        // Check if the maximum number of turns are between 10 and 50
+        if (l_maxNumOfTurns < 10 || l_maxNumOfTurns > 50) {
+            System.out.println("\nThere must be 10-50 turns per game");
+            return false;
+        }
+
+        return true;
+    }
+
 }
