@@ -7,12 +7,18 @@ import com.model.Country;
  * it a neutral territory.
  */
 public class Blockade extends Order {
-    private final GameEngine d_gameEngine;
-    private final Player d_player;
-    private final String d_countryName;
-    private final Country d_countryToBlockade;
+    private GameEngine d_gameEngine;
+    private Player d_player;
+    private String d_countryName;
+    private Country d_countryToBlockade;
     private int d_numOfArmies;
     private String d_LogINFO;
+
+    /**
+     * Blockade no-args constructor for serialization
+     */
+    public Blockade(){}
+
     /**
      * Instantiates a new Blockade object.
      *

@@ -1,5 +1,6 @@
 package com.gameplay;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.model.Country;
 
 import java.util.*;
@@ -10,13 +11,12 @@ import java.util.*;
  * Integer d_numReinforcement designated for the number of reinforcements a player possesses
  * List of Country nature ownedCountries designated for countries a player possesses
  */
-public class Player {
+public class Player{
 
     private Queue<Order> d_playerOrders;
     private int d_numReinforcement;
-    /**
-     * A list of countries owned by the player.
-     */
+    //Mark as a reference to stop loop serialization
+    @JsonManagedReference
     public List<Country> d_ownedCountries;
 
     private String d_name;
@@ -24,17 +24,25 @@ public class Player {
     private List<Player> d_diplomacyPlayers;
 
     /**
-     * Player generic constructor
-     *
-     * @param p_name the p name
+     * Player no-params constructor made for serialization
      */
-    public Player(String p_name) {
-        d_name = p_name;
+    public Player(){
+        d_name = "";
         d_ownedCountries = new ArrayList<>();
         d_playerOrders = new LinkedList<>();
         d_numReinforcement = 0;
         d_cards = new ArrayList<>();
         d_diplomacyPlayers = new ArrayList<>();
+    }
+
+    /**
+     * Player argument constructor
+     *
+     * @param p_name the players name
+     */
+    public Player(String p_name) {
+        this();
+        d_name = p_name;
     }
 
     /**
@@ -47,21 +55,54 @@ public class Player {
     }
 
     /**
-     * setReinforcements method
-     *
-     * @param p_reinforcements Integer for the number of reinforcements that need to be set
-     */
-    public void setReinforcements(int p_reinforcements) {
-        d_numReinforcement = p_reinforcements;
-    }
-
-    /**
      * getReinforcements method
      *
      * @return Integer assigned for the total number of reinforcements that the player has
      */
     public int getReinforcements() {
         return d_numReinforcement;
+    }
+
+    /**
+     * getOrders method
+     * @return Queue containing the orders issued by the player
+     */
+    public Queue<Order> getOrders(){ return d_playerOrders; }
+
+    /**
+     * Gets a list of cards own by the current player
+     *
+     * @return a list of cards
+     */
+    public List<Card> getCards() {
+        return d_cards;
+    }
+
+    /**
+     * Gets a list of diplomacy players of the current player
+     *
+     * @return a list of diplomacy players
+     */
+    public List<Player> getDiplomacyPlayers() {
+        return d_diplomacyPlayers;
+    }
+
+    /**
+     * getOwnedCountries method
+     *
+     * @return List of Country nature containing the countries owned by the player
+     */
+    public List<Country> getOwnedCountries() {
+        return d_ownedCountries;
+    }
+
+    /**
+     * setReinforcements method
+     *
+     * @param p_reinforcements Integer for the number of reinforcements that need to be set
+     */
+    public void setReinforcements(int p_reinforcements) {
+        d_numReinforcement = p_reinforcements;
     }
 
     /**
@@ -104,30 +145,12 @@ public class Player {
     }
 
     /**
-     * Gets a list of cards own by the current player
-     *
-     * @return a list of cards
-     */
-    public List<Card> getCards() {
-        return d_cards;
-    }
-
-    /**
      * Remove card from the list
      *
      * @param p_card the card
      */
     public void removeCard(Card p_card) {
         this.d_cards.remove(p_card);
-    }
-
-    /**
-     * Gets a list of diplomacy players of the current player
-     *
-     * @return a list of diplomacy players
-     */
-    public List<Player> getDiplomacyPlayers() {
-        return d_diplomacyPlayers;
     }
 
     /**
@@ -232,15 +255,6 @@ public class Player {
             return d_playerOrders.poll();
         }
         return null;
-    }
-
-    /**
-     * getOwnedCountries method
-     *
-     * @return List of Country nature containing the countries owned by the player
-     */
-    public List<Country> getOwnedCountries() {
-        return d_ownedCountries;
     }
 
     /**

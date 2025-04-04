@@ -13,13 +13,18 @@ import java.util.Random;
  * an attack happens between the two territories.
  */
 public class Advance extends Order{
-    private final GameEngine d_gameEngine;
-    private final Player d_player;
-    private final Country d_countryFrom;
+    private GameEngine d_gameEngine;
+    private Player d_player;
+    private Country d_countryFrom;
     private Country d_countryTo;
-    private final String d_countryNameFrom, d_countryNameTo;
-    private final int d_numArmies;
+    private String d_countryNameFrom, d_countryNameTo;
+    private int d_numArmies;
     private String d_LogINFO;
+
+    /**
+     * Advance no-args constructor for serialization
+     */
+    public Advance(){}
 
     /**
      * Instantiates a new Advance object.

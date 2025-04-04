@@ -8,10 +8,16 @@ import com.model.Country;
  */
 public class Bomb extends Order {
 
-    private final Player d_player;
+    private Player d_player;
     private Country d_countryToBomb;
-    private final String d_countryName;
+    private String d_countryName;
     public String d_LogINFO;
+
+    /**
+     * Bomb no-args constructor for serialization
+     */
+    public Bomb(){}
+
     /**
      * Instantiates a new Bomb object.
      *

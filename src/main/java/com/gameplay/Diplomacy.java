@@ -8,11 +8,17 @@ import java.util.Objects;
  */
 public class Diplomacy extends Order {
 
-    private final Player d_currentPlayer;
+    private Player d_currentPlayer;
     private Player d_targetPlayer;
-    private final String d_targetPlayerName;
-    private final GameEngine d_gameEngine;
+    private String d_targetPlayerName;
+    private GameEngine d_gameEngine;
     private String d_LogINFO;
+
+    /**
+     * Diplomacy no-args constructor for serialization
+     */
+    public Diplomacy(){}
+
     /**
      * Instantiates a new Diplomacy.
      *

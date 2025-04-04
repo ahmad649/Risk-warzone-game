@@ -10,11 +10,16 @@ import java.util.Objects;
  */
 public class Airlift extends Order {
 
-    private final Player d_player;
-    private final String d_sourceCountryName, d_targetCountryName;
+    private Player d_player;
+    private String d_sourceCountryName, d_targetCountryName;
     private Country d_sourceCountry, d_targetCountry;
-    private final int d_numArmy;
+    private int d_numArmy;
     private String d_LogINFO;
+
+    /**
+     * Airlift no-args constructor for serialization
+     */
+    public Airlift(){}
 
     /**
      * Instantiates a new Airlift object

@@ -1,7 +1,9 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.gameplay.Player;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,13 +11,26 @@ import java.util.stream.Collectors;
  * Represents a Country in the game.
  */
 //
-public class Country {
+public class Country{
     private int d_id;
     private String d_name;
     private Continent d_continent;
+    //Marked as a backreference to stop loop serialization
+    @JsonBackReference
     private Player d_owner;
     private int d_armies;
     private List<Country> d_neighbors;
+
+    /**
+     * Country no-params constructor for serialization
+     */
+    public Country() {
+        d_id = 0;
+        d_name = "";
+        d_continent = null;
+        d_armies = 0;
+        d_neighbors = new ArrayList<>();
+    }
 
     /**
      * Instantiates a new Country.
@@ -25,11 +40,10 @@ public class Country {
      * @param p_continent        the p continent
      */
     public Country(int p_countryIdCounter, String p_name, Continent p_continent) {
-        this.d_id = p_countryIdCounter;
-        this.d_name = p_name;
-        this.d_continent = p_continent;
-        this.d_armies = 0;
-        this.d_neighbors = new ArrayList<>();
+        this();
+        d_id = p_countryIdCounter;
+        d_name = p_name;
+        d_continent = p_continent;
     }
 
     /**
