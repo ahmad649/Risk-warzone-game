@@ -3,7 +3,11 @@ package com.States;
 import com.gameplay.GameEngine;
 import com.gameplay.Order;
 import com.gameplay.Player;
-
+/**
+ * The ExecuteOrder class represents the phase in the game where players' orders are executed.
+ * It processes and executes each player's pending order in turn.
+ * After executing all orders, it clears any diplomacy relationships between players.
+ */
 public class ExecuteOrder implements Phase {
     GameEngine d_engine;
     /**

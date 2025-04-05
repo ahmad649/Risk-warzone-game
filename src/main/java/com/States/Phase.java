@@ -54,8 +54,8 @@ public interface Phase {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");    }
 
     /**
-     * Method to create an order
-     * @param p_parsing
+     * Method to create an order.
+     * @param p_parsing the Parsing object that will be used to process or parse the order details
      */
     default void createOrder(Parsing p_parsing) {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
@@ -123,8 +123,7 @@ public interface Phase {
     };
 
     /**
-     * Method to begin editing
-     * @param p_parsing the parsing object
+     * Method to begin map editing
      */
     default void editor(){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
