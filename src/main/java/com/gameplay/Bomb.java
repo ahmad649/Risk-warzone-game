@@ -11,6 +11,10 @@ public class Bomb extends Order {
     private final Player d_player;
     private Country d_countryToBomb;
     private final String d_countryName;
+    /**
+     * This field stores the log information for the bomb action.
+     * It contains details about the player, target country, and the bomb order.
+     */
     public String d_LogINFO;
     /**
      * Instantiates a new Bomb object.

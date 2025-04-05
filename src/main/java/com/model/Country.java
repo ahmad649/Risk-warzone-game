@@ -85,7 +85,12 @@ public class Country {
     public List<Country> getNeighbors() {
         return d_neighbors;
     }
-
+    /**
+     * Retrieves a neighbor country by its name.
+     *
+     * @param d_countryName the name of the country to find among the neighbors
+     * @return the neighbor country that matches the provided name, or null if no such neighbor exists
+     */
     public Country getNeighborByName(String d_countryName){
         for (Country l_country : d_neighbors){
             if (l_country.getName().equals(d_countryName)){
@@ -94,7 +99,12 @@ public class Country {
         }
         return null;
     }
-
+    /**
+     * Checks if a given country is a neighbor of the current country.
+     *
+     * @param d_countryName the name of the country to check for adjacency
+     * @return true if the country is a neighbor, false otherwise
+     */
     public boolean isNeighbor(String d_countryName){
         for (Country l_country : d_neighbors){
             if (l_country.getName().equals(d_countryName)){

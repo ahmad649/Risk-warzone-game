@@ -13,6 +13,11 @@ public abstract class Order {
      * Instantiates a new Order object.
      */
     public Order() {}
+    /**
+     * Retrieves the log information related to the order.
+     *
+     * @return a string that contains the details of the order's execution and any related information
+     */
     public abstract String getLogInfo();
     /**
      * To verify whether the given order is valid or not

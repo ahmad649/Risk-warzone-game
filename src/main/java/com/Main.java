@@ -3,7 +3,8 @@ package com;
 import com.gameplay.GameEngine;
 
 /**
- * Main class to run the application
+ * The Main class serves as the entry point to run the application.
+ * It initializes the GameEngine and starts the game loop.
  */
 public class Main {
     /**

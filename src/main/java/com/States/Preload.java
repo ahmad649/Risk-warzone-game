@@ -12,20 +12,32 @@ import com.maps.MapReader;
 import com.model.Continent;
 import com.model.Country;
 
+/**
+ * Preload phase where the map is loaded and processed before the game starts.
+ * This phase handles the reading of map data (continents and countries).
+ */
 public class Preload implements Phase{
     
     private MapReader d_mapReader;
+    /**
+     * A map of continents loaded from the map file.
+     */
     public Map<String, Continent> d_continents;
+    /**
+     * A map of countries loaded from the map file.
+     */
     public Map<String, Country> d_countries;
     GameEngine engine;
     /**
-     * Instantiate a new Pre load state.
+     * Instantiate a new Preload state.
      *
-     * @param p_mapReader the map reader
+     * @param engine the GameEngine instance to manage game states and transitions
+     * @param p_mapReader the MapReader instance used to load and parse map data
      */
     public Preload(GameEngine engine, MapReader p_mapReader) {
         this.d_mapReader = p_mapReader;
         this.engine = engine;
+
         d_continents = d_mapReader.getContinentsMap();
         d_countries = d_mapReader.getCountriesMap();
     }

@@ -155,10 +155,10 @@ public class Postload implements Phase {
 
 
     /**
-     * Saves the currently loaded map to a file.
+     * Edits the neighbors of countries based on the given arguments.
+     * This method adds or removes neighbors from countries based on the provided command-line arguments.
      *
-     * @param p_filename Name of the file to save.
-     * @return true if saving is successful, false otherwise.
+     * @param l_parsing the Parsing object containing the arguments for adding/removing neighbors
      */
     public void editNeighbor(Parsing l_parsing) {
         Parsing l_arguments = l_parsing;
@@ -187,8 +187,8 @@ public class Postload implements Phase {
     /**
      * Saves the currently loaded map to a file.
      *
-     * @param p_filename Name of the file to save.
-     * @return true if saving is successful, false otherwise.
+     * @param l_parsing the Parsing object that contains the filename as its first argument
+     * @return true if saving is successful, false otherwise
      */
     public boolean saveMap(Parsing l_parsing) {
         String p_filename = l_parsing.getArgArr().getFirst();
