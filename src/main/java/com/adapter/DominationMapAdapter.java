@@ -34,7 +34,6 @@ public class DominationMapAdapter implements MapAdapter {
     /**
      * Instantiate a new Preload state.
      *
-     * @param engine the GameEngine instance to manage game states and transitions
      * @param p_mapReader the MapReader instance used to load and parse map data
      */
     public DominationMapAdapter(MapReader p_mapReader) {
