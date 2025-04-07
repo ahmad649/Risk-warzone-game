@@ -1,11 +1,14 @@
 package com.gameplay;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.model.Country;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@JsonTypeName("advance")
 /**
  * Advance class is used to move some armies from one of the current player's territories (source)
  * to an adjacent territory (target). if the target territory belongs to the current player,
@@ -14,6 +17,8 @@ import java.util.Random;
  */
 public class Advance extends Order{
     private GameEngine d_gameEngine;
+    //Marked as a backreference to stop loop serialization
+    @JsonBackReference
     private Player d_player;
     private Country d_countryFrom;
     private Country d_countryTo;

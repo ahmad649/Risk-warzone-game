@@ -9,12 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gameplay.Parsing;
 import com.gameplay.GameEngine;
 import com.maps.MapReader;
 import com.model.Continent;
 import com.model.Country;
 
+@JsonTypeName("postload")
 /**
  * Postload phase class.
  */
@@ -23,6 +25,11 @@ public class Postload implements Phase {
     private MapReader d_mapReader;
     private Map<String, Continent> d_continents;
     private Map<String, Country> d_countries;
+
+    /**
+     * Postload no-params constructor for serialization
+     */
+    public Postload(){}
 
     /**
      * Instantiate a new Post load state.
@@ -35,6 +42,58 @@ public class Postload implements Phase {
         d_countries = d_mapReader.getCountriesMap();
     }
 
+    /**
+     * MapReader getter method
+     * @return A MapReader object
+     */
+    public MapReader getD_mapReader() {
+        return d_mapReader;
+    }
+
+    /**
+     * MapReader setter method
+     * @param d_mapReader takes a MapReader object to set
+     */
+    public void setD_mapReader(MapReader d_mapReader) {
+        this.d_mapReader = d_mapReader;
+    }
+
+    /**
+     * Continents getter method
+     * @return A Map containing the continents initialized for the game
+     */
+    public Map<String, Continent> getD_continents() {
+        return d_continents;
+    }
+
+    /**
+     * Continents setter method
+     * @param d_continents takes a Map containing the continents to set
+     */
+    public void setD_continents(Map<String, Continent> d_continents) {
+        this.d_continents = d_continents;
+    }
+
+    /**
+     * Countries getter method
+     * @return a Map containing the countries initialized for the game
+     */
+    public Map<String, Country> getD_countries() {
+        return d_countries;
+    }
+
+    /**
+     * Countries setter method
+     * @param d_countries takes a Map containing the countries to set
+     */
+    public void setD_countries(Map<String, Country> d_countries) {
+        this.d_countries = d_countries;
+    }
+
+    /**
+     * currentPhase identifier
+     * @return returns a string indicating the current phase of the game
+     */
     public String currentPhase() {
         return "Postload";
     }
@@ -157,7 +216,7 @@ public class Postload implements Phase {
     /**
      * Saves the currently loaded map to a file.
      *
-     * @param p_filename Name of the file to save.
+     * @param l_parsing Name of the file to save.
      * @return true if saving is successful, false otherwise.
      */
     public void editNeighbor(Parsing l_parsing) {
@@ -187,7 +246,7 @@ public class Postload implements Phase {
     /**
      * Saves the currently loaded map to a file.
      *
-     * @param p_filename Name of the file to save.
+     * @param l_parsing Name of the file to save.
      * @return true if saving is successful, false otherwise.
      */
     public boolean saveMap(Parsing l_parsing) {

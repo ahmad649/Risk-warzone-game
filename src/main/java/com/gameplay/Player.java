@@ -13,6 +13,8 @@ import java.util.*;
  */
 public class Player{
 
+    //Mark as a reference to stop loop serialization
+    @JsonManagedReference
     private Queue<Order> d_playerOrders;
     private int d_numReinforcement;
     //Mark as a reference to stop loop serialization

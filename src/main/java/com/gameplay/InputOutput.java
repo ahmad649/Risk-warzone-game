@@ -119,8 +119,13 @@ public class InputOutput {
         }else if (is_startgame_command_valid(l_command)) {
             System.out.println("Executing startgame command");
             return new Parsing(l_command);
-        }
-         else {
+        }else if (is_savegame_command_valid(l_command)) {
+            System.out.println("Executing savegame command");
+            return new Parsing(l_command);
+        } else if (is_loadgame_command_valid(l_command)) {
+            System.out.println("Executing loadgame command");
+            return new Parsing(l_command);
+        }else {
             System.out.println("Command does not exist. Please try again.");
         }
         return null;
@@ -454,6 +459,54 @@ public class InputOutput {
         // Check if the command contains more than 1 argument.
         if (l_parts.length != 2) {
             System.out.println("\n'loadmap' command must have 1 argument.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validates whether the given 'savegame' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_savegame_command_valid(String p_command){
+        // Check if command starts with 'savegame '
+        if (!p_command.startsWith("samegame ")){
+            return false;
+        }
+
+        // Split command into an array of strings
+        String[] l_parts = p_command.trim().split(" ");
+
+        //Check if the command contains more than 1 argument.
+        if (l_parts.length != 2) {
+            System.out.println("\n'savegame' command must have 1 argument.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validates whether the given 'loadgame' command is valid.
+     *
+     * @param p_command The user command string to validate
+     * @return {@code true} if the command is valid, otherwise {@code false}
+     */
+    public static boolean is_loadgame_command_valid(String p_command){
+        // Check if command starts with 'loadgame '
+        if (!p_command.startsWith("loadgame ")){
+            return false;
+        }
+
+        // Split command into an array of strings
+        String[] l_parts = p_command.trim().split(" ");
+
+        //Check if the command contains more than 1 argument.
+        if (l_parts.length != 2) {
+            System.out.println("\n'loadgame' command must have 1 argument.");
             return false;
         }
 

@@ -6,18 +6,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gameplay.Parsing;
 import com.gameplay.GameEngine;
 import com.maps.MapReader;
 import com.model.Continent;
 import com.model.Country;
 
+@JsonTypeName("preload")
 public class Preload implements Phase{
     
     private MapReader d_mapReader;
     public Map<String, Continent> d_continents;
     public Map<String, Country> d_countries;
     GameEngine engine;
+
+    /**
+     * Preload no-params constructor for serialization
+     */
+    public Preload(){}
+
     /**
      * Instantiate a new Pre load state.
      *
@@ -30,6 +38,74 @@ public class Preload implements Phase{
         d_countries = d_mapReader.getCountriesMap();
     }
 
+    /**
+     * Continents getter method
+     * @return A map containing the continents initialized for the game
+     */
+    public Map<String, Continent> getD_continents() {
+        return d_continents;
+    }
+
+    /**
+     * Continents setter method
+     * @param d_continents takes a map containing the continents to set
+     */
+    public void setD_continents(Map<String, Continent> d_continents) {
+        this.d_continents = d_continents;
+    }
+
+    /**
+     * MapReader getter method
+     * @return A MapReader object
+     */
+    public MapReader getD_mapReader() {
+        return d_mapReader;
+    }
+
+    /**
+     * MapReader setter method
+     * @param d_mapReader takes a MapReader object and sets it
+     */
+    public void setD_mapReader(MapReader d_mapReader) {
+        this.d_mapReader = d_mapReader;
+    }
+
+    /**
+     * Countries getter method
+     * @return A map containing the countries initialized for the game
+     */
+    public Map<String, Country> getD_countries() {
+        return d_countries;
+    }
+
+    /**
+     * Countries setter method
+     * @param d_countries takes a Map containing the countries to set
+     */
+    public void setD_countries(Map<String, Country> d_countries) {
+        this.d_countries = d_countries;
+    }
+
+    /**
+     * GameEngine getter method
+     * @return GameEngine type object
+     */
+    public GameEngine getEngine() {
+        return engine;
+    }
+
+    /**
+     * GameEngine setter method
+     * @param engine takes a GameEngine object to set
+     */
+    public void setEngine(GameEngine engine) {
+        this.engine = engine;
+    }
+
+    /**
+     * currentPhase identifier
+     * @return returns a string indicating the current phase of the game
+     */
     public String currentPhase() {
         return "Preload";
     }

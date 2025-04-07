@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class Country{
     private int d_id;
     private String d_name;
+    @JsonBackReference
     private Continent d_continent;
     //Marked as a backreference to stop loop serialization
     @JsonBackReference
@@ -143,6 +144,30 @@ public class Country{
      */
     public void setArmies(int p_armies) {
         this.d_armies = p_armies;
+    }
+
+    /**
+     * id setter method
+     * @param d_id country id to set
+     */
+    public void setD_id(int d_id) {
+        this.d_id = d_id;
+    }
+
+    /**
+     * name setter method
+     * @param d_name country name to set
+     */
+    public void setD_name(String d_name) {
+        this.d_name = d_name;
+    }
+
+    /**
+     * neighbors setter method
+     * @param d_neighbors list of neighbors to set
+     */
+    public void setD_neighbors(List<Country> d_neighbors) {
+        this.d_neighbors = d_neighbors;
     }
 
     /**

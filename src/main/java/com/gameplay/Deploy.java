@@ -1,11 +1,16 @@
 package com.gameplay;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.model.Country;
 
+@JsonTypeName("deploy")
 /**
  * Deploy class is used to place some armies on one of the current player’s territories.
  */
 public class Deploy extends Order{
+    //Marked as a backreference to stop loop serialization
+    @JsonBackReference
     private Player d_player;
     private String d_countryName;
     private int d_numArmy;

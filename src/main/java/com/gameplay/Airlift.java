@@ -1,15 +1,19 @@
 package com.gameplay;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.model.Country;
 
 import java.util.Objects;
 
+@JsonTypeName("airlift")
 /**
  * Airlift class is used to advance some armies from one of the
  * current player’s territories to any another territory.
  */
 public class Airlift extends Order {
-
+    //Marked as a backreference to stop loop serialization
+    @JsonBackReference
     private Player d_player;
     private String d_sourceCountryName, d_targetCountryName;
     private Country d_sourceCountry, d_targetCountry;

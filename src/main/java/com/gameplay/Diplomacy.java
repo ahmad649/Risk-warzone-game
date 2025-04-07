@@ -1,13 +1,18 @@
 package com.gameplay;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import java.util.Objects;
 
+@JsonTypeName("diplomacy")
 /**
  * Diplomacy class is used to prevent attacks between the current player and another player until the end of
  * the turn.
  */
 public class Diplomacy extends Order {
-
+    //Marked as a backreference to stop loop serialization
+    @JsonBackReference
     private Player d_currentPlayer;
     private Player d_targetPlayer;
     private String d_targetPlayerName;

@@ -1,11 +1,13 @@
 package com.States;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gameplay.*;
 import com.model.Continent;
 import com.model.Country;
 
 import java.util.*;
 
+@JsonTypeName("issueorder")
 /**
  * Defines IssueOrder phase and its methods.
  */
@@ -51,6 +53,11 @@ public class IssueOrder implements Phase {
     }
 
     /**
+     * IssueOrder no-params constructor for serialization
+     */
+    public IssueOrder(){}
+
+    /**
      * Used to switch to IssueOrder phase and assign reinforcements to the players.
      * Prints the commands available to the player.
      * @param p_engine
@@ -83,6 +90,54 @@ public class IssueOrder implements Phase {
         d_players = new LinkedList<>(p_engine.d_playersList);
         next_player();
         assignReinforcements();
+    }
+
+    /**
+     * Player list getter method
+     * @return Queue of Player type containing the player list
+     */
+    public Queue<Player> getD_players() {
+        return d_players;
+    }
+
+    /**
+     * Player list setter method
+     * @param d_players Takes a Queue of Player type and sets it
+     */
+    public void setD_players(Queue<Player> d_players) {
+        this.d_players = d_players;
+    }
+
+    /**
+     * GameEngine getter method
+     * @return GameEngine type object
+     */
+    public GameEngine getD_engine() {
+        return d_engine;
+    }
+
+    /**
+     * GameEngine setter method
+     * @param d_engine Takes  GameEngine object and sets it
+     */
+    public void setD_engine(GameEngine d_engine) {
+        this.d_engine = d_engine;
+    }
+
+    /**
+     * currentPlayer getter method
+     * @return a Player object representing the current player in the turn
+     */
+    public Player getD_current_player() {
+        return d_current_player;
+    }
+
+    /**
+     * currentPlayer setter method
+     * @param d_current_player takes a Player object and sets it as the current player
+     */
+    public void setD_current_player(Player d_current_player) {
+        this.d_current_player = d_current_player;
     }
 
     /**
