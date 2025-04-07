@@ -35,7 +35,7 @@ public class BombTest {
         System.out.println("\nLoading Map...");
         this.d_gamePhase = new Startup(this.d_gameEngine);
 
-        this.d_gamePhase.loadMap(new Parsing("loadmap Classic_World_Map"));
+        this.d_gamePhase.loadMap(new Parsing("loadmap Classic_World_Map.txt"));
 
         this.d_player1 = new Player("TestPlayer1");
         this.d_player2 = new Player("TestPlayer2");
