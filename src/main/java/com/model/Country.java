@@ -16,6 +16,8 @@ public class Country {
     private Player d_owner;
     private int d_armies;
     private List<Country> d_neighbors;
+    private String d_xCoordinate;
+    private String d_yCoordinate;
 
     /**
      * Instantiates a new Country.
@@ -31,6 +33,25 @@ public class Country {
         this.d_armies = 0;
         this.d_neighbors = new ArrayList<>();
     }
+
+    /**
+     * Gets the X coordinate of the country.
+     *
+     * @return the X coordinate as a string.
+     */
+    public String getXCoordinate() {
+        return d_xCoordinate;
+    }
+
+    /**
+     * Gets the Y coordinate of the country.
+     *
+     * @return the Y coordinate as a string.
+     */
+    public String getYCoordinate() {
+        return d_yCoordinate;
+    }
+
 
     /**
      * Get country ID.
@@ -112,6 +133,24 @@ public class Country {
             }
         }
         return false;
+    }
+
+
+    /**
+     * Sets the X coordinate of the country.
+     *
+     * @param p_xCoordinate the X coordinate to set.
+     */
+    public void setXCoordinate(String p_xCoordinate) {
+        this.d_xCoordinate = p_xCoordinate;
+    }
+    /**
+     * Sets the Y coordinate of the country.
+     *
+     * @param p_yCoordinate the Y coordinate to set.
+     */
+    public void setYCoordinate(String p_yCoordinate) {
+        this.d_yCoordinate = p_yCoordinate;
     }
 
     /**

@@ -2,7 +2,6 @@ package com.maps;
 
 import com.model.Continent;
 import com.model.Country;
-import java.io.*;
 import java.util.*;
 
 /**
@@ -13,6 +12,7 @@ public class MapReader {
     private Map<String, Country> d_countries;
     private int d_continentIdCounter = 1;
     private int d_countryIdCounter = 1;
+    public List<String> d_metaData;
 
     /**
      * Constructor initializes data structures.
@@ -20,9 +20,10 @@ public class MapReader {
     public MapReader() {
         d_continents = new HashMap<>();
         d_countries = new HashMap<>();
+        d_metaData = new ArrayList<>();
     }
 
-
+    
 
     /**
      * Get continents map.
