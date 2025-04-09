@@ -1,5 +1,7 @@
 package com.gameplay;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 
 import com.States.Menu;
 import com.States.Phase;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logs.LogEntryBuffer;
 import com.logs.LogFileWriter;
 import com.model.Country;
@@ -121,6 +124,10 @@ public class GameEngine {
                 d_phase.saveMap(l_parsing);
             }else if (l_parsing.d_commandType.equals("menu")){
                 d_phase.returnToMenu(this);
+            }else if (l_parsing.d_commandType.equals("savegame")){
+                this.saveGameState(l_parsing);
+            }else if (l_parsing.d_commandType.equals("loadgame")){
+                this.loadGameState(l_parsing);
             }else {
                 System.out.println("Invalid command. Try again.");
             }
@@ -136,6 +143,55 @@ public class GameEngine {
     public boolean checkIssuable(Parsing l_parsing) {
         ArrayList<String> possibleOrders = new ArrayList<>(List.of("deploy","advance","bomb","negotiate","airlift","blockade"));
         return possibleOrders.contains(l_parsing.d_commandType.toLowerCase());
+    }
+
+    /**
+     * Saves the current game state to a JSON file. The filename is determined
+     * by the first argument in the provided Parsing object's argument array.
+     * The save file is created in the "src/main/java/com/GameFiles" directory.
+     *
+     * @param l_parsing a Parsing object that holds the command arguments;
+     *                  the first argument (obtained via d_argArr.getFirst()) should be the filename.
+     */
+    public void saveGameState(Parsing l_parsing) {
+        String filePath = "src/main/java/com/GameFiles/" + l_parsing.d_argArr.getFirst() + ".json";
+        GameState gameState = new GameState();
+        gameState.setD_players(this.d_playersList);
+        gameState.setD_countries(this.d_countryList);
+        gameState.setD_currentPhase(this.d_phase);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), gameState);
+            System.out.println("Game saved successfully to " + l_parsing);
+        } catch (IOException e) {
+            System.err.println("Error saving game: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads the game state from a JSON file. The filename is determined by the first
+     * argument in the provided Parsing object's argument array. The file is expected
+     * to be located in the "src/main/java/com/GameFiles" directory.
+     * Once loaded, the players list, countries list, and current phase in the GameEngine
+     * are updated with the loaded state.
+     *
+     * @param l_parsing a Parsing object that holds the command arguments;
+     *                  the first argument (obtained via d_argArr.getFirst()) should be the filename.
+     */
+    public void loadGameState(Parsing l_parsing) {
+        String filePath = "src/main/java/com/GameFiles/" + l_parsing.d_argArr.getFirst() + ".json";
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            GameState loadedState = mapper.readValue(new File(filePath), GameState.class);
+            this.d_playersList = loadedState.getD_players();
+            this.d_countryList = loadedState.getD_countries();
+            this.d_phase = loadedState.getD_currentPhase();
+            System.out.println("Game loaded successfully from " + filePath);
+        } catch (IOException e) {
+            System.err.println("Error loading game: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }

@@ -108,6 +108,46 @@ public class Player{
     }
 
     /**
+     * setD_playerOrders method
+     * @param d_playerOrders Queue of type Order containing the orders issued by the player
+     */
+    public void setD_playerOrders(Queue<Order> d_playerOrders) {
+        this.d_playerOrders = d_playerOrders;
+    }
+
+    /**
+     * setD_ownedCountries method
+     * @param d_ownedCountries List of type Country containing the countries owned by the player
+     */
+    public void setD_ownedCountries(List<Country> d_ownedCountries) {
+        this.d_ownedCountries = d_ownedCountries;
+    }
+
+    /**
+     * setD_name
+     * @param d_name String with the players name to set
+     */
+    public void setD_name(String d_name) {
+        this.d_name = d_name;
+    }
+
+    /**
+     * setD_Cards method
+     * @param d_cards List of type Card containing the cards owned by the player
+     */
+    public void setD_cards(List<Card> d_cards) {
+        this.d_cards = d_cards;
+    }
+
+    /**
+     * setD_diplomacyPlayers method
+     * @param d_diplomacyPlayers List of type Player containing the reference of players which the current player has diplomacy with
+     */
+    public void setD_diplomacyPlayers(List<Player> d_diplomacyPlayers) {
+        this.d_diplomacyPlayers = d_diplomacyPlayers;
+    }
+
+    /**
      * ownsCountry method
      *
      * @param p_countryName String containing the country's name being analyzed

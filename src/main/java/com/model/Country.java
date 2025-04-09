@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 /**
  * Represents a Country in the game.
  */
-//
 public class Country{
     private int d_id;
     private String d_name;
