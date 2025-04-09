@@ -24,24 +24,36 @@ public class CheaterPlayerStrategy implements PlayerStrategy {
 
     @Override
     public Order createOrder(Parsing p_parsing) {
+        int l_playerReinforcements = this.d_player.getReinforcements();
+
+        ArrayList<Country> l_tempCountryList = new ArrayList<Country>();
         // Conquers all immediate neighboring enemy countries
         for (Country l_country : this.d_player.getOwnedCountries()) {
             for (Country l_neighboringCountry : l_country.getNeighbors()) {
                 Player l_neighboringCountryOwner = l_neighboringCountry.getOwner();
                 // Check if the current neighboring country is owned by the current player
-                if (!l_neighboringCountryOwner.getName().equals(d_player.getName())) {
-                    // Remove country from the other player's list of countries
-                    l_neighboringCountryOwner.removeCountry(l_neighboringCountry.getName());
-
+                if (l_playerReinforcements > 0 && !l_neighboringCountryOwner.getName().equals(d_player.getName())) {
                     // Add country to cheater player's list of countries
                     l_neighboringCountry.setOwner(d_player);
-                    this.d_player.addCountryToOwnedCountries(l_neighboringCountry);
+
+                    // Set armies
+                    l_neighboringCountry.setArmies(l_playerReinforcements);
+                    l_playerReinforcements = 0;
+
+                    l_tempCountryList.add(l_neighboringCountry);
+
+                    // Remove country from the other player's list of countries
+                    l_neighboringCountryOwner.removeCountry(l_neighboringCountry.getName());
 
                     System.out.println("\nCheater player has conquered " + l_neighboringCountry.getName());
                 }
             }
         }
 
+        for (Country l_newCountry : l_tempCountryList) {
+            if (!d_player.getOwnedCountries().contains(l_newCountry))
+                d_player.addCountryToOwnedCountries(l_newCountry);
+        }
 
         ArrayList<Country> l_countriesWithEnemyNeighbors = new ArrayList<>();
         ArrayList<String> l_countryNamesWithEnemyNeighbors = new ArrayList<>();

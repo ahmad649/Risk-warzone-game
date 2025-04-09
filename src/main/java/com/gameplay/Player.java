@@ -40,6 +40,10 @@ public class Player {
         d_diplomacyPlayers = new ArrayList<>();
     }
 
+    public int getNumOrders() {
+        return this.d_playerOrders.size();
+    }
+
     /**
      * getName() method
      *
@@ -167,9 +171,11 @@ public class Player {
      */
     public void issue_order(GameEngine p_gameEngine,Parsing l_parsing) {
         Order l_order = this.d_playerStrategy.createOrder(l_parsing);
-        d_playerOrders.add(l_order);
 
-        p_gameEngine.d_logbuffer.addEntry(l_order);
+        if (l_order != null) {
+            d_playerOrders.add(l_order);
+            p_gameEngine.d_logbuffer.addEntry(l_order);
+        }
     }
 
     /**

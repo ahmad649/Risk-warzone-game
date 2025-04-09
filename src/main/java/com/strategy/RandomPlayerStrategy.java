@@ -30,29 +30,53 @@ public class RandomPlayerStrategy implements PlayerStrategy {
 
         int l_numOfArmies = 0;
         String l_countryName = "";
-        Country l_countryFrom = null, l_countryTo = null;
+        Country l_countryFrom = null, l_countryTo = null, l_country = null;
         switch (l_orderNum) {
             case 0:
                 // Create deploy order
                 l_numOfArmies = l_random.nextInt(this.d_player.getReinforcements() + 1);
-                l_countryName = this.getOwnedCountry().getName();
+
+                l_country = this.getOwnedCountry();
+                if (l_country == null) {
+                    return null;
+                }
+                l_countryName = l_country.getName();
 
                 return new Deploy(this.d_player, l_countryName, l_numOfArmies);
             case 1:
                 // Create advance order
                 l_countryFrom = this.getOwnedCountry();
                 l_countryTo = this.getNeighboringCountry();
-                l_numOfArmies = l_random.nextInt(l_countryFrom.getArmies() + 1);
+                if (l_countryFrom == null || l_countryTo == null) {
+                    return null;
+                }
+                System.out.println(l_countryFrom.getArmies());
+                int l_tempNum = l_countryFrom.getArmies() + 1;
+                if (l_tempNum < 1) {
+                    l_tempNum = 1;
+                }
+                l_numOfArmies = l_random.nextInt(l_tempNum);
+                if (l_numOfArmies < 1) {
+                    l_numOfArmies = l_countryFrom.getArmies();
+                }
 
                 return new Advance(this.d_gameEngine, this.d_player, l_countryFrom.getName(), l_countryTo.getName(), l_numOfArmies);
             case 2:
                 // Create bomb order
-                l_countryName = this.getNonOwnedNeighboringCountry().getName();
+                l_country = this.getNonOwnedNeighboringCountry();
+                if (l_country == null) {
+                    return null;
+                }
+                l_countryName = l_country.getName();
 
                 return new Bomb(this.d_player, l_countryName);
             case 3:
                 // Create blockade order
-                l_countryName = this.getOwnedCountry().getName();
+                l_country = this.getOwnedCountry();
+                if (l_country == null) {
+                    return null;
+                }
+                l_countryName = l_country.getName();
 
                 return new Blockade(this.d_gameEngine, this.d_player, l_countryName);
             case 4:
@@ -62,8 +86,15 @@ public class RandomPlayerStrategy implements PlayerStrategy {
                 do {
                     l_countryFrom = this.getOwnedCountry();
                     l_countryTo = this.getOwnedCountry();
+                    if (l_countryFrom == null || l_countryTo == null) {
+                        return null;
+                    }
                 } while (!l_countryFrom.getName().equals(l_countryTo.getName()));
-                l_numOfArmies = l_random.nextInt(l_countryFrom.getArmies() + 1);
+                l_tempNum = l_countryFrom.getArmies() + 1;
+                if (l_tempNum < 1) {
+                    l_tempNum = 1;
+                }
+                l_numOfArmies = l_random.nextInt(l_tempNum);
 
                 return new Airlift(this.d_player, l_countryFrom.getName(), l_countryFrom.getName(), l_numOfArmies);
         }
@@ -73,6 +104,9 @@ public class RandomPlayerStrategy implements PlayerStrategy {
 
     public Country getOwnedCountry() {
         Random l_random = new Random();
+        if (this.d_player.getOwnedCountries().isEmpty()) {
+            return null;
+        }
         int l_randomNum = l_random.nextInt(this.d_player.getOwnedCountries().size());
 
         return this.d_player.getOwnedCountries().get(l_randomNum);
@@ -97,6 +131,9 @@ public class RandomPlayerStrategy implements PlayerStrategy {
 
         // Return one random neighboring country
         Random l_random = new Random();
+        if (l_neighboringCountries.isEmpty()) {
+            return null;
+        }
         int l_randomNum = l_random.nextInt(l_neighboringCountries.size());
         return l_neighboringCountries.get(l_randomNum);
     }
@@ -114,6 +151,9 @@ public class RandomPlayerStrategy implements PlayerStrategy {
 
         // Return one random neighboring country that is not owned by the current player
         Random l_random = new Random();
+        if (l_neighboringCountries.isEmpty()) {
+            return null;
+        }
         int l_randomNum = l_random.nextInt(l_neighboringCountries.size());
         return l_neighboringCountries.get(l_randomNum);
     }

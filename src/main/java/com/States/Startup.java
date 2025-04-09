@@ -28,8 +28,7 @@ public class Startup implements Phase {
     public Startup(GameEngine p_engine) {
         this.d_engine = p_engine;
         //clearing previous game
-        p_engine.d_countryList.clear();
-        p_engine.d_playersList.clear();
+        this.d_engine.clearPlayerList();
         System.out.println("""
                 -----------------------------------------------------------------------
                                                 STARTUP
