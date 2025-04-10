@@ -35,13 +35,17 @@ public class AggressivePlayerStrategy implements PlayerStrategy {
 
         // Deploy armies to the strongest country
         if (this.d_currentStrategy.equals(Strategy.DEPLOY)) {
-            this.d_currentStrategy = Strategy.ATTACK;
-
-            Random l_random = new Random();
-            int l_numOfArmies = l_random.nextInt(Math.round((float) (this.d_player.getReinforcements() + 1) / 2));
-            System.out.println("num of armies: " + l_numOfArmies);
-            return new Deploy(this.d_player, l_strongestCountry.getName(), l_numOfArmies);
+            return this.deployArmiesToStrongestCountry(l_strongestCountry);
         }
+
+//        if (this.d_currentStrategy.equals(Strategy.DEPLOY)) {
+//            this.d_currentStrategy = Strategy.ATTACK;
+//
+//            Random l_random = new Random();
+//            int l_numOfArmies = l_random.nextInt(Math.round((float) (this.d_player.getReinforcements() + 1) / 2));
+//            System.out.println("num of armies: " + l_numOfArmies);
+//            return new Deploy(this.d_player, l_strongestCountry.getName(), l_numOfArmies);
+//        }
 
         // Attack with the strongest country
         if (this.d_currentStrategy.equals(Strategy.ATTACK)) {
@@ -94,6 +98,17 @@ public class AggressivePlayerStrategy implements PlayerStrategy {
         }
         return null;
     }
+
+    public Deploy deployArmiesToStrongestCountry(Country p_strongestCountry) {
+        this.d_currentStrategy = Strategy.ATTACK;
+
+        int l_numOfArmies = Math.round((float) (this.d_player.getReinforcements() + 1) / 2);
+        return new Deploy(this.d_player, p_strongestCountry.getName(), l_numOfArmies);
+    }
+
+//    public Advance attackWithStrongestCountry(Country p_strongestCountry) {
+//
+//    }
 
     public Country getStrongestCountry() {
         // Get the country that has the most armies

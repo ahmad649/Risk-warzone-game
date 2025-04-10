@@ -26,7 +26,7 @@ public class RandomPlayerStrategy implements PlayerStrategy {
 
         // Get random order
         Random l_random = new Random();
-        int l_orderNum = l_random.nextInt(5);
+        int l_orderNum = l_random.nextInt(2);
 
         int l_numOfArmies = 0;
         String l_countryName = "";
@@ -61,42 +61,42 @@ public class RandomPlayerStrategy implements PlayerStrategy {
                 }
 
                 return new Advance(this.d_gameEngine, this.d_player, l_countryFrom.getName(), l_countryTo.getName(), l_numOfArmies);
-            case 2:
-                // Create bomb order
-                l_country = this.getNonOwnedNeighboringCountry();
-                if (l_country == null) {
-                    return null;
-                }
-                l_countryName = l_country.getName();
-
-                return new Bomb(this.d_player, l_countryName);
-            case 3:
-                // Create blockade order
-                l_country = this.getOwnedCountry();
-                if (l_country == null) {
-                    return null;
-                }
-                l_countryName = l_country.getName();
-
-                return new Blockade(this.d_gameEngine, this.d_player, l_countryName);
-            case 4:
-                // Create airlift order
-
-                // Make sure source and target country are different
-                do {
-                    l_countryFrom = this.getOwnedCountry();
-                    l_countryTo = this.getOwnedCountry();
-                    if (l_countryFrom == null || l_countryTo == null) {
-                        return null;
-                    }
-                } while (!l_countryFrom.getName().equals(l_countryTo.getName()));
-                l_tempNum = l_countryFrom.getArmies() + 1;
-                if (l_tempNum < 1) {
-                    l_tempNum = 1;
-                }
-                l_numOfArmies = l_random.nextInt(l_tempNum);
-
-                return new Airlift(this.d_player, l_countryFrom.getName(), l_countryFrom.getName(), l_numOfArmies);
+//            case 2:
+//                // Create bomb order
+//                l_country = this.getNonOwnedNeighboringCountry();
+//                if (l_country == null) {
+//                    return null;
+//                }
+//                l_countryName = l_country.getName();
+//
+//                return new Bomb(this.d_player, l_countryName);
+//            case 3:
+//                // Create blockade order
+//                l_country = this.getOwnedCountry();
+//                if (l_country == null) {
+//                    return null;
+//                }
+//                l_countryName = l_country.getName();
+//
+//                return new Blockade(this.d_gameEngine, this.d_player, l_countryName);
+//            case 4:
+//                // Create airlift order
+//
+//                // Make sure source and target country are different
+//                do {
+//                    l_countryFrom = this.getOwnedCountry();
+//                    l_countryTo = this.getOwnedCountry();
+//                    if (l_countryFrom == null || l_countryTo == null) {
+//                        return null;
+//                    }
+//                } while (!l_countryFrom.getName().equals(l_countryTo.getName()));
+//                l_tempNum = l_countryFrom.getArmies() + 1;
+//                if (l_tempNum < 1) {
+//                    l_tempNum = 1;
+//                }
+//                l_numOfArmies = l_random.nextInt(l_tempNum);
+//
+//                return new Airlift(this.d_player, l_countryFrom.getName(), l_countryFrom.getName(), l_numOfArmies);
         }
 
         return null;
