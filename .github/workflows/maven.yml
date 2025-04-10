@@ -6,6 +6,7 @@ on:
       - Gameplay
       - handika/ci-setup
       - States
+      - build3/diego
 
 jobs:
   build:
