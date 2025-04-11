@@ -182,21 +182,15 @@ public class Startup implements Phase {
         }
 
         int l_index = 0;
-        int l_loop= 0;
 
         List<Country> l_shuffledCountries = new ArrayList<>(d_engine.d_countryList); // Create a mutable copy
         Collections.shuffle(l_shuffledCountries); // Shuffle the countries
 
         for (Country l_country : l_shuffledCountries) {
-            if(l_loop>=4){
-                break;
-            }
-            l_country.setArmies(5);
             Player l_player = d_engine.d_playersList.get(l_index);
             l_player.d_ownedCountries.add(l_country);
             l_country.setOwner(l_player);
             l_index = (l_index + 1) % d_engine.d_playersList.size();
-            l_loop+=1;
         }
         System.out.println("All countries have been assigned to players.");
         d_engine.d_phase = new IssueOrder(d_engine);
