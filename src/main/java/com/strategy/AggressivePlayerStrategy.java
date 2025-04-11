@@ -33,7 +33,8 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
         if (this.d_currentStrategy.equals(Strategy.DEPLOY)) {
             this.d_currentStrategy = Strategy.ATTACK;
 
-            return this.deployArmiesToStrongestCountry(l_strongestCountry);
+            int l_numOfArmies = Math.round((float) this.getplayer().getReinforcements() / 2);
+            return this.deployArmiesToStrongestCountry(l_strongestCountry, l_numOfArmies);
         }
 
         // Attack with the strongest country
@@ -66,9 +67,9 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
         return null;
     }
 
-    public Deploy deployArmiesToStrongestCountry(Country p_strongestCountry) {
-        int l_numOfArmies = Math.round((float) this.getplayer().getReinforcements() / 2);
-        return new Deploy(this.getplayer(), p_strongestCountry.getName(), l_numOfArmies);
+    public Deploy deployArmiesToStrongestCountry(Country p_strongestCountry, int p_numOfArmies) {
+
+        return new Deploy(this.getplayer(), p_strongestCountry.getName(), p_numOfArmies);
     }
 
     public Advance attackWithStrongestCountry(Country p_strongestCountry) {
