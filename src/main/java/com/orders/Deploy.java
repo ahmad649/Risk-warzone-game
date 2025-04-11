@@ -1,6 +1,6 @@
-package com.gameplay;
+package com.orders;
 
-import com.model.Country;
+import com.gameplay.Player;
 
 /**
  * Deploy class is used to place some armies on one of the current player’s territories.

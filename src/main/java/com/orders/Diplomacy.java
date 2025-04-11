@@ -1,4 +1,7 @@
-package com.gameplay;
+package com.orders;
+
+import com.gameplay.GameEngine;
+import com.gameplay.Player;
 
 import java.util.Objects;
 

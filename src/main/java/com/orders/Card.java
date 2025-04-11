@@ -1,4 +1,4 @@
-package com.gameplay;
+package com.orders;
 
 /**
  * The special orders represented by cards.

@@ -1,7 +1,7 @@
 package com.strategy;
 
 import com.gameplay.GameEngine;
-import com.gameplay.Order;
+import com.orders.Order;
 import com.gameplay.Parsing;
 import com.gameplay.Player;
 

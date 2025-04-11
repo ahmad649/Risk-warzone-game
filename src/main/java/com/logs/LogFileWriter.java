@@ -1,6 +1,6 @@
 package com.logs;
 
-import com.gameplay.Order;
+import com.orders.Order;
 
 import java.io.File;
 import java.io.FileWriter;

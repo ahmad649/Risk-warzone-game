@@ -1,5 +1,7 @@
-package com.gameplay;
+package com.orders;
 
+import com.gameplay.GameEngine;
+import com.gameplay.Player;
 import com.model.Country;
 
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.Random;
  * the armies are moved to the target territory. If the target territory belongs to another player,
  * an attack happens between the two territories.
  */
-public class Advance extends Order{
+public class Advance extends Order {
     private final GameEngine d_gameEngine;
     private final Player d_player;
     private final Country d_countryFrom;

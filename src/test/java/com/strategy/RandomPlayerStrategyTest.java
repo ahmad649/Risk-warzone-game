@@ -4,6 +4,8 @@ import com.States.Phase;
 import com.States.Startup;
 import com.gameplay.*;
 import com.model.Country;
+import com.orders.Advance;
+import com.orders.Deploy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.gameplay;
+package com.orders;
 
 /**
  * Order class containing the orders information for its future identification inside the main.com.gameplay loop
