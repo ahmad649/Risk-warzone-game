@@ -823,7 +823,6 @@ public class InputOutput {
                     }
                     l_hasMapFlag = true;
                     while (i + 1 < l_parts.length && !l_parts[i + 1].startsWith("-")) {
-                        System.out.println("Map: " + l_parts[i + 1]);
                         l_maps.add(l_parts[i + 1]);
                         i++;
                     }
