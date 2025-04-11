@@ -36,7 +36,10 @@ public class GameEngine {
     public Phase d_phase;
 
     private final Player d_neutralPlayer;
-
+    /**
+     * The log buffer that stores all log entries for the game.
+     * It is used to keep track of all actions and events that occur during the game.
+     */
     public LogEntryBuffer d_logbuffer = new LogEntryBuffer();
 
 
@@ -52,7 +55,6 @@ public class GameEngine {
 
     /**
      * Gets players list.
-     *
      * @return the players list
      */
     public List<Player> getPlayersList() {

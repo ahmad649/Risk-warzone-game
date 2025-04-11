@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * LogEntryBuffer class to store the log entries and notify the observers.
+ * The LogEntryBuffer class is responsible for storing log entries related to game actions.
+ * It maintains a list of log entries and notifies observers whenever a new entry is added.
+ * The class follows the Observer design pattern to allow multiple observers to track the log entries.
+ * 
+ * Observers can be added or removed, and the log entries can be accessed or cleared.
  */
 public class LogEntryBuffer{
     /**

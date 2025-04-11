@@ -1,17 +1,14 @@
 package com.States;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
 
+import com.adapter.MapAdapter;
+import com.adapter.MapAdapterFactory;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gameplay.Parsing;
-import com.gameplay.GameEngine;
 import com.maps.MapReader;
 import com.model.Continent;
 import com.model.Country;
@@ -22,6 +19,7 @@ import com.model.Country;
  */
 public class Postload implements Phase {
 
+    private MapAdapter mapAdapter;
     private MapReader d_mapReader;
     private Map<String, Continent> d_continents;
     private Map<String, Country> d_countries;
@@ -214,7 +212,8 @@ public class Postload implements Phase {
 
 
     /**
-     * Saves the currently loaded map to a file.
+     * Edits the neighbors of countries based on the given arguments.
+     * This method adds or removes neighbors from countries based on the provided command-line arguments.
      *
      * @param l_parsing Name of the file to save.
      * @return true if saving is successful, false otherwise.
@@ -251,75 +250,15 @@ public class Postload implements Phase {
      */
     public boolean saveMap(Parsing l_parsing) {
         String p_filename = l_parsing.getArgArr().getFirst();
-        // Retrieve the currently loaded map data
-        Map<String, Continent> l_continents = d_mapReader.getContinentsMap();
-        Map<String, Country> l_countries = d_mapReader.getCountriesMap();
-
-        if (l_continents.isEmpty() || l_countries.isEmpty()) {
-            System.err.println("Error: No map data loaded. Cannot save.");
+        this.mapAdapter = MapAdapterFactory.getAdapter(p_filename, d_mapReader);
+        if(mapAdapter == null){
             return false;
         }
         if (!validateMap()) {
             return false;
         }
-
-        // Construct the file path
-        String l_mapFilePath = "src/main/resources/maps/" + p_filename + ".txt";
-        File l_mapFile = new File(l_mapFilePath);
-
-        // Check if the file already exists
-        if (l_mapFile.exists()) {
-            System.out.println("Error: A map with the name '" + p_filename + "' already exists. Please provide a unique name.");
-            return false;
-        }
-
-        // Attempt to create the directory if it does not exist
-        if (l_mapFile.getParentFile() != null) {
-            l_mapFile.getParentFile().mkdirs();
-        }
-
-        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(l_mapFile))) {
-            // Write map header
-            l_writer.write("[Map]\n");
-            l_writer.write("author=Custom World\n");
-            l_writer.write("image=custom_world.bmp\n");
-            l_writer.write("wrap=no\n");
-            l_writer.write("scroll=horizontal\n");
-            l_writer.write("warn=yes\n\n");
-
-            // Write continents section
-            l_writer.write("[Continents]\n");
-
-            // Iterate over all continents in the order they are present in the mapReader
-            for (Continent l_continent : l_continents.values()) {
-                l_writer.write(l_continent.getName() + "=" + l_continent.getBonus() + "\n");
-            }
-            l_writer.write("\n");
-
-            // Write territories section
-            l_writer.write("[Territories]\n");
-
-            // Iterate through countries and write their territory data
-            for (Country l_country : l_countries.values()) {
-                String continentName = l_country.getContinent().getName();
-                List<String> l_neighborNames = new ArrayList<>();
-                for (Country l_neighbor : l_country.getNeighbors()) {
-                    l_neighborNames.add(l_neighbor.getName());
-                }
-
-                // Write the country data with coordinates and neighbors
-                int l_x = 0;
-                int l_y = 0;
-
-                l_writer.write(String.format("%s,%d,%d,%s,%s\n", l_country.getName(), l_x, l_y, continentName, String.join(",", l_neighborNames)));
-            }
-
-            System.out.println("Map saved successfully to " + l_mapFilePath);
-            return true;
-        } catch (IOException e) {
-            System.err.println("Error saving map: " + e.getMessage());
-            return false;
-        }
+        boolean l_result = mapAdapter.saveMap(l_parsing);
+        return l_result;
     }
 
     /**

@@ -32,7 +32,7 @@
     @Test
     void testLoadMapSuccessfully() {
         Preload l_preload = new Preload(this.d_gameEngine, this.mapReader);
-        boolean l_isLoaded = l_preload.loadMap("Witcher_Map");
+        boolean l_isLoaded = l_preload.loadMap("Witcher_Map.txt");
 
         assertTrue(l_isLoaded, "Map should load successfully");
     }
@@ -43,7 +43,7 @@
     @Test
     void testMapConnectivity() {
         Preload l_preload = new Preload(this.d_gameEngine, this.mapReader);
-        boolean l_isLoaded = l_preload.loadMap("Witcher_Map");
+        boolean l_isLoaded = l_preload.loadMap("Witcher_Map.txt");
 
         assertTrue(mapReader.isMapConnected(), "Map should be a connected graph");
     }
@@ -54,7 +54,7 @@
     @Test
     void testRemoveContinent() {
         Preload l_preload = new Preload(this.d_gameEngine, this.mapReader);
-        boolean l_isLoaded = l_preload.loadMap("Witcher_Map");
+        boolean l_isLoaded = l_preload.loadMap("Witcher_Map.txt");
 
         Postload l_postload = new Postload(this.mapReader);
 
@@ -68,7 +68,7 @@
     @Test
     void testRemoveCountry() {
         Preload l_preload = new Preload(this.d_gameEngine, this.mapReader);
-        boolean l_isLoaded = l_preload.loadMap("Witcher_Map");
+        boolean l_isLoaded = l_preload.loadMap("Witcher_Map.txt");
 
         Postload l_postload = new Postload(this.mapReader);
         l_postload.removeCountry("Novigrad");
@@ -82,7 +82,7 @@
     @Test
     void testAddCountry() {
         Preload l_preload = new Preload(this.d_gameEngine, this.mapReader);
-        boolean l_isLoaded = l_preload.loadMap("Witcher_Map");
+        boolean l_isLoaded = l_preload.loadMap("Witcher_Map.txt");
 
         Postload l_postload = new Postload(this.mapReader);
 
@@ -96,7 +96,7 @@
     @Test
     void testAddNeighbor() {
         Preload l_preload = new Preload(this.d_gameEngine, this.mapReader);
-        boolean l_isLoaded = l_preload.loadMap("Witcher_Map");
+        boolean l_isLoaded = l_preload.loadMap("Witcher_Map.txt");
 
         Postload l_postload = new Postload(this.mapReader);
 
@@ -112,11 +112,11 @@
     @Test
     void testSaveMap() {
         Preload l_preload = new Preload(this.d_gameEngine, this.mapReader);
-        boolean l_isLoaded = l_preload.loadMap("Witcher_Map");
+        boolean l_isLoaded = l_preload.loadMap("Witcher_Map.txt");
 
         Postload l_postload = new Postload(this.mapReader);
 
-        boolean isSaved = l_postload.saveMap(new Parsing("savemap New_Witcher_Map"));
+        boolean isSaved = l_postload.saveMap(new Parsing("savemap New_Witcher_Map.txt"));
         assertTrue(isSaved, "Map should be saved successfully");
 
         // Construct the file path

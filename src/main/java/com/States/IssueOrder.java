@@ -62,7 +62,7 @@ public class IssueOrder implements Phase {
     /**
      * Used to switch to IssueOrder phase and assign reinforcements to the players.
      * Prints the commands available to the player.
-     * @param p_engine
+     * @param p_engine p_engine the GameEngine object that manages the game's state, players, and phases
      */
     public IssueOrder(GameEngine p_engine) {
         if (p_engine.d_playersList.isEmpty()) {

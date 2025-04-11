@@ -20,6 +20,8 @@ public class Country{
     private Player d_owner;
     private int d_armies;
     private List<Country> d_neighbors;
+    private String d_xCoordinate;
+    private String d_yCoordinate;
 
     /**
      * Country no-params constructor for serialization
@@ -45,6 +47,25 @@ public class Country{
         d_name = p_name;
         d_continent = p_continent;
     }
+
+    /**
+     * Gets the X coordinate of the country.
+     *
+     * @return the X coordinate as a string.
+     */
+    public String getXCoordinate() {
+        return d_xCoordinate;
+    }
+
+    /**
+     * Gets the Y coordinate of the country.
+     *
+     * @return the Y coordinate as a string.
+     */
+    public String getYCoordinate() {
+        return d_yCoordinate;
+    }
+
 
     /**
      * Get country ID.
@@ -99,7 +120,12 @@ public class Country{
     public List<Country> getNeighbors() {
         return d_neighbors;
     }
-
+    /**
+     * Retrieves a neighbor country by its name.
+     *
+     * @param d_countryName the name of the country to find among the neighbors
+     * @return the neighbor country that matches the provided name, or null if no such neighbor exists
+     */
     public Country getNeighborByName(String d_countryName){
         for (Country l_country : d_neighbors){
             if (l_country.getName().equals(d_countryName)){
@@ -108,7 +134,12 @@ public class Country{
         }
         return null;
     }
-
+    /**
+     * Checks if a given country is a neighbor of the current country.
+     *
+     * @param d_countryName the name of the country to check for adjacency
+     * @return true if the country is a neighbor, false otherwise
+     */
     public boolean isNeighbor(String d_countryName){
         for (Country l_country : d_neighbors){
             if (l_country.getName().equals(d_countryName)){
@@ -116,6 +147,24 @@ public class Country{
             }
         }
         return false;
+    }
+
+
+    /**
+     * Sets the X coordinate of the country.
+     *
+     * @param p_xCoordinate the X coordinate to set.
+     */
+    public void setXCoordinate(String p_xCoordinate) {
+        this.d_xCoordinate = p_xCoordinate;
+    }
+    /**
+     * Sets the Y coordinate of the country.
+     *
+     * @param p_yCoordinate the Y coordinate to set.
+     */
+    public void setYCoordinate(String p_yCoordinate) {
+        this.d_yCoordinate = p_yCoordinate;
     }
 
     /**
