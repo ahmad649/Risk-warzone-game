@@ -1,11 +1,19 @@
 package com.States;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gameplay.GameEngine;
 import com.orders.Order;
 import com.gameplay.Player;
 
+@JsonTypeName("executeorder")
 public class ExecuteOrder implements Phase {
     GameEngine d_engine;
+
+    /**
+     * ExecuteOrder no-params constructor for serialization
+     */
+    public ExecuteOrder(){}
+
     /**
      * Instantiates a new Execute order.
      *
@@ -19,6 +27,22 @@ public class ExecuteOrder implements Phase {
                 -----------------------------------------------------------------------
                 """
         );
+    }
+
+    /**
+     * GameEngine getter method
+     * @return GameEngine type object
+     */
+    public GameEngine getD_engine() {
+        return d_engine;
+    }
+
+    /**
+     * GameEngine setter method
+     * @param d_engine Takes  GameEngine object and sets it
+     */
+    public void setD_engine(GameEngine d_engine) {
+        this.d_engine = d_engine;
     }
 
     /**

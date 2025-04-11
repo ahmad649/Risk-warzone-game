@@ -1,5 +1,6 @@
 package com.gameplay;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.model.Country;
 import com.orders.Card;
 import com.orders.Order;
@@ -13,13 +14,14 @@ import java.util.*;
  * Integer d_numReinforcement designated for the number of reinforcements a player possesses
  * List of Country nature ownedCountries designated for countries a player possesses
  */
-public class Player {
+public class Player{
 
+    //Mark as a reference to stop loop serialization
+    @JsonManagedReference
     private Queue<Order> d_playerOrders;
     private int d_numReinforcement;
-    /**
-     * A list of countries owned by the player.
-     */
+    //Mark as a reference to stop loop serialization
+    @JsonManagedReference
     public List<Country> d_ownedCountries;
 
     private String d_name;
@@ -29,12 +31,10 @@ public class Player {
     private PlayerStrategy d_playerStrategy;
 
     /**
-     * Player generic constructor
-     *
-     * @param p_name the p name
+     * Player no-params constructor made for serialization
      */
-    public Player(String p_name) {
-        d_name = p_name;
+    public Player(){
+        d_name = "";
         d_ownedCountries = new ArrayList<>();
         d_playerOrders = new LinkedList<>();
         d_numReinforcement = 0;
@@ -52,12 +52,55 @@ public class Player {
     }
 
     /**
+     * Player argument constructor
+     *
+     * @param p_name the players name
+     */
+    public Player(String p_name) {
+        this();
+        d_name = p_name;
+    }
+
+    /**
      * getName() method
      *
      * @return String assigned for the players name
      */
     public String getName() {
         return d_name;
+    }
+
+    /**
+     * getReinforcements method
+     *
+     * @return Integer assigned for the total number of reinforcements that the player has
+     */
+    public int getReinforcements() {
+        return d_numReinforcement;
+    }
+
+    /**
+     * getOrders method
+     * @return Queue containing the orders issued by the player
+     */
+    public Queue<Order> getOrders(){ return d_playerOrders; }
+
+    /**
+     * Gets a list of cards own by the current player
+     *
+     * @return a list of cards
+     */
+    public List<Card> getCards() {
+        return d_cards;
+    }
+
+    /**
+     * getOwnedCountries method
+     *
+     * @return List of Country nature containing the countries owned by the player
+     */
+    public List<Country> getOwnedCountries() {
+        return d_ownedCountries;
     }
 
     /**
@@ -70,12 +113,43 @@ public class Player {
     }
 
     /**
-     * getReinforcements method
-     *
-     * @return Integer assigned for the total number of reinforcements that the player has
+     * setD_playerOrders method
+     * @param d_playerOrders Queue of type Order containing the orders issued by the player
      */
-    public int getReinforcements() {
-        return d_numReinforcement;
+    public void setD_playerOrders(Queue<Order> d_playerOrders) {
+        this.d_playerOrders = d_playerOrders;
+    }
+
+    /**
+     * setD_ownedCountries method
+     * @param d_ownedCountries List of type Country containing the countries owned by the player
+     */
+    public void setD_ownedCountries(List<Country> d_ownedCountries) {
+        this.d_ownedCountries = d_ownedCountries;
+    }
+
+    /**
+     * setD_name
+     * @param d_name String with the players name to set
+     */
+    public void setD_name(String d_name) {
+        this.d_name = d_name;
+    }
+
+    /**
+     * setD_Cards method
+     * @param d_cards List of type Card containing the cards owned by the player
+     */
+    public void setD_cards(List<Card> d_cards) {
+        this.d_cards = d_cards;
+    }
+
+    /**
+     * setD_diplomacyPlayers method
+     * @param d_diplomacyPlayers List of type Player containing the reference of players which the current player has diplomacy with
+     */
+    public void setD_diplomacyPlayers(List<Player> d_diplomacyPlayers) {
+        this.d_diplomacyPlayers = d_diplomacyPlayers;
     }
 
     /**
@@ -117,14 +191,6 @@ public class Player {
         this.d_cards.add(p_card);
     }
 
-    /**
-     * Gets a list of cards own by the current player
-     *
-     * @return a list of cards
-     */
-    public List<Card> getCards() {
-        return d_cards;
-    }
 
     /**
      * Remove card from the list
@@ -195,15 +261,6 @@ public class Player {
             return d_playerOrders.poll();
         }
         return null;
-    }
-
-    /**
-     * getOwnedCountries method
-     *
-     * @return List of Country nature containing the countries owned by the player
-     */
-    public List<Country> getOwnedCountries() {
-        return d_ownedCountries;
     }
 
     /**

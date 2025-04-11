@@ -1,5 +1,23 @@
 package com.orders;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "orderType"
+)
+
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Deploy.class, name = "deploy"),
+        @JsonSubTypes.Type(value = Advance.class, name = "advance"),
+        @JsonSubTypes.Type(value = Bomb.class, name = "bomb"),
+        @JsonSubTypes.Type(value = Blockade.class, name = "blockade"),
+        @JsonSubTypes.Type(value = Airlift.class, name = "airlift"),
+        @JsonSubTypes.Type(value = Diplomacy.class, name = "diplomacy")
+})
+
 /**
  * Order class containing the orders information for its future identification inside the main.com.gameplay loop
  * String d_countryName target country name to assign the order

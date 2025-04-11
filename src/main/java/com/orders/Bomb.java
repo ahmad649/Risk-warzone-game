@@ -1,18 +1,28 @@
 package com.orders;
 
 import com.gameplay.Player;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.model.Country;
 
+@JsonTypeName("bomb")
 /**
  * Bomb class is used to destroy half of the armies located on an opponent’s territory that is adjacent to
  * one of the current player’s territories.
  */
 public class Bomb extends Order {
-
-    private final Player d_player;
+    //Marked as a backreference to stop loop serialization
+    @JsonBackReference
+    private Player d_player;
     private Country d_countryToBomb;
-    private final String d_countryName;
+    private String d_countryName;
     public String d_LogINFO;
+
+    /**
+     * Bomb no-args constructor for serialization
+     */
+    public Bomb(){}
+
     /**
      * Instantiates a new Bomb object.
      *

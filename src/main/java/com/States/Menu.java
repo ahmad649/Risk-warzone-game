@@ -1,14 +1,21 @@
 package com.States;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gameplay.GameEngine;
 import com.gameplay.Parsing;
 import com.maps.MapReader;
 
+@JsonTypeName("menu")
 /**
  * Defines Menu phase and its methods.
  */
 public class Menu implements Phase {
     GameEngine d_engine;
+
+    /**
+     * Menu no-params constructor for serialization
+     */
+    public Menu(){}
 
     /**
      * Instantiates a new Menu.
@@ -31,6 +38,23 @@ public class Menu implements Phase {
                 """
         );
     }
+
+    /**
+     * d_engine getter method
+     * @return GameEngine type object
+     */
+    public GameEngine getD_engine() {
+        return d_engine;
+    }
+
+    /**
+     * d_engine setter method
+     * @param d_engine takes a GameEngine object to set it
+     */
+    public void setD_engine(GameEngine d_engine) {
+        this.d_engine = d_engine;
+    }
+
     /**
      * Starts the map editor and transitions to the Preload phase.
      * The map editor will be used to create or modify maps for the game.

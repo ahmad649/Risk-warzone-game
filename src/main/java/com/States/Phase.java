@@ -1,7 +1,23 @@
 package com.States;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.gameplay.Parsing;
 import com.gameplay.GameEngine;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "phaseType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Preload.class, name = "preload"),
+        @JsonSubTypes.Type(value = Postload.class, name = "postload"),
+        @JsonSubTypes.Type(value = Startup.class, name = "startup"),
+        @JsonSubTypes.Type(value = IssueOrder.class, name = "issueorder"),
+        @JsonSubTypes.Type(value = ExecuteOrder.class, name = "executeorder"),
+        @JsonSubTypes.Type(value = Menu.class, name = "menu")
+})
 
 /**
  * Phase interface that defines the methods for the game phases
