@@ -141,10 +141,16 @@ public class GameEngine {
         return possibleOrders.contains(l_parsing.d_commandType.toLowerCase());
     }
 
+    /**
+     * Clear player list.
+     */
     public void clearPlayerList() {
         this.d_playersList.clear();
     }
 
+    /**
+     * Clear country list.
+     */
     public void clearCountryList() {
         this.d_countryList.clear();
     }

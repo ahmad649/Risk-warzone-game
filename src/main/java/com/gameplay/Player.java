@@ -40,6 +40,11 @@ public class Player {
         d_diplomacyPlayers = new ArrayList<>();
     }
 
+    /**
+     * Get the size of order list.
+     *
+     * @return the size
+     */
     public int getNumOrders() {
         return this.d_playerOrders.size();
     }
@@ -241,6 +246,11 @@ public class Player {
         d_ownedCountries.add(p_country);
     }
 
+    /**
+     * Set player strategy.
+     *
+     * @param p_playerStrategy the player strategy
+     */
     public void setPlayerStrategy(PlayerStrategy p_playerStrategy) {
         this.d_playerStrategy = p_playerStrategy;
     }

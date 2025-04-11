@@ -9,8 +9,17 @@ import com.model.Country;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A player strategy that conquers all the immediate neighboring enemy countries, and then doubles the number of armies on its countries that have enemy neighbors. The implementation of the above-stated behavior is performed by directly affecting the map during the order creation phase.
+ */
 public class CheaterPlayerStrategy extends PlayerStrategy {
 
+    /**
+     * Instantiates a new Cheater player strategy.
+     *
+     * @param p_gameEngine the game engine
+     * @param p_player     the player
+     */
     public CheaterPlayerStrategy(GameEngine p_gameEngine, Player p_player) {
         super(p_gameEngine, p_player);
     }
@@ -45,6 +54,12 @@ public class CheaterPlayerStrategy extends PlayerStrategy {
         return null;
     }
 
+    /**
+     * Conquer all enemy neighbors.
+     *
+     * @param p_playerReinforcements the player reinforcements
+     * @return the list of enemy neighboring countries
+     */
     public ArrayList<Country> conquerAllEnemyNeighbors(int p_playerReinforcements) {
         ArrayList<Country> l_tempCountryList = new ArrayList<Country>();
         // Conquers all immediate neighboring enemy countries
@@ -73,6 +88,12 @@ public class CheaterPlayerStrategy extends PlayerStrategy {
         return l_tempCountryList;
     }
 
+    /**
+     * Get all countries with enemy neighbors.
+     *
+     * @param p_countries the list of countries to search
+     * @return the list of countries that have enemy neighbors
+     */
     public ArrayList<Country> getAllCountriesWithEnemyNeighbors(List<Country> p_countries) {
         ArrayList<Country> l_countriesWithEnemyNeighbors = new ArrayList<>();
         ArrayList<String> l_countryNamesWithEnemyNeighbors = new ArrayList<>();

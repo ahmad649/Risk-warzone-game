@@ -7,8 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * A player strategy that focuses on protecting its weak countries (deploys on its weakest country, never attacks, then moves its armies in order to reinforce its weaker country).
+ */
 public class BenevolentPlayerStrategy extends PlayerStrategy {
 
+    /**
+     * Instantiates a new Benevolent player strategy.
+     *
+     * @param p_gameEngine the game engine
+     * @param p_player     the player
+     */
     public BenevolentPlayerStrategy(GameEngine p_gameEngine, Player p_player) {
         super(p_gameEngine, p_player);
     }
@@ -68,12 +77,25 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
         return null;
     }
 
+    /**
+     * Deploy armies to the weakest country.
+     *
+     * @param p_weakestCountry the weakest country
+     * @return the Deploy order
+     */
     public Deploy deployToWeakestCountry(Country p_weakestCountry) {
         int l_numOfArmies = this.getplayer().getReinforcements();
 
         return new Deploy(this.getplayer(), p_weakestCountry.getName(), l_numOfArmies);
     }
 
+    /**
+     * Move armies from the strongest to weakest country.
+     *
+     * @param p_strongestCountry the strongest country
+     * @param p_numOfArmies      the number of armies
+     * @return the Advance order
+     */
     public Advance moveArmiesFromStrongestToWeakestCountry(Country p_strongestCountry, int p_numOfArmies) {
         List<Country> l_neighboringCountries = this.getOwnedNeighboringCountries(p_strongestCountry);
         if (l_neighboringCountries.isEmpty()) {
@@ -88,6 +110,12 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
         return new Advance(this.getgameEngine(), this.getplayer(), p_strongestCountry.getName(), l_weakestCountry.getName(), p_numOfArmies);
     }
 
+    /**
+     * Get the weakest country.
+     *
+     * @param p_countries the list of countries to traverse
+     * @return the weakest country
+     */
     public Country getWeakestCountry(List<Country> p_countries) {
         // Get the country that has the lowest armies
         Country l_weakestCountry = null;
@@ -101,6 +129,11 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
         return l_weakestCountry;
     }
 
+    /**
+     * Get the strongest country.
+     *
+     * @return the strongest country
+     */
     public Country getStrongestCountry() {
         // Get the country that has the most armies
         Country l_strongestCountry = null;
@@ -114,6 +147,12 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
         return l_strongestCountry;
     }
 
+    /**
+     * Get a list of owned countries.
+     *
+     * @param p_weakestCountry the weakest country
+     * @return the list of owned countries
+     */
     public ArrayList<Country> getOwnedCountries(Country p_weakestCountry) {
         // Get all owned countries except the weakest country
         ArrayList<Country> l_ownedCountries = new ArrayList<>();
@@ -126,6 +165,12 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
         return l_ownedCountries;
     }
 
+    /**
+     * Get list of owned neighboring countries.
+     *
+     * @param p_country the country
+     * @return the list of owned neighboring countries
+     */
     public List<Country> getOwnedNeighboringCountries(Country p_country) {
         // Get all neighboring countries of the weakest country that are owned by the current player
         List<Country> l_neighboringCountries = new ArrayList<>();

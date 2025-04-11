@@ -4,11 +4,26 @@ import com.gameplay.*;
 
 import java.util.ArrayList;
 
+/**
+ * The player strategy that requires user interaction to make decisions.
+ */
 public class HumanPlayerStrategy extends PlayerStrategy {
 
+    /**
+     * The current player.
+     */
     Player d_currentPlayer;
+    /**
+     * The game engine.
+     */
     GameEngine d_gameEngine;
 
+    /**
+     * Instantiates a new Human player strategy.
+     *
+     * @param p_gameEngine the game engine
+     * @param p_player     the player
+     */
     public HumanPlayerStrategy(GameEngine p_gameEngine, Player p_player) {
         super(p_gameEngine, p_player);
     }
@@ -18,6 +33,7 @@ public class HumanPlayerStrategy extends PlayerStrategy {
         return PlayerBehavior.HUMAN;
     }
 
+    @Override
     public Order createOrder(Parsing p_parsing) {
         ArrayList<String> l_arguments = p_parsing.getArgArr();
 

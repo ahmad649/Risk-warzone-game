@@ -3,7 +3,6 @@ package com.strategy;
 import com.States.ExecuteOrder;
 import com.States.IssueOrder;
 import com.States.Startup;
-import com.States.TournamentMode;
 import com.gameplay.*;
 import com.model.Country;
 
@@ -11,12 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 
+/**
+ * A tournament starts with the user choosing M = 1 to 5 different maps, P = 2 to 4 different computer players strategies, G = 1 to 5
+ * games to be played on each map, D = 10 to 50 maximum number of tums for each game. A toumament is then automatically played
+ * by playing G games on each of the M different maps between the chosen computer player strategies. In order to minimize run completion time, each game should be declared a draw after D tums. Once started, the tournament plays all the games automatically without user interaction.
+ */
 public class Tournament {
     private final GameEngine d_gameEngine;
     private ArrayList<String> d_maps;
     private final ArrayList<ArrayList<String>> d_winners;
     private final ArrayList<Player> d_players;
 
+    /**
+     * Instantiates a new Tournament.
+     *
+     * @param p_gameEngine the game engine
+     */
     public Tournament(GameEngine p_gameEngine) {
         this.d_gameEngine = p_gameEngine;
         this.d_gameEngine.d_phase = new Startup(this.d_gameEngine);
@@ -24,10 +33,20 @@ public class Tournament {
         this.d_winners = new ArrayList<>();
     }
 
+    /**
+     * Get the list of players.
+     *
+     * @return the players
+     */
     public ArrayList<Player> getPlayers() {
         return d_players;
     }
 
+    /**
+     * Start tournament.
+     *
+     * @param p_parsing the parsed user command
+     */
     public void start(Parsing p_parsing) {
         System.out.println("\nTOURNAMENT STARTED.");
 
@@ -65,6 +84,11 @@ public class Tournament {
         this.displayResult(l_maps, l_playerStrategies, l_numOfGames, l_maxNumOfTurns);
     }
 
+    /**
+     * Add players to join the tournament mode.
+     *
+     * @param p_playerStrategies the list of player strategies
+     */
     public void addPlayers(ArrayList<String> p_playerStrategies) {
         Player l_player;
 
@@ -99,6 +123,9 @@ public class Tournament {
 
     }
 
+    /**
+     * Issue orders of each player strategy.
+     */
     public void issueOrders() {
         System.out.println("\nISSUE ORDER PHASE");
 
@@ -108,6 +135,9 @@ public class Tournament {
 
     }
 
+    /**
+     * Execute orders of each player strategy.
+     */
     public void executeOrders() {
         System.out.println("\nEXECUTE ORDER PHASE");
         for (Player l_player : this.d_gameEngine.getPlayersList()) {
@@ -118,6 +148,11 @@ public class Tournament {
         }
     }
 
+    /**
+     * Get winner at the end of the max number of turns.
+     *
+     * @return the winner name
+     */
     public String getWinner() {
         HashMap<String, Integer> l_ownersHashmap = new HashMap<>();
         for (Country l_country : this.d_gameEngine.d_countryList) {
@@ -145,6 +180,14 @@ public class Tournament {
         return "Draw";
     }
 
+    /**
+     * Display the end result of the tournament.
+     *
+     * @param p_maps             the maps
+     * @param l_playerStrategies the player strategies
+     * @param l_numOfGames       the number of games
+     * @param l_maxNumOfTurns    the maximum number of turns
+     */
     public void displayResult(List<String> p_maps, List<String> l_playerStrategies, int l_numOfGames, int l_maxNumOfTurns) {
         System.out.println("M:  " + String.join(" ", p_maps));
         System.out.println("P:  " + String.join(" ", l_playerStrategies));

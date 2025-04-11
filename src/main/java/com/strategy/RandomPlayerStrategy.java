@@ -6,8 +6,17 @@ import com.model.Country;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A player strategy that deploys on a random country, attacks random neighboring countries, and moves armies randomly between its countries.
+ */
 public class RandomPlayerStrategy extends PlayerStrategy {
 
+    /**
+     * Instantiates a new Random player strategy.
+     *
+     * @param p_gameEngine the game engine
+     * @param p_player     the player
+     */
     public RandomPlayerStrategy(GameEngine p_gameEngine, Player p_player) {
         super(p_gameEngine, p_player);
     }
@@ -91,6 +100,12 @@ public class RandomPlayerStrategy extends PlayerStrategy {
         return null;
     }
 
+    /**
+     * Deploy armies to random country.
+     *
+     * @param p_numOfArmies the number of armies
+     * @return the Deploy order
+     */
     public Deploy deployArmiesToRandomCountry(int p_numOfArmies) {
         Country l_country = this.getOwnedCountry();
         if (l_country == null) {
@@ -101,10 +116,23 @@ public class RandomPlayerStrategy extends PlayerStrategy {
         return new Deploy(this.getplayer(), l_countryName, p_numOfArmies);
     }
 
+    /**
+     * Advance armies to random country.
+     *
+     * @param p_numOfArmies the number of armies
+     * @param p_countryFrom the source country
+     * @param p_countryTo   the target country
+     * @return the advance
+     */
     public Advance advanceArmiesToRandomCountry(int p_numOfArmies, Country p_countryFrom, Country p_countryTo) {
         return new Advance(this.getgameEngine(), this.getplayer(), p_countryFrom.getName(), p_countryTo.getName(), p_numOfArmies);
     }
 
+    /**
+     * Get owned country.
+     *
+     * @return the country owned by the current player
+     */
     public Country getOwnedCountry() {
         Random l_random = new Random();
         if (this.getplayer().getOwnedCountries().isEmpty()) {
@@ -115,6 +143,11 @@ public class RandomPlayerStrategy extends PlayerStrategy {
         return this.getplayer().getOwnedCountries().get(l_randomNum);
     }
 
+    /**
+     * Get neighboring country.
+     *
+     * @return the neighboring country
+     */
     public Country getNeighboringCountry() {
         ArrayList<String> l_neighboringCountryNames = new ArrayList<>();
         ArrayList<Country> l_neighboringCountries = new ArrayList<>();
@@ -141,6 +174,11 @@ public class RandomPlayerStrategy extends PlayerStrategy {
         return l_neighboringCountries.get(l_randomNum);
     }
 
+    /**
+     * Get a neighboring country that is not owned by the current player.
+     *
+     * @return the neighboring country
+     */
     public Country getNonOwnedNeighboringCountry() {
         // Get neighboring countries that are not owned by the current player
         ArrayList<Country> l_neighboringCountries = new ArrayList<>();

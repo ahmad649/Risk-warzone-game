@@ -4,7 +4,13 @@ import com.gameplay.GameEngine;
 import com.gameplay.Parsing;
 import com.strategy.Tournament;
 
+/**
+ * The Tournament mode phase.
+ */
 public class TournamentMode implements Phase {
+    /**
+     * Instantiates a new Tournament mode.
+     */
     public TournamentMode() {
         System.out.println("""
                 -----------------------------------------------------------------------

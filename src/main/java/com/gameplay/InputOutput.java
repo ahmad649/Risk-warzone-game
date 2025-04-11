@@ -587,6 +587,7 @@ public class InputOutput {
         }
         return true;
     }
+
     /**
      * Validates whether the given 'endturn' command is valid.
      *
@@ -793,10 +794,22 @@ public class InputOutput {
         return !p_input.isEmpty();
     }
 
+    /**
+     * Validates whether the given 'starttournament' command is valid.
+     *
+     * @param p_command the string to validate
+     * @return {@code true} if the string is valid, otherwise {@code false}
+     */
     public static boolean is_starttournament_command_valid(String p_command) {
         return p_command.trim().equals("starttournament");
     }
 
+    /**
+     * Validates whether the given 'tournament' command is valid.
+     *
+     * @param p_command the string to validate
+     * @return {@code true} if the string is valid, otherwise {@code false}
+     */
     public static boolean is_tournament_command_valid(String p_command) {
         // Check if command starts with 'tournament '
         if (!p_command.startsWith("tournament ")) {
