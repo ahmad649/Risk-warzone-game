@@ -3,6 +3,7 @@ package com.strategy;
 import com.States.ExecuteOrder;
 import com.States.IssueOrder;
 import com.States.Startup;
+import com.States.TournamentMode;
 import com.gameplay.*;
 import com.model.Country;
 
@@ -14,12 +15,17 @@ public class Tournament {
     private final GameEngine d_gameEngine;
     private ArrayList<String> d_maps;
     private final ArrayList<ArrayList<String>> d_winners;
+    private final ArrayList<Player> d_players;
 
-    public Tournament() {
-        this.d_gameEngine = new GameEngine();
+    public Tournament(GameEngine p_gameEngine) {
+        this.d_gameEngine = p_gameEngine;
         this.d_gameEngine.d_phase = new Startup(this.d_gameEngine);
-
+        this.d_players = new ArrayList<>();
         this.d_winners = new ArrayList<>();
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return d_players;
     }
 
     public void start(Parsing p_parsing) {
@@ -64,27 +70,32 @@ public class Tournament {
 
     public void addPlayers(ArrayList<String> p_playerStrategies) {
         Player l_player;
+
         for (String playerStrategy : p_playerStrategies) {
             switch (playerStrategy.toLowerCase()) {
                 case "aggressive":
                     l_player = new Player("Aggressive Player");
                     l_player.setPlayerStrategy(new AggressivePlayerStrategy(this.d_gameEngine, l_player));
                     this.d_gameEngine.getPlayersList().add(l_player);
+                    this.d_players.add(l_player);
                     break;
                 case "benevolent":
                     l_player = new Player("Benevolent Player");
                     l_player.setPlayerStrategy(new BenevolentPlayerStrategy(this.d_gameEngine, l_player));
                     this.d_gameEngine.getPlayersList().add(l_player);
+                    this.d_players.add(l_player);
                     break;
                 case "random":
                     l_player = new Player("Random Player");
                     l_player.setPlayerStrategy(new RandomPlayerStrategy(this.d_gameEngine, l_player));
                     this.d_gameEngine.getPlayersList().add(l_player);
+                    this.d_players.add(l_player);
                     break;
                 case "cheater":
                     l_player = new Player("Cheater Player");
                     l_player.setPlayerStrategy(new CheaterPlayerStrategy(this.d_gameEngine, l_player));
                     this.d_gameEngine.getPlayersList().add(l_player);
+                    this.d_players.add(l_player);
                     break;
             }
         }
