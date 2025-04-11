@@ -28,9 +28,7 @@ public class BenevolentPlayerStrategy implements PlayerStrategy {
 
         // Deploy armies to the weakest country
         if (l_weakestCountry != null && l_weakestCountry.getArmies() == 0) {
-            int l_numOfArmies = this.d_player.getReinforcements();
-
-            return new Deploy(this.d_player, l_weakestCountry.getName(), l_numOfArmies);
+            return this.deployToWeakestCountry(l_weakestCountry);
         }
 
         Random l_random = new Random();
@@ -42,17 +40,14 @@ public class BenevolentPlayerStrategy implements PlayerStrategy {
             case 0:
                 // create advance order
                 l_strongestCountry = this.getStrongestCountry();
-                if (l_strongestCountry == null) {
-                    return null;
-                }
-                List<Country> l_neighboringCountries = this.getOwnedNeighboringCountries(l_strongestCountry);
+                if (l_strongestCountry != null) {
+                    int l_tempNum = l_strongestCountry.getArmies() + 1;
+                    if (l_tempNum < 1) {
+                        l_tempNum = 1;
+                    }
+                    l_numOfArmies = l_random.nextInt(l_tempNum);
 
-                // Check if neighboring countries exist or not
-                if (!l_neighboringCountries.isEmpty()) {
-                    l_weakestCountry = this.getWeakestCountry(l_neighboringCountries);
-                    l_numOfArmies = l_random.nextInt(l_strongestCountry.getArmies() + 1);
-
-                    return new Advance(this.d_gameEngine, this.d_player, l_strongestCountry.getName(), l_weakestCountry.getName(), l_numOfArmies);
+                    return this.moveArmiesFromStrongestToWeakestCountry(l_strongestCountry, l_numOfArmies);
                 }
             case 1:
                 // create airlift order
@@ -75,6 +70,26 @@ public class BenevolentPlayerStrategy implements PlayerStrategy {
         }
 
         return null;
+    }
+
+    public Deploy deployToWeakestCountry(Country p_weakestCountry) {
+        int l_numOfArmies = this.d_player.getReinforcements();
+
+        return new Deploy(this.d_player, p_weakestCountry.getName(), l_numOfArmies);
+    }
+
+    public Advance moveArmiesFromStrongestToWeakestCountry(Country p_strongestCountry, int p_numOfArmies) {
+        List<Country> l_neighboringCountries = this.getOwnedNeighboringCountries(p_strongestCountry);
+        if (l_neighboringCountries.isEmpty()) {
+            return null;
+        }
+
+        Country l_weakestCountry = this.getWeakestCountry(l_neighboringCountries);
+        if (l_weakestCountry == null) {
+            return null;
+        }
+
+        return new Advance(this.d_gameEngine, this.d_player, p_strongestCountry.getName(), l_weakestCountry.getName(), p_numOfArmies);
     }
 
     public Country getWeakestCountry(List<Country> p_countries) {
@@ -118,8 +133,8 @@ public class BenevolentPlayerStrategy implements PlayerStrategy {
     public List<Country> getOwnedNeighboringCountries(Country p_country) {
         // Get all neighboring countries of the weakest country that are owned by the current player
         List<Country> l_neighboringCountries = new ArrayList<>();
-        if (p_country.getNeighbors() == null) {
-            return null;
+        if (p_country.getNeighbors().isEmpty()) {
+            return l_neighboringCountries;
         }
         for (Country l_country : p_country.getNeighbors()) {
             if (!p_country.getName().equals(l_country.getName()) && this.d_player.ownsCountry(l_country.getName())) {

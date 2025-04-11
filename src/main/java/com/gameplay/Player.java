@@ -244,5 +244,4 @@ public class Player {
     public void setPlayerStrategy(PlayerStrategy p_playerStrategy) {
         this.d_playerStrategy = p_playerStrategy;
     }
-
 }

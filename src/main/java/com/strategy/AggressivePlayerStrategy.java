@@ -35,44 +35,16 @@ public class AggressivePlayerStrategy implements PlayerStrategy {
 
         // Deploy armies to the strongest country
         if (this.d_currentStrategy.equals(Strategy.DEPLOY)) {
+            this.d_currentStrategy = Strategy.ATTACK;
+
             return this.deployArmiesToStrongestCountry(l_strongestCountry);
         }
-
-//        if (this.d_currentStrategy.equals(Strategy.DEPLOY)) {
-//            this.d_currentStrategy = Strategy.ATTACK;
-//
-//            Random l_random = new Random();
-//            int l_numOfArmies = l_random.nextInt(Math.round((float) (this.d_player.getReinforcements() + 1) / 2));
-//            System.out.println("num of armies: " + l_numOfArmies);
-//            return new Deploy(this.d_player, l_strongestCountry.getName(), l_numOfArmies);
-//        }
 
         // Attack with the strongest country
         if (this.d_currentStrategy.equals(Strategy.ATTACK)) {
             this.d_currentStrategy = Strategy.MOVE_ARMIES;
 
-            List<Country> l_neighboringCountries = this.getNonOwnedNeighboringCountries(l_strongestCountry);
-            if (!l_neighboringCountries.isEmpty()) {
-                Country l_countryTo = l_neighboringCountries.getFirst();
-                if (l_countryTo == null) {
-                    return null;
-                }
-
-                String l_countryFromName = l_strongestCountry.getName();
-                String l_countryToName = l_countryTo.getName();
-
-                int l_strongestCountryArmies = l_strongestCountry.getArmies() + 1;
-                if (l_strongestCountryArmies < 1) {
-                    l_strongestCountryArmies = 1;
-                }
-
-                Random l_random = new Random();
-                int l_numOfArmies = l_random.nextInt(Math.round((float) (l_strongestCountryArmies) / 2));
-                System.out.println("num of armies: " + l_numOfArmies);
-                // Check if neighboring countries of the strongest country are empty or not
-                return new Advance(this.d_gameEngine, this.d_player, l_countryFromName, l_countryToName, l_numOfArmies);
-            }
-
+            return this.attackWithStrongestCountry(l_strongestCountry);
         }
 
         // Move armies
@@ -100,15 +72,32 @@ public class AggressivePlayerStrategy implements PlayerStrategy {
     }
 
     public Deploy deployArmiesToStrongestCountry(Country p_strongestCountry) {
-        this.d_currentStrategy = Strategy.ATTACK;
-
-        int l_numOfArmies = Math.round((float) (this.d_player.getReinforcements() + 1) / 2);
+        int l_numOfArmies = Math.round((float) this.d_player.getReinforcements() / 2);
         return new Deploy(this.d_player, p_strongestCountry.getName(), l_numOfArmies);
     }
 
-//    public Advance attackWithStrongestCountry(Country p_strongestCountry) {
-//
-//    }
+    public Advance attackWithStrongestCountry(Country p_strongestCountry) {
+        List<Country> l_neighboringCountries = this.getNonOwnedNeighboringCountries(p_strongestCountry);
+
+        // Check if neighboring country is empty
+        if (l_neighboringCountries.isEmpty()) {
+            return null;
+        }
+
+        // Check if countryTo exists or not
+        Country l_countryTo = l_neighboringCountries.getFirst();
+        if (l_countryTo == null) {
+            return null;
+        }
+
+        // Get the names of countryFrom and countryTo
+        String l_countryFromName = p_strongestCountry.getName();
+        String l_countryToName = l_countryTo.getName();
+
+        int l_numOfArmies = Math.round((float) p_strongestCountry.getArmies() / 2);
+
+        return new Advance(this.d_gameEngine, this.d_player, l_countryFromName, l_countryToName, l_numOfArmies);
+    }
 
     public Country getStrongestCountry() {
         // Get the country that has the most armies
