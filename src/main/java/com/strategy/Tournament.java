@@ -62,9 +62,6 @@ public class Tournament {
                 this.d_winners.get(l_k).add(l_winner);
             }
         }
-        for (Country country : this.d_gameEngine.d_countryList) {
-            System.out.println(country.getName());
-        }
         this.displayResult(l_maps, l_playerStrategies, l_numOfGames, l_maxNumOfTurns);
     }
 

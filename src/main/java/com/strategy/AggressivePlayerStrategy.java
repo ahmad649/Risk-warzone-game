@@ -59,7 +59,6 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
                 }
                 Random l_random = new Random();
                 int l_numOfArmies = l_random.nextInt(Math.round((float) (l_strongestCountryArmies) / 2));
-                System.out.println("num of armies: " + l_numOfArmies);
                 return new Advance(this.getgameEngine(), this.getplayer(), l_countryFromName, l_countryToName, l_numOfArmies);
             }
 

@@ -48,7 +48,6 @@ public class RandomPlayerStrategy extends PlayerStrategy {
                 }
 
                 l_numOfArmies = l_random.nextInt(l_tempNum);
-                System.out.println(l_numOfArmies);
 
                 return this.advanceArmiesToRandomCountry(l_numOfArmies, l_countryFrom, l_countryTo);
             case 2:
