@@ -7,7 +7,8 @@ import org.junit.platform.suite.api.Suite;
 @Suite
 @SelectClasses({
     GameEngineTest.class,
-    ParsingTest.class
+    ParsingTest.class,
+    TournamentTest.class,
 })
 public class GameplayTestSuite {
 }
