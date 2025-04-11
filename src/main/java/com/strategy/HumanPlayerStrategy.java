@@ -4,14 +4,13 @@ import com.gameplay.*;
 
 import java.util.ArrayList;
 
-public class HumanPlayerStrategy implements PlayerStrategy {
+public class HumanPlayerStrategy extends PlayerStrategy {
 
     Player d_currentPlayer;
     GameEngine d_gameEngine;
 
-    public HumanPlayerStrategy(GameEngine p_gameEngine, Player p_currentPlayer) {
-        this.d_currentPlayer = p_currentPlayer;
-        this.d_gameEngine = p_gameEngine;
+    public HumanPlayerStrategy(GameEngine p_gameEngine, Player p_player) {
+        super(p_gameEngine, p_player);
     }
 
     @Override
@@ -19,7 +18,6 @@ public class HumanPlayerStrategy implements PlayerStrategy {
         return PlayerBehavior.HUMAN;
     }
 
-    @Override
     public Order createOrder(Parsing p_parsing) {
         ArrayList<String> l_arguments = p_parsing.getArgArr();
 

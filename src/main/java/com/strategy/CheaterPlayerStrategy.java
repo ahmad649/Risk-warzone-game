@@ -9,13 +9,10 @@ import com.model.Country;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheaterPlayerStrategy implements PlayerStrategy {
-    private final GameEngine d_gameEngine;
-    private final Player d_player;
+public class CheaterPlayerStrategy extends PlayerStrategy {
 
     public CheaterPlayerStrategy(GameEngine p_gameEngine, Player p_player) {
-        this.d_gameEngine = p_gameEngine;
-        this.d_player = p_player;
+        super(p_gameEngine, p_player);
     }
 
     @Override
@@ -25,18 +22,18 @@ public class CheaterPlayerStrategy implements PlayerStrategy {
 
     @Override
     public Order createOrder(Parsing p_parsing) {
-        int l_playerReinforcements = this.d_player.getReinforcements();
+        int l_playerReinforcements = this.getplayer().getReinforcements();
 
         // Conquers all immediate neighboring enemy countries
         ArrayList<Country> l_tempCountryList = this.conquerAllEnemyNeighbors(l_playerReinforcements);
 
         for (Country l_newCountry : l_tempCountryList) {
-            if (!d_player.getOwnedCountries().contains(l_newCountry))
-                d_player.addCountryToOwnedCountries(l_newCountry);
+            if (!this.getplayer().getOwnedCountries().contains(l_newCountry))
+                this.getplayer().addCountryToOwnedCountries(l_newCountry);
         }
 
         // Get all cheater player's countries that the armies need to be doubled
-        ArrayList<Country> l_countriesWithEnemyNeighbors = this.getAllCountriesWithEnemyNeighbors(this.d_player.getOwnedCountries());
+        ArrayList<Country> l_countriesWithEnemyNeighbors = this.getAllCountriesWithEnemyNeighbors(this.getplayer().getOwnedCountries());
 
         // Doubles the number of armies on countries that have enemy neighbors
         for (Country l_country : l_countriesWithEnemyNeighbors) {
@@ -51,13 +48,13 @@ public class CheaterPlayerStrategy implements PlayerStrategy {
     public ArrayList<Country> conquerAllEnemyNeighbors(int p_playerReinforcements) {
         ArrayList<Country> l_tempCountryList = new ArrayList<Country>();
         // Conquers all immediate neighboring enemy countries
-        for (Country l_country : this.d_player.getOwnedCountries()) {
+        for (Country l_country : this.getplayer().getOwnedCountries()) {
             for (Country l_neighboringCountry : l_country.getNeighbors()) {
                 Player l_neighboringCountryOwner = l_neighboringCountry.getOwner();
                 // Check if the current neighboring country is owned by the current player
-                if (p_playerReinforcements > 0 && !l_neighboringCountryOwner.getName().equals(d_player.getName())) {
+                if (p_playerReinforcements > 0 && !l_neighboringCountryOwner.getName().equals(this.getplayer().getName())) {
                     // Add country to cheater player's list of countries
-                    l_neighboringCountry.setOwner(d_player);
+                    l_neighboringCountry.setOwner(this.getplayer());
 
                     // Set armies
                     l_neighboringCountry.setArmies(p_playerReinforcements);
@@ -84,7 +81,7 @@ public class CheaterPlayerStrategy implements PlayerStrategy {
             for (Country l_neighboringCountry : l_country.getNeighbors()) {
                 Player l_neighboringCountryOwner = l_neighboringCountry.getOwner();
 
-                boolean l_isOwnerEqual = l_neighboringCountryOwner.getName().equals(d_player.getName());
+                boolean l_isOwnerEqual = l_neighboringCountryOwner.getName().equals(this.getplayer().getName());
                 boolean l_isCountryInList = l_countryNamesWithEnemyNeighbors.contains(l_country.getName());
                 // Check if the current neighboring country is owned by the current player
                 if (!l_isOwnerEqual && !l_isCountryInList) {
