@@ -1,11 +1,14 @@
-package com.strategy;
+package com.gameplay;
 
 import com.States.ExecuteOrder;
 import com.States.IssueOrder;
 import com.States.Startup;
-import com.gameplay.*;
 import com.model.Country;
 import com.orders.Order;
+import com.strategy.AggressivePlayerStrategy;
+import com.strategy.BenevolentPlayerStrategy;
+import com.strategy.CheaterPlayerStrategy;
+import com.strategy.RandomPlayerStrategy;
 
 import java.util.ArrayList;
 import java.util.List;

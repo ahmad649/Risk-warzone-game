@@ -2,7 +2,7 @@ package com.States;
 
 import com.gameplay.GameEngine;
 import com.gameplay.Parsing;
-import com.strategy.Tournament;
+import com.gameplay.Tournament;
 
 /**
  * The Tournament mode phase.
