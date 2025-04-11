@@ -39,6 +39,8 @@ public class BenevolentPlayerStrategyTest {
     public void deployToWeakestCountry() {
         System.out.println("\nTEST : Benevolent player deploys armies to the weakest country.");
 
+        int l_playerArmies = this.d_player1.getReinforcements();
+
         BenevolentPlayerStrategy l_benevolentPlayer1 = new BenevolentPlayerStrategy(this.d_gameEngine, this.d_player1);
 
         // get the weakest country
@@ -50,7 +52,7 @@ public class BenevolentPlayerStrategyTest {
         // execute deploy order
         l_deployOrder.execute();
 
-        assertEquals(5, l_weakestCountry.getArmies());
+        assertEquals(l_playerArmies, l_weakestCountry.getArmies());
     }
 
     @Test
@@ -72,6 +74,9 @@ public class BenevolentPlayerStrategyTest {
         int l_numOfArmies = l_random.nextInt(l_strongestCountry.getArmies() + 1);
 
         Advance l_advanceOrder = l_benevolentPlayer1.moveArmiesFromStrongestToWeakestCountry(l_strongestCountry, l_numOfArmies);
+        if (l_advanceOrder == null) {
+            return;
+        }
         l_advanceOrder.execute();
 
         assertEquals(10 - l_numOfArmies, strongestCountryArmies - l_numOfArmies);

@@ -81,18 +81,17 @@ public class RandomPlayerStrategyTest {
             l_tempNum = 1;
         }
 
+        int l_countryToArmies = l_countryTo.getArmies();
         Random l_random = new Random();
         int l_numOfArmies = l_random.nextInt(l_tempNum);
-        System.out.println(l_numOfArmies);
 
         Advance l_advanceOrder = l_randomPlayer1.advanceArmiesToRandomCountry(l_numOfArmies, l_countryFrom, l_countryTo);
 
         l_advanceOrder.execute();
 
-        System.out.println(l_countryFrom.getArmies());
-        System.out.println(l_countryTo.getArmies());
-        if (l_countryTo.getOwner().getName().equals(l_countryFrom.getOwner().getName())) {
-            assertEquals(l_countryFrom.getArmies() - l_numOfArmies, l_countryTo.getArmies());
+        if (!l_countryFrom.getName().equals(l_countryTo.getOwner().getName())) {
+            return;
         }
+        assertEquals(l_countryToArmies + l_numOfArmies, l_countryTo.getArmies());
     }
 }

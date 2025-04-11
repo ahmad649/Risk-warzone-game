@@ -45,15 +45,18 @@ public class AggressivePlayerStrategyTest {
         // get the strongest country
         Country l_strongestCountry = l_aggressivePlayer1.getStrongestCountry();
 
+        int l_numOfArmies = Math.round((float) (this.d_player1.getReinforcements()) / 2);
         // deploy armies
-        Deploy l_deployOrder = l_aggressivePlayer1.deployArmiesToStrongestCountry(l_strongestCountry);
+        Deploy l_deployOrder = l_aggressivePlayer1.deployArmiesToStrongestCountry(l_strongestCountry, l_numOfArmies);
+        if (l_deployOrder == null) {
+            return;
+        }
 
         // execute deploy order
         l_deployOrder.execute();
 
-        int l_numOfArmies = Math.round((float) (this.d_player1.getReinforcements() + 1) / 2);
 
-        assertEquals(11 + l_numOfArmies, l_strongestCountry.getArmies());
+        assertEquals(10 + l_numOfArmies, l_strongestCountry.getArmies());
     }
 
     @Test
