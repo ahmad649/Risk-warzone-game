@@ -4,6 +4,7 @@ import com.gameplay.*;
 import com.model.Continent;
 import com.model.Country;
 import com.orders.Card;
+import com.strategy.PlayerBehavior;
 
 import java.util.*;
 
@@ -82,8 +83,26 @@ public class IssueOrder implements Phase {
                 """
         );
         d_players = new LinkedList<>(p_engine.d_playersList);
-        next_player();
         assignReinforcements();
+        next_player();
+    }
+
+    /**
+     * Process if non human
+     */
+    @Override
+    public void processIfNonHuman() {
+        if (d_current_player.getPlayerStrategy().getPlayerBehavior()!=PlayerBehavior.HUMAN){
+            d_current_player.issue_order(d_engine, new Parsing(""));
+            endTurn();
+        }
+    }
+    /**
+     * Check if non human
+     */
+    @Override
+    public boolean checkIfNonHuman() {
+        return d_current_player.getPlayerStrategy().getPlayerBehavior()!=PlayerBehavior.HUMAN;
     }
 
     /**

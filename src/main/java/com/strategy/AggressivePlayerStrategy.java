@@ -71,7 +71,7 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 
         // Move armies
         if (this.d_currentStrategy.equals(Strategy.MOVE_ARMIES)) {
-            this.d_currentStrategy = Strategy.ATTACK;
+            this.d_currentStrategy = Strategy.DEPLOY;
 
             List<Country> l_neighboringCountries = this.getOwnedNeighboringCountries(l_strongestCountry);
 

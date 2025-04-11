@@ -484,6 +484,10 @@ public class InputOutput {
 
         // Iterate over the split commands
         for (int l_i = 1; l_i < l_parts.length; l_i++) {
+
+            if (!l_parts[l_i].startsWith("-")){
+                continue;
+            }
             switch (l_parts[l_i]) {
                 case "-add":
                     // Check if 'playerName' is given in the '-add' flag
@@ -499,6 +503,16 @@ public class InputOutput {
                     // Check if 'playerName' is given in the '-remove' flag
                     if (l_i + 1 >= l_parts.length || l_parts[l_i + 1].isEmpty()) {
                         System.out.println("\n'-remove' flag must be followed by 'playerName'");
+                        return false;
+                    }
+
+                    l_removeFlag = true; // set l_removeFlag to true to indicate '-remove' flag is provided at least once
+                    l_i += 1; // skip checking on 'playerName'
+                    break;
+                case "-P":
+                    // Check if 'playerName' is given in the '-remove' flag
+                    if (l_i + 1 >= l_parts.length || l_parts[l_i + 1].isEmpty()) {
+                        System.out.println("\n'-P' flag must be followed by 'strategy'");
                         return false;
                     }
 

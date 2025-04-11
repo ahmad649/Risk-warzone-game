@@ -33,7 +33,7 @@ public class HumanPlayerStrategy extends PlayerStrategy {
                 String l_countryName = l_arguments.get(0);
                 int l_num = Integer.parseInt(l_arguments.get(1));
 
-                return new Deploy(this.getplayer(), l_countryName, l_num);
+                return new Deploy(this.d_player, l_countryName, l_num);
 
             }
             case "advance" -> {
@@ -41,29 +41,29 @@ public class HumanPlayerStrategy extends PlayerStrategy {
                 String l_countryTo = l_arguments.get(1);
                 int l_numArmies = Integer.parseInt(l_arguments.get(2));
 
-                return new Advance(this.getgameEngine(), this.getplayer(), l_countryFrom, l_countryTo, l_numArmies);
+                return new Advance(this.d_gameEngine, this.d_player, l_countryFrom, l_countryTo, l_numArmies);
             }
             case "bomb" -> {
                 String l_countryName = l_arguments.getFirst();
 
-                return new Bomb(this.getplayer(), l_countryName);
+                return new Bomb(this.d_player, l_countryName);
             }
             case "blockade" -> {
                 String l_countryName = l_arguments.getFirst();
 
-                return new Blockade(this.getgameEngine(), this.getplayer(), l_countryName);
+                return new Blockade(this.d_gameEngine, this.d_player, l_countryName);
             }
             case "airlift" -> {
                 String l_sourceCountryName = l_arguments.get(0);
                 String l_targetCountryName = l_arguments.get(1);
                 int l_numArmy = Integer.parseInt(l_arguments.get(2));
 
-                return new Airlift(this.getplayer(), l_sourceCountryName, l_targetCountryName, l_numArmy);
+                return new Airlift(this.d_player, l_sourceCountryName, l_targetCountryName, l_numArmy);
             }
             case "negotiate" -> {
                 String l_playerName = l_arguments.getFirst();
 
-                return new Diplomacy(this.getgameEngine(), this.getplayer(), l_playerName);
+                return new Diplomacy(this.d_gameEngine, this.d_player, l_playerName);
             }
         }
 

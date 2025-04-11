@@ -31,6 +31,15 @@ public interface Phase {
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
     }
 
+    default void processIfNonHuman() {
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
+    }
+
+    default boolean checkIfNonHuman() {
+        System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");
+        return false;
+    }
+
     /**
      * Method to display the map
      */
@@ -135,8 +144,6 @@ public interface Phase {
 
     /**
      * Method to begin editing
-     *
-     * @param p_parsing the parsing object
      */
     default void editor(){
         System.out.println("Cannot " + Thread.currentThread().getStackTrace()[1].getMethodName() +", currently in "+ currentPhase()+" phase!");

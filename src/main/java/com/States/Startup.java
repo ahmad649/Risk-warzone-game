@@ -6,7 +6,7 @@ import com.gameplay.Player;
 import com.maps.MapReader;
 import com.model.Continent;
 import com.model.Country;
-import com.strategy.HumanPlayerStrategy;
+import com.strategy.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,11 +62,42 @@ public class Startup implements Phase {
     @Override
     public void addGamePlayer(Parsing p_parsing) {
         if (p_parsing.d_argsLabeled.containsKey("-add")) {
-            for (String l_playername : p_parsing.d_argsLabeled.get("-add")) {
-                Player l_player = new Player(l_playername);
-                l_player.setPlayerStrategy(new HumanPlayerStrategy(this.d_engine, l_player));
-                d_engine.d_playersList.add(l_player);
-                System.out.println("Player added: " + l_playername);
+            List<String> l_playerNames = p_parsing.d_argsLabeled.get("-add");
+            List<String> l_playerStrategies = p_parsing.getArgsLabeled().getOrDefault("-P",new ArrayList<>());
+            for (int i = 0; i< l_playerNames.size(); i+=1) {
+                Player l_player = new Player(l_playerNames.get(i));
+                String l_strategy = "";
+                if (i<l_playerStrategies.size()){
+                    l_strategy = l_playerStrategies.get(i).toLowerCase();
+                }
+                switch (l_strategy) {
+                    case "aggressive":
+                        l_player.setPlayerStrategy(new AggressivePlayerStrategy(this.d_engine, l_player));
+                        this.d_engine.getPlayersList().add(l_player);
+                        break;
+                    case "benevolent":
+                        l_player.setPlayerStrategy(new BenevolentPlayerStrategy(this.d_engine, l_player));
+                        this.d_engine.getPlayersList().add(l_player);
+                        break;
+                    case "random":
+                        l_player.setPlayerStrategy(new RandomPlayerStrategy(this.d_engine, l_player));
+                        this.d_engine.getPlayersList().add(l_player);
+                        break;
+                    case "cheater":
+                        l_player.setPlayerStrategy(new CheaterPlayerStrategy(this.d_engine, l_player));
+                        this.d_engine.getPlayersList().add(l_player);
+                        break;
+                    case "human":
+                        l_player.setPlayerStrategy(new HumanPlayerStrategy(this.d_engine, l_player));
+                        this.d_engine.getPlayersList().add(l_player);
+                        break;
+                    default:
+                        l_player.setPlayerStrategy(new HumanPlayerStrategy(this.d_engine, l_player));
+                        this.d_engine.getPlayersList().add(l_player);
+                        break;
+
+                }
+                System.out.println("Player added: " + l_player.getName());
             }
         }
         if (p_parsing.d_argsLabeled.containsKey("-remove")) {
@@ -127,15 +158,21 @@ public class Startup implements Phase {
         }
 
         int l_index = 0;
+        int l_loop= 0;
 
         List<Country> l_shuffledCountries = new ArrayList<>(d_engine.d_countryList); // Create a mutable copy
         Collections.shuffle(l_shuffledCountries); // Shuffle the countries
 
         for (Country l_country : l_shuffledCountries) {
+            if(l_loop>=4){
+                break;
+            }
+            l_country.setArmies(5);
             Player l_player = d_engine.d_playersList.get(l_index);
             l_player.d_ownedCountries.add(l_country);
             l_country.setOwner(l_player);
             l_index = (l_index + 1) % d_engine.d_playersList.size();
+            l_loop+=1;
         }
         System.out.println("All countries have been assigned to players.");
         d_engine.d_phase = new IssueOrder(d_engine);

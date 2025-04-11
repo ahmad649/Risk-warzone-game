@@ -86,6 +86,10 @@ public class GameEngine {
         while (true) {
             Parsing l_parsing = null;
             while (l_parsing == null) {
+                if (d_phase.currentPhase().equals("IssueOrder") && d_phase.checkIfNonHuman()){
+                    d_phase.processIfNonHuman();
+                    continue;
+                }
                 l_parsing = InputOutput.get_user_command();
             }
             if (l_parsing.d_commandType.equals("startgame")){

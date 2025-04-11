@@ -9,8 +9,8 @@ import com.gameplay.Player;
  * The Player strategy used in Strategy pattern.
  */
 public abstract class PlayerStrategy {
-    private final GameEngine d_gameEngine;
-    private final Player d_player;
+    public GameEngine d_gameEngine;
+    public Player d_player;
 
     /**
      * Instantiates a new Player strategy.
